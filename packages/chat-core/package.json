@@ -1,0 +1,28 @@
+{
+  "name": "@montree/chat-core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Montree 聊天渲染纯逻辑：消息显示模型、时间线分组、工具展示映射（零 react，可被任意 UI 复用）",
+  "dependencies": {
+    "@montree/annotations": "^0.1.0",
+    "@montree/contracts": "^0.1.0",
+    "hast-util-sanitize": "^5.0.2",
+    "remark-github-blockquote-alert": "^2.1.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  }
+}
