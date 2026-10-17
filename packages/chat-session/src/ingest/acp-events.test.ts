@@ -30,15 +30,34 @@ describe('agy 思考与工具协议集成', () => {
     expect(mapSessionUpdate({ sessionUpdate: 'usage_update', used: 100, size: 1000, _meta: { thinkingTokens: 20 } })).toEqual([])
   })
 
-  it('未知 kind 经 onUnknownKind 上报但行为不变', () => {
+  it('未知 kind 经 onUnknownKind 上报但行为不变；已知 kind（含 usage）不上报', () => {
     const seen: string[] = []
-    expect(mapSessionUpdate({ sessionUpdate: 'usage_update', used: 1 }, (k) => { seen.push(k) })).toEqual([])
-    expect(seen).toEqual(['usage_update'])
-    // 已知 kind 不上报
+    expect(mapSessionUpdate({ sessionUpdate: 'future_kind', content: 'hi' }, (k) => { seen.push(k) })).toEqual([
+      { type: 'text-chunk', role: 'agent', text: 'hi' },
+    ])
+    expect(seen).toEqual(['future_kind'])
+    // 已知 kind 不上报（含 usage_update：协议成员，走线程字段通道）
     mapSessionUpdate({ sessionUpdate: 'agent_message_chunk', content: 'hi' }, (k) => { seen.push(k) })
-    expect(seen).toEqual(['usage_update'])
-    // 缺省回调时静默（旧行为）
-    expect(mapSessionUpdate({ sessionUpdate: 'usage_update', used: 1 })).toEqual([])
+    mapSessionUpdate({ sessionUpdate: 'usage_update', used: 1 }, (k) => { seen.push(k) })
+    mapSessionUpdate({ sessionUpdate: 'notice', title: 't' }, (k) => { seen.push(k) })
+    expect(seen).toEqual(['future_kind'])
+  })
+
+  it('plan_removed 产出 plan-remove 事件；压缩摘要不再污染正文', () => {
+    expect(mapSessionUpdate({ sessionUpdate: 'plan_removed', planId: 'p1' })).toEqual([{ type: 'plan-remove' }])
+    expect(mapSessionUpdate({ sessionUpdate: 'compaction_summary_chunk', content: { type: 'text', text: '摘要' } })).toEqual([])
+    expect(mapSessionUpdate({ sessionUpdate: 'compaction_update', status: 'completed' })).toEqual([])
+    expect(mapSessionUpdate({ sessionUpdate: 'notice', title: 't', description: 'd' })).toEqual([])
+  })
+
+  it('session_message 系列转 agent 文本；subagent 更新丢弃', () => {
+    expect(mapSessionUpdate({ sessionUpdate: 'session_message', content: [{ type: 'text', text: '子会话说' }] })).toEqual([
+      { type: 'text-chunk', role: 'agent', text: '子会话说' },
+    ])
+    expect(mapSessionUpdate({ sessionUpdate: 'session_message_chunk', content: { type: 'text', text: '续' } })).toEqual([
+      { type: 'text-chunk', role: 'agent', text: '续' },
+    ])
+    expect(mapSessionUpdate({ sessionUpdate: 'subagent_update', sessionId: 's1' })).toEqual([])
   })
 
   it('迟到的工具完成事件不会结束下一阶段新到的思考', () => {
@@ -161,7 +180,6 @@ describe('mapSessionUpdate 计划/配置/收尾', () => {
 describe('mapSessionUpdate 未知/空 noop', () => {
   it('未知种类无文本 → []；有文本按宿主默认走 agent', () => {
     expect(mapSessionUpdate({ sessionUpdate: 'available_commands_update' })).toEqual([])
-    expect(mapSessionUpdate({ sessionUpdate: 'plan_removed' })).toEqual([])
     expect(mapSessionUpdate({ sessionUpdate: 'whatever_new', content: 't' })).toEqual([
       { type: 'text-chunk', role: 'agent', text: 't' },
     ])

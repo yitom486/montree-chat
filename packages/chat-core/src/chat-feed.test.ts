@@ -147,6 +147,17 @@ describe('chat-feed 计划分支', () => {
     expect(s2.messages[0]).toMatchObject({ id: s2.messages[0]!.id, streaming: false, text: '' })
     expect(id).toBeTruthy()
   })
+
+  it('plan-remove 删掉单例计划卡；无卡时 no-op', () => {
+    const c = ctx()
+    const entries = [{ content: '做', status: 'in_progress' as const }]
+    let s = applyChatEvent(empty(), { type: 'plan', entries, active: true }, c)
+    expect(s.messages.some((m) => m.role === 'plan')).toBe(true)
+    s = applyChatEvent(s, { type: 'plan-remove' }, c)
+    expect(s.messages.some((m) => m.role === 'plan')).toBe(false)
+    const s2 = applyChatEvent(empty(), { type: 'plan-remove' }, c)
+    expect(s2.messages).toHaveLength(0)
+  })
 })
 
 describe('chat-feed 冻结与收尾', () => {

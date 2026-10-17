@@ -57,6 +57,11 @@ export type ChatFeedEvent =
   | { type: 'tool-call'; call: ChatFeedToolCall; proposalFallback?: ChatMarkProposal | null }
   | { type: 'tool-chunk'; toolCallId: string; text: string; proposalFallback?: ChatMarkProposal | null }
   | { type: 'plan'; entries: AcpPlanEntry[]; active: boolean }
+  /**
+   * 计划删除（对 ACP `plan_removed`）：feed 只维护单例 plan 消息（无 planId 区分），
+   * 故直接移除现存 plan 消息；无则 no-op。
+   */
+  | { type: 'plan-remove' }
   | { type: 'begin-reply' }
   | { type: 'finish-turn'; proposalFallback?: ChatMarkProposal | null; settle?: boolean }
   | { type: 'freeze-light' }
@@ -288,6 +293,12 @@ export function applyChatEvent(
         else messages.push(next)
       }
       return { ...state, messages }
+    }
+
+    case 'plan-remove': {
+      const kept = state.messages.filter((m) => m.role !== 'plan')
+      if (kept.length === state.messages.length) return state
+      return { ...state, messages: kept }
     }
 
     case 'begin-reply': {

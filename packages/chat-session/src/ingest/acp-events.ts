@@ -11,6 +11,7 @@ import {
   type ChatFeedToolCall,
 } from '@yitom/chat-core'
 import { MONTREE_SETTLE_COMPLETE_KIND } from '@yitom/contracts'
+import type { SessionUpdate } from '@agentclientprotocol/sdk'
 import type {
   ChatConnectionStatus,
   ChatPendingPermission,
@@ -68,30 +69,55 @@ function buildToolFeedCall(update: Record<string, unknown>): ChatFeedToolCall | 
 
 /**
  * `sessionUpdate` → `ChatFeedEvent[]`：
+ * - 标准成员走穷尽 switch（判据为官方 SDK `SessionUpdate` 联合类型，
+ *   SDK 新增成员而无 case 时下方 `AssertSdkCovered` 编译报错；手写名单不再漂移）；
+ * - 厂商扩展（定居标记/复数 config/tool 内容分块）显式隔离在前，不进 switch；
  * - 文本三 chunk 经 core `extractTextFromContent`；空文本 → `[]`；
  * - tool 双拼经 `toolCallIdFromUpdate`，content/diff/locations 走 core 解析函数；
  * - plan 走 core `parseAcpPlanEntries/summarizePlanProgress`；
+ * - `plan_removed` → `{type:'plan-remove'}`（feed 单例计划卡删除）；
+ * - `session_message[_chunk]` 为 transcript 正文，转 agent 文本（子会话闲聊不吞）；
+ * - `notice`、`compaction` 系、`subagent`、`mode`、`session_info`、`available_commands`、`usage`、`config`
+ *   明确返回 `[]`（各有去向或产品缺口，见下）；未知 kind 经 `onUnknownKind` 上报，
+ *   有文本按宿主旧语义走 agent chunk（前向兼容），无文本 → `[]`。
  * - `config_option_update` → `[]`（模型配置走专有事件/端口，不进 feed）；
  * - `montree_settle_complete` → `[{type:'finish-turn'}]`
- *   （字面量来源 `packages/contracts/src/types/acp.ts` 的 `MONTREE_SETTLE_COMPLETE_KIND`）；
- * - 未知种类：有文本按宿主默认走 agent chunk，无文本 → `[]`；
- *   两种都经 `onUnknownKind` 上报（缺省静默），便于新协议能力留痕，纯函数本身不记日志。
+ *   （字面量来源 `packages/contracts/src/types/acp.ts` 的 `MONTREE_SETTLE_COMPLETE_KIND`）。
  */
+
+/** 协议标准 kind 单一来源（与 switch case 同表；SDK 联合类型在下方做穷尽校验）。 */
+const STD_KIND = {
+  agentMessage: 'agent_message_chunk',
+  agentThought: 'agent_thought_chunk',
+  userMessage: 'user_message_chunk',
+  toolCall: 'tool_call',
+  toolCallUpdate: 'tool_call_update',
+  plan: 'plan',
+  planUpdate: 'plan_update',
+  planRemoved: 'plan_removed',
+  availableCommands: 'available_commands_update',
+  currentMode: 'current_mode_update',
+  configOption: 'config_option_update',
+  sessionInfo: 'session_info_update',
+  usage: 'usage_update',
+  notice: 'notice',
+  compaction: 'compaction_update',
+  compactionSummary: 'compaction_summary_chunk',
+  subagent: 'subagent_update',
+  sessionMessage: 'session_message',
+  sessionMessageChunk: 'session_message_chunk',
+} as const
+type StandardKind = (typeof STD_KIND)[keyof typeof STD_KIND]
+/** 编译期对齐卡：官方 SDK 新增协议成员而无对应 case 时此处报错。 */
+type AssertSdkCovered = Exclude<SessionUpdate['sessionUpdate'], StandardKind>
+const _assertSdkCovered: AssertSdkCovered extends never ? true : AssertSdkCovered = true
+
 export function mapSessionUpdate(update: unknown, onUnknownKind?: (kind: string) => void): ChatFeedEvent[] {
   const row = asRecord(update)
   if (!row) return []
   const kind = asString(row.sessionUpdate) ?? ''
-  if (
-    kind !== MONTREE_SETTLE_COMPLETE_KIND &&
-    kind !== 'config_option_update' && kind !== 'config_options_update' &&
-    kind !== 'plan' && kind !== 'plan_update' &&
-    kind !== 'tool_call' && kind !== 'tool_call_update' &&
-    kind !== 'tool_call_content_chunk' &&
-    kind !== 'agent_message_chunk' && kind !== 'agent_thought_chunk' && kind !== 'user_message_chunk'
-  ) {
-    onUnknownKind?.(kind)
-  }
 
+  // 厂商扩展（非协议成员，不进穷尽 switch，行为保持旧语义）。
   // 主进程定居收尾标记（宿主 `chat-slice.ts:549-564` 先落悬垂再 `freezeSettledStreaming`；
   // 悬垂落定留宿主，本映射只产出收尾事件）。
   // 字面量来源：packages/contracts/src/types/acp.ts `MONTREE_SETTLE_COMPLETE_KIND`。
@@ -99,20 +125,8 @@ export function mapSessionUpdate(update: unknown, onUnknownKind?: (kind: string)
     return [{ type: 'finish-turn' }]
   }
 
-  if (kind === 'config_option_update' || kind === 'config_options_update') {
+  if (kind === 'config_options_update') {
     return []
-  }
-
-  if (kind === 'plan' || kind === 'plan_update') {
-    const entries = parseAcpPlanEntries(row)
-    const summary = summarizePlanProgress(entries)
-    return [{ type: 'plan', entries, active: summary.active }]
-  }
-
-  if (kind === 'tool_call' || kind === 'tool_call_update') {
-    const call = buildToolFeedCall(row)
-    if (!call) return []
-    return [{ type: 'tool-call', call }]
   }
 
   if (kind === 'tool_call_content_chunk') {
@@ -124,13 +138,70 @@ export function mapSessionUpdate(update: unknown, onUnknownKind?: (kind: string)
     return [{ type: 'tool-chunk', toolCallId, text: chunkText }]
   }
 
-  const text = extractTextFromContent(row.content)
-  if (!text) return []
-  const role =
-    kind === 'agent_thought_chunk' ? ('thought' as const)
-    : kind === 'user_message_chunk' ? ('user' as const)
-    : ('agent' as const)
-  return [{ type: 'text-chunk', role, text }]
+  const std = row as Partial<SessionUpdate>
+  switch (std.sessionUpdate) {
+    case STD_KIND.agentMessage:
+    case STD_KIND.agentThought:
+    case STD_KIND.userMessage: {
+      const text = extractTextFromContent((std as { content?: unknown }).content)
+      if (!text) return []
+      const role =
+        std.sessionUpdate === STD_KIND.agentThought ? ('thought' as const)
+        : std.sessionUpdate === STD_KIND.userMessage ? ('user' as const)
+        : ('agent' as const)
+      return [{ type: 'text-chunk', role, text }]
+    }
+
+    case STD_KIND.toolCall:
+    case STD_KIND.toolCallUpdate: {
+      // buildToolFeedCall 保留厂商容忍（snake_case tool_call_id、无 title 回退），
+      // 故仍传原始 row，不收窄为 SDK ToolCall。
+      const call = buildToolFeedCall(row)
+      if (!call) return []
+      return [{ type: 'tool-call', call }]
+    }
+
+    case STD_KIND.plan:
+    case STD_KIND.planUpdate: {
+      const entries = parseAcpPlanEntries(row)
+      const summary = summarizePlanProgress(entries)
+      return [{ type: 'plan', entries, active: summary.active }]
+    }
+
+    case STD_KIND.planRemoved: {
+      return [{ type: 'plan-remove' }]
+    }
+
+    case STD_KIND.sessionMessage:
+    case STD_KIND.sessionMessageChunk: {
+      // transcript 正文（含子会话）：不吞，转 agent 文本。
+      const text = extractTextFromContent((std as { content?: unknown }).content)
+      if (!text) return []
+      return [{ type: 'text-chunk', role: 'agent', text }]
+    }
+
+    case STD_KIND.configOption:
+    case STD_KIND.availableCommands:
+    case STD_KIND.currentMode:
+    case STD_KIND.sessionInfo:
+    case STD_KIND.usage:
+    case STD_KIND.notice:
+    case STD_KIND.compaction:
+    case STD_KIND.compactionSummary:
+    case STD_KIND.subagent: {
+      // 已知但本层无 feed 表达：usage 走宿主线程字段（见 mapSessionUpdate 上游注释）；
+      // notice/compaction/subagent/mode/sessionInfo/commands 为产品缺口，保持丢弃。
+      // 注意 compaction_summary_chunk 此前误判 agent 正文，现明确丢弃（压缩流不进聊天历史）。
+      return []
+    }
+
+    default: {
+      onUnknownKind?.(kind)
+      const text = extractTextFromContent(row.content)
+      if (!text) return []
+      return [{ type: 'text-chunk', role: 'agent', text }]
+    }
+  }
 }
 
 /** 对齐宿主 `toolCallIdFromPermission`（`lib/agent/acp-permission.ts:71-79`）：三兼容 */
