@@ -4,7 +4,7 @@
 
 ## 结构
 
-- `ui/chat-markdown.tsx`：`ChatMarkdown`（自宿主 `AgentMarkdown` 整搬改名；主题经 `theme` prop 传入，`resolveMermaidTheme` 随搬；`streamdown/styles.css` import 保留，CSS 分发 M6 定）。
+- `ui/chat-markdown.tsx`：`ChatMarkdown`（自宿主 `AgentMarkdown` 整搬改名；主题经 `theme` prop 传入，`resolveMermaidTheme` 随搬；`streamdown/styles.css` 由消费方引入，库内无 CSS 副作用）。
 - `ui/chat-markdown.lazy.tsx`：`ChatMarkdownLazy` + `ChatMarkdownFallback`（轻入口，仅 react + 包内 `cn`；宿主经 `@yitom/chat-ui/lazy` 子路径静态引用，重模块走 `React.lazy` 分块，不进首屏）。
 - `ui/md-normalize.ts`（私有，不进 barrel）：`normalizeLatexDelimiters`（自 `@/lib/editor/latex-delimiters`）+ `normalizeRawSvgDataUriImages`（自 `@/lib/editor/markdown`），纯函数整搬。
 - `ui/agent-permission-card`：`AgentPermissionCard`（自宿主 `AgentPermissionCard` 整搬；`pending` 作纯数据 prop，领取+发送改为必填 `onRespond` 回宿主；视觉复用包内 `BuiApprovalCard`）。
@@ -197,5 +197,5 @@ function ChatView({ messages, theme }: { messages: ChatMessage[]; theme: ChatMar
 ## 消费方接入（npm 独立仓新增）
 
 - 原语：`ui/button.tsx` 与 `ui/dialog.tsx` 已由 Radix 切到 Base UI（`@base-ui-components/react`，`asChild` 改走 `render`，wrapper 层翻译，调用方零改动；`data-[state=…]` 改为 `data-[open|closed]`）。
-- 样式：包内 Tailwind 类需消费方扫描本包（`@source` 指到 `node_modules/@yitom/chat-ui/dist`），`streamdown/styles.css` 与 KaTeX CSS 需消费方引入一次；弹窗进出场动画类（`animate-in/fade-in-0/zoom-in-95` 等）需消费方装 `tw-animate-css`（或等价 keyframes）。
+- 样式：包内 Tailwind 类需消费方扫描本包（`@source` 指到 `node_modules/@yitom/chat-ui/dist`），`streamdown/styles.css` 与 KaTeX CSS 需消费方引入一次（库本身不带 CSS 副作用 import，Node 直跑安全）；弹窗进出场动画类（`animate-in/fade-in-0/zoom-in-95` 等）需消费方装 `tw-animate-css`（或等价 keyframes）。
 - 对等依赖：`react`/`react-dom` 为 peer（`^19`）；其余运行时依赖随包安装。

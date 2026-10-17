@@ -3,7 +3,7 @@ import { Children, isValidElement } from 'react'
 import { Block, Streamdown, defaultComponents, defaultRehypePlugins, useIsCodeFenceIncomplete, type BlockProps } from 'streamdown'
 import { code } from '@streamdown/code'
 import { createMermaidPlugin } from '@streamdown/mermaid'
-import 'streamdown/styles.css'
+// 注：`streamdown/styles.css` 不在此引入（库不带 CSS 副作用），由消费方入口引入一次。
 import { createMathPlugin } from '@streamdown/math'
 import { cjk } from '@streamdown/cjk'
 import remarkBreaks from 'remark-breaks'
