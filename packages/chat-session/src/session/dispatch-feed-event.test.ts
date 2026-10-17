@@ -371,6 +371,21 @@ describe('历史导入保留与后续事件隔离', () => {
     expect(store.getState()).toBe(before)
   })
 
+  it('同工具 id 收到新的结果内容时替换旧卡，无法解析的新内容不复用旧卡', () => {
+    const store = createChatSessionStore(harness())
+    const rich = richThread('pkg-rich')
+    const oldResult = rich.feed.messages[1]!.presentResult!
+    rich.feed.messages[2] = { ...rich.feed.messages[2]!, presentResult: oldResult }
+    store.syncHostThread(rich)
+    const nextResult = { ...oldResult, id: 'r2', title: '新结果' }
+    store.dispatchFeedEvent('pkg-rich', { type: 'tool-call', call: { toolCallId: 't0', status: 'completed', contentText: JSON.stringify(nextResult) } })
+    const toolOf = () => threadOf(store, 'pkg-rich').feed.messages.find((message) => message.id === 't-1')!
+    expect(toolOf().presentResult).toEqual(nextResult)
+    expect(rich.feed.messages[2]!.presentResult).toEqual(oldResult)
+    store.dispatchFeedEvent('pkg-rich', { type: 'tool-call', call: { toolCallId: 't0', contentText: 'unparseable new result' } })
+    expect(toolOf().presentResult).toBeUndefined()
+  })
+
   it('稀疏工具状态更新保留导入消息的业务字段', () => {
     const store = createChatSessionStore(harness())
     const rich = richThread('pkg-rich')

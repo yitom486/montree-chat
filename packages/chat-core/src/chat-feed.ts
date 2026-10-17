@@ -202,6 +202,7 @@ export function applyChatEvent(
       const status = event.call.status ?? prev?.toolStatus ?? 'pending'
       const title = event.call.title ?? prev?.toolTitle ?? '工具调用'
       const kind = event.call.kind ?? prev?.toolKind ?? 'other'
+      const contentChanged = event.call.contentText !== undefined && event.call.contentText !== (prev?.toolContentText ?? prev?.text ?? '')
       const contentText = event.call.contentText ?? prev?.toolContentText ?? prev?.text ?? ''
       const base: ChatMessage = {
         // 稀疏状态通知不能抹掉历史导入或宿主附加的业务字段。
@@ -221,6 +222,8 @@ export function applyChatEvent(
           ? (event.call.diffs ?? prev?.toolDiffs)
           : undefined,
         toolLocations: event.call.locations ?? prev?.toolLocations,
+        // 新内容需重新解析结果；仅状态更新时保留已验证的历史卡片。
+        presentResult: contentChanged ? undefined : prev?.presentResult,
         text: contentText || title,
         createdAt: prev?.createdAt ?? now(),
         updatedAt: now(),
