@@ -204,6 +204,8 @@ export function applyChatEvent(
       const kind = event.call.kind ?? prev?.toolKind ?? 'other'
       const contentText = event.call.contentText ?? prev?.toolContentText ?? prev?.text ?? ''
       const base: ChatMessage = {
+        // 稀疏状态通知不能抹掉历史导入或宿主附加的业务字段。
+        ...prev,
         id: prev?.id ?? createId('tool'),
         role: 'tool',
         toolCallId,
@@ -364,6 +366,13 @@ export function applyChatEvent(
           (m) => (m.role !== 'agent' && m.role !== 'thought') || keep.has(m.id),
         ),
       }
+    }
+
+    default: {
+      // 新增类型成员必须补分支；运行时来自非 TS 调用方的未知 type 则 no-op。
+      const exhaustive: never = event
+      void exhaustive
+      return state
     }
   }
 }

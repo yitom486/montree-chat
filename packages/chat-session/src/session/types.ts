@@ -1,12 +1,19 @@
 import type {
   AcpMessageAttachment,
   AcpPlanEntry,
+  ChatFeedEvent,
   ChatFeedState,
   ChatFeedToolCall,
 } from '@yitom/chat-core'
 import type { AcpConnectionStatus } from '@yitom/contracts'
 
-export type { AcpMessageAttachment, AcpPlanEntry, ChatFeedState, ChatFeedToolCall }
+export type {
+  AcpMessageAttachment,
+  AcpPlanEntry,
+  ChatFeedEvent,
+  ChatFeedState,
+  ChatFeedToolCall,
+}
 
 /**
  * 聊天线程（S1 纯状态层）：

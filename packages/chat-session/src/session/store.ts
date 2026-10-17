@@ -158,6 +158,24 @@ export interface ChatSessionStore {
    * 无 active 线程时 no-op；变更后 emit（含 persist）通知订阅者。
    */
   clearActiveThread(): void
+  /**
+   * 通用 feed 事件写入（C2a 新增）：**显式线程目标**，把一条完整 `ChatFeedEvent`
+   * 交给同一个 `applyChatEvent` 归约；与按事件类型调用上列 ingest 方法等价，
+   * 并覆盖它们表达不了的输入：`proposalFallback`（tool-call/tool-chunk/
+   * finish-turn 三处 ingest 均丢弃）、`plan-remove`（无对应 ingest 方法）、
+   * user 角色 text-chunk（仅有 agent/thought ingest 方法）。
+   * `settle:false` 由 `finishTurn(threadId, { settle:false })` 同语义支持，
+   * 此处只是同一归约器的另一条调用路径。
+   *
+   * 边界：
+   * - `threadId` 必须非空且命中已存在线程；未知目标一律 no-op——不建线程、
+   *   不回退 active、不切 active/runtime、不清审批、不改模型配置；
+   * - 只替换目标线程 feed，其它线程、`pendingPermission`、`modelConfig` 不动；
+   * - 与既有 ingest 方法共用 `applyToThread` 写入路径，不新增第二套 reducer；
+   *   归约器返回原状态（无实际变更）时不落盘、不通知；
+   * - 畸形事件（非对象 / 无 `type`）直接丢弃，避免未归约对象污染线程 feed。
+   */
+  dispatchFeedEvent(threadId: string, event: ChatFeedEvent): void
 }
 
 /**
@@ -608,6 +626,14 @@ export function createChatSessionStore(opts: CreateChatSessionStoreOptions = {})
         ),
       }
       emit()
+    },
+
+    dispatchFeedEvent(threadId: string, event: ChatFeedEvent): void {
+      // 显式目标：空/非字符串 id 不回落 active（applyToThread 的 undefined 语义仅服务既有 ingest）。
+      if (typeof threadId !== 'string' || threadId.length === 0) return
+      // 只检查顶层形状；已知事件的字段遵守 ChatFeedEvent，协议载荷由上游 mapper 校验。
+      if (!event || typeof event !== 'object' || Array.isArray(event) || typeof event.type !== 'string') return
+      applyToThread(threadId, event)
     },
   }
 }

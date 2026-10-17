@@ -36,3 +36,5 @@
 ## 门禁
 
 - 禁 electron / `node:` / react / `@/` / `apps/desktop`（沿用 `lint:deps` R1–R5，无豁免）。
+
+`applyChatEvent` 保留稀疏工具更新未提供的已有业务字段；未知运行时事件类型返回原状态，不产生通知。已知事件字段遵守 `ChatFeedEvent` 契约，协议载荷校验由调用方负责；新增事件类型仍须补齐归约分支。

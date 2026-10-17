@@ -7,6 +7,8 @@
 - `session/`：线程/审批/模型配置状态（S1，纯 TS + React 绑定；Electron/store/API 零依赖，经 ports 注入）。
   - `session/types.ts`：`ChatThread`（id/hostThreadId/runtimeId/title/feed，提炼自宿主 `AcpChatThread`；可选 hostThreadId 随快照持久化关联）/ `ChatPendingPermission`（全抄 `AcpPendingPermission`）/ `ChatModelConfig`（S1 新增纯态，宿主无同名）/ `ChatStoragePort` + `ChatTransportPort`（S1 仅定接口）。
   - `session/store.ts`：`createChatSessionStore({ createId/now/storage/transport })`，全部 feed 变更经 core `applyChatEvent`；`requestPermission` 对应宿主 `ingestPermissionRequest` 纯态部分，`clearPermission(requestId?)` 对齐 requestId 守卫，`setConnectionStatus` 对齐 disconnected/error 清 pending。
+    `dispatchFeedEvent(threadId, event)`（C2a）：显式线程目标的完整 `ChatFeedEvent` 通用写入，与 ingest 方法共用 `applyToThread` 路径；未知/空目标不建线程不回退 active，顶层畸形载荷及未知事件类型丢弃，no-op 不落盘不通知。已知事件字段遵守 TypeScript 契约，原始协议由上游 mapper 校验。
+  - `session/dispatch-feed-event.test.ts`：显式目标隔离、完整事件透传、no-op 通知/存储与历史业务字段保留回归。
     `ensureHostThread(hostThreadId, runtimeId?, activate?)` 复用持久关联，后台补建不改变 active；`reconcileHostThreads(threads, activeHostThreadId)` 在启动/宿主恢复时迁入权威历史（含附件和运行时），替换旧版无关联影子；切线程时模型配置运行时随线程归属同步。
 - `ingest/`：acp-client 事件 → core `ChatFeedEvent` 归一化 + 审批 ingest（S1）。
   - `ingest/acp-events.ts`：`mapSessionUpdate`（对齐宿主 `chat-slice.applySessionUpdate` 分支；`montree_settle_complete` 字面量来源 `packages/contracts/src/types/acp.ts`）/ `mapPermissionRequest`（`toolCallId/tool_call_id/id` + `optionId/id` + `name/title` 三双兼容，对照宿主 `acp-permission.ts`）/ `mapConnectionStatus`（五值透传，未知回 disconnected）。
