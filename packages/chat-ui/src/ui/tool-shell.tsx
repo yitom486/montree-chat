@@ -1,8 +1,9 @@
 // 宿主 `apps/desktop/src/components/ai-elements/tool.tsx`（社区 AI Elements Tool 折叠组合与状态徽标）
-// 逐字复刻（私有，不进 barrel；供包内工具卡与工作记录共用）。唯一改动：`cn` 改引包内 `./cn`。
+// 逐字复刻（私有，不进 barrel；供包内工具卡与工作记录共用）。唯一改动：`cn` 改引包内 `./cn`，
+// 折叠原语由 Radix Collapsible 切到 Base UI（`Content`→`Panel`，`data-[state=…]`→`data-[open|closed]`）。
 // 上游来源与差异说明见宿主原文件头注释（Vercel AI Elements Apache-2.0，Montree 扩展 awaiting-approval/cancelled/unknown 三态）。
 import * as React from 'react'
-import { Collapsible as CollapsiblePrimitive } from 'radix-ui'
+import { Collapsible as CollapsiblePrimitive } from '@base-ui-components/react/collapsible'
 import {
   Ban,
   Check,
@@ -144,7 +145,7 @@ export function ToolHeader({ title, target, state, summary, kindIcon, className,
         ) : null}
       </span>
       {getToolStateBadge(state)}
-      <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90" />
+      <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-data-[open]:rotate-90" />
     </CollapsiblePrimitive.Trigger>
   )
 }
@@ -153,9 +154,9 @@ export function ToolContent({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof CollapsiblePrimitive.Content>) {
+}: React.ComponentProps<typeof CollapsiblePrimitive.Panel>) {
   return (
-    <CollapsiblePrimitive.Content
+    <CollapsiblePrimitive.Panel
       data-slot="ai-tool-content"
       className={cn('min-w-0 max-w-full overflow-x-hidden', className)}
       {...props}
@@ -163,7 +164,7 @@ export function ToolContent({
       <div className="min-w-0 max-w-full space-y-1.5 overflow-x-hidden border-t border-border/40 px-2.5 py-2">
         {children}
       </div>
-    </CollapsiblePrimitive.Content>
+    </CollapsiblePrimitive.Panel>
   )
 }
 
