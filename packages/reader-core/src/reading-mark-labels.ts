@@ -1,4 +1,4 @@
-import type { ReadingMark } from '@montree/contracts'
+import type { ReadingMark } from '@yitom/contracts'
 
 export function getReadingMarkLabel(mark: ReadingMark): string {
   if (mark.label?.trim()) return mark.label.trim()

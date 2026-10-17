@@ -1,4 +1,4 @@
-import { parsePresentResult } from '@montree/contracts'
+import { parsePresentResult } from '@yitom/contracts'
 import type { ChatMessage } from './chat-message'
 
 export type InlinePresentPart =

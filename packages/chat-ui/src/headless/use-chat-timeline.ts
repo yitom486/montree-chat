@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { groupChatTimeline } from '@montree/chat-core'
+import { groupChatTimeline } from '@yitom/chat-core'
 import type {
   ChatMessage,
   ChatTimelineItem,
   GroupChatTimelineOptions,
-} from '@montree/chat-core'
+} from '@yitom/chat-core'
 
 export type UseChatTimelineOptions = GroupChatTimelineOptions
 

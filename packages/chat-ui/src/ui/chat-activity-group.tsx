@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ComponentProps } from 'react'
-import { formatDuration, toToolDisplayModel, type ChatMessage, type ChatTimelineItem } from '@montree/chat-core'
+import { formatDuration, toToolDisplayModel, type ChatMessage, type ChatTimelineItem } from '@yitom/chat-core'
 import { AgentChatItem, AgentChatItemBody } from './AgentChatItem'
 import { BeuiAgentActivity, BeuiActivityRow } from './BeuiAgentActivity'
 import { ChatMessageBubble } from './agent-message-bubble'

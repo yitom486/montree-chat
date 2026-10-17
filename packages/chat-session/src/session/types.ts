@@ -3,8 +3,8 @@ import type {
   AcpPlanEntry,
   ChatFeedState,
   ChatFeedToolCall,
-} from '@montree/chat-core'
-import type { AcpConnectionStatus } from '@montree/contracts'
+} from '@yitom/chat-core'
+import type { AcpConnectionStatus } from '@yitom/contracts'
 
 export type { AcpMessageAttachment, AcpPlanEntry, ChatFeedState, ChatFeedToolCall }
 

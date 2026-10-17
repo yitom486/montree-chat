@@ -7,8 +7,8 @@ import {
   type ChatMarkdownTheme,
   type GenerativeSubmitPayload,
   type ResolveMarkProposal,
-} from '@montree/chat-ui'
-import { timelineRendersInlineApproval, type ChatMessage } from '@montree/chat-core'
+} from '@yitom/chat-ui'
+import { timelineRendersInlineApproval, type ChatMessage } from '@yitom/chat-core'
 import type { ChatSessionStore } from '../session/store'
 import { useActiveThread, useChatActions, useChatSessionStore } from '../session/use-chat-session'
 import { ChatComposer } from './ChatComposer'

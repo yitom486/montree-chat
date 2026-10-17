@@ -3,7 +3,7 @@ import {
   DEFAULT_READER_TYPOGRAPHY,
   READER_FONT_SIZE_OPTIONS,
   READER_LINE_HEIGHT_OPTIONS,
-} from '@montree/reader-core'
+} from '@yitom/reader-core'
 import { buildReaderLayoutCss, getEpubThemeRules } from './epub-themes'
 
 describe('reader typography defaults', () => {

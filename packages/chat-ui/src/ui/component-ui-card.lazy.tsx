@@ -2,7 +2,7 @@
 // 包内互引一律相对：`GenerativeSubmitPayload` 改 `./component-ui-card`，
 // `BeuiAgentProgress` 改 `./BeuiAgentProgress`，懒块改 `./component-ui-card`；余逐字。
 import { Suspense, lazy } from 'react'
-import type { PresentComponentUi } from '@montree/contracts'
+import type { PresentComponentUi } from '@yitom/contracts'
 import type { GenerativeSubmitPayload } from './component-ui-card'
 import { BeuiAgentProgress } from './BeuiAgentProgress'
 

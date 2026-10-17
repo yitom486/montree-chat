@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mergeReadingMarks, type SyncMarksPayload } from './marks-merger'
-import type { ReadingMark } from '@montree/contracts'
+import type { ReadingMark } from '@yitom/contracts'
 
 describe('marks-merger', () => {
   const markA: ReadingMark = {

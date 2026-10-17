@@ -3,7 +3,7 @@ import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ComponentUiCard, buildGenerativeSubmitTexts } from './component-ui-card'
-import type { PresentComponentUi } from '@montree/contracts'
+import type { PresentComponentUi } from '@yitom/contracts'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

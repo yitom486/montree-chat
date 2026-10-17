@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 // S2 面板测试（消费者视角）：只从两包 barrel 进——
-// `createChatSessionStore + ChatPanel + 类型` 经 `@montree/chat-session`，
-// `ChatMessage` 类型经 `@montree/chat-core`；不用深路径、不用宿主。
+// `createChatSessionStore + ChatPanel + 类型` 经 `@yitom/chat-session`，
+// `ChatMessage` 类型经 `@yitom/chat-core`；不用深路径、不用宿主。
 // 渲染写法参照 chat-ui `agent-message-bubble.test.ts`（createRoot + act）。
 import { act, createElement as h } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
@@ -10,7 +10,7 @@ import {
   ChatPanel,
   createChatSessionStore,
   type ChatTransportPort,
-} from '@montree/chat-session'
+} from '@yitom/chat-session'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 
@@ -156,7 +156,7 @@ describe('ChatPanel (b) agent 流 + 工具 + 审批', () => {
     })
 
     // 正文懒分块先预热，再挂载等待落定（生产首屏不受影响）。
-    await import('@montree/chat-ui/lazy')
+    await import('@yitom/chat-ui/lazy')
     const container = mountPanel({ store, runtimes: RUNTIMES })
     await vi.waitFor(
       () => {

@@ -1,4 +1,4 @@
-import type { PdfTextRect } from '@montree/contracts'
+import type { PdfTextRect } from '@yitom/contracts'
 
 import {
   applyHighlightSurface,

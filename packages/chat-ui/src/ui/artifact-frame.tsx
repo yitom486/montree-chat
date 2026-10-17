@@ -7,7 +7,7 @@
 // 带 requestId 的回执路径成死代码，E2E 主题回执数为 0）。基础主题经 `colorScheme` postMessage 照常同步）、
 // `useArtifactZoom` 改引同包相对 `./artifact-zoom-surface`；其余逐字。
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
-import { parseReactArtifactRequest, REACT_ARTIFACT_REQUEST_MAX_BYTES } from '@montree/contracts'
+import { parseReactArtifactRequest, REACT_ARTIFACT_REQUEST_MAX_BYTES } from '@yitom/contracts'
 import { useArtifactZoom } from './artifact-zoom-surface'
 
 /** 宿主 `present-result-builder.stripHostileHtmlHead` 逐字复刻（包内私有）：剥离 base 与全部 meta，宿主 CSP 唯一生效。 */

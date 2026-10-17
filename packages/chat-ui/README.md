@@ -1,11 +1,11 @@
-# @montree/chat-ui
+# @yitom/chat-ui
 
 聊天渲染 UI 层：**无头 hooks + 默认样式组件**。不 import ACP 传输/session，不读宿主 store；所有交互经回调回宿主，再由宿主进 ACP。
 
 ## 结构
 
 - `ui/chat-markdown.tsx`：`ChatMarkdown`（自宿主 `AgentMarkdown` 整搬改名；主题经 `theme` prop 传入，`resolveMermaidTheme` 随搬；`streamdown/styles.css` import 保留，CSS 分发 M6 定）。
-- `ui/chat-markdown.lazy.tsx`：`ChatMarkdownLazy` + `ChatMarkdownFallback`（轻入口，仅 react + 包内 `cn`；宿主经 `@montree/chat-ui/lazy` 子路径静态引用，重模块走 `React.lazy` 分块，不进首屏）。
+- `ui/chat-markdown.lazy.tsx`：`ChatMarkdownLazy` + `ChatMarkdownFallback`（轻入口，仅 react + 包内 `cn`；宿主经 `@yitom/chat-ui/lazy` 子路径静态引用，重模块走 `React.lazy` 分块，不进首屏）。
 - `ui/md-normalize.ts`（私有，不进 barrel）：`normalizeLatexDelimiters`（自 `@/lib/editor/latex-delimiters`）+ `normalizeRawSvgDataUriImages`（自 `@/lib/editor/markdown`），纯函数整搬。
 - `ui/agent-permission-card`：`AgentPermissionCard`（自宿主 `AgentPermissionCard` 整搬；`pending` 作纯数据 prop，领取+发送改为必填 `onRespond` 回宿主；视觉复用包内 `BuiApprovalCard`）。
 - `ui/tool-approval-slot`：`ToolApprovalSlot`（自宿主 `ToolApprovalSlot` 整搬；`pending` 改 prop 输入并透传 `onRespond`，命中判定 `toolMessageNeedsApproval` 逐字保留）。
@@ -19,7 +19,7 @@
 - `ui/AgentChatItem`：`AgentChatItem/Body` + 变体/语气类型 + 列宽常量（`Message` 壳与 DEV 布局探针改引包内私有复刻，余逐字）。
 - `ui/AgentLoadingState`：`AgentLoadingState` + `currentRunStatus` + `useElapsedSeconds`（`AcpChatMessage` 即 core 的 `ChatMessage`，合并单包引用）。
 - `ui/BuiApprovalCard`：`BuiApprovalCard` + `BuiApprovalOption`（`Button` 改引包内私有复刻，余逐字）。
-- `ui/agent-message-bubble`：`ChatMessageBubble`（自宿主 `AgentMessageBubble` 整搬改名；`resolveMarkProposal` 必填去 store fallback、`pendingPermission` 改 prop、`onDismissProposedMark` 回宿主；M3c 收敛全部 R4（ToolCallCard/ResultEntry/ChapterMarkPlanCard/ProposeMark* 改包内相对，`GenerativeSubmitPayload` 改 `@montree/chat-ui` 待 M3d barrel，stays 的 `ToolBusinessResult/AgentPlanCard` 改为可选 `renderBusinessResult/renderPlanCard` 槽、`hasBusinessResult` 改包内私有守卫；M4 主题 prop 化（`theme?: ChatMarkdownTheme`，缺省 `light`，宿主 `AgentMessageList/AgentActivityGroup/AnnotationNoteDialog` 传 `theme`，R4 清零）；`cn` 改包内、`AcpChatMessage` 即 core 的 `ChatMessage`，余逐字）。
+- `ui/agent-message-bubble`：`ChatMessageBubble`（自宿主 `AgentMessageBubble` 整搬改名；`resolveMarkProposal` 必填去 store fallback、`pendingPermission` 改 prop、`onDismissProposedMark` 回宿主；M3c 收敛全部 R4（ToolCallCard/ResultEntry/ChapterMarkPlanCard/ProposeMark* 改包内相对，`GenerativeSubmitPayload` 改 `@yitom/chat-ui` 待 M3d barrel，stays 的 `ToolBusinessResult/AgentPlanCard` 改为可选 `renderBusinessResult/renderPlanCard` 槽、`hasBusinessResult` 改包内私有守卫；M4 主题 prop 化（`theme?: ChatMarkdownTheme`，缺省 `light`，宿主 `AgentMessageList/AgentActivityGroup/AnnotationNoteDialog` 传 `theme`，R4 清零）；`cn` 改包内、`AcpChatMessage` 即 core 的 `ChatMessage`，余逐字）。
 - `ui/artifact-frame`：`ArtifactFrame` + `buildArtifactDocument/newArtifactMountId` + 隔离常量（自宿主 `tools/ArtifactFrame` 整搬；sandbox/CSP/来源+挂载 ID+2KiB 白名单/高度钳制逐字；`stripHostileHtmlHead` 与 `registerThemeParticipant/ThemeTransitionTarget` 包内复刻，`useArtifactZoom` 改同包相对）。
 - `ui/artifact-zoom-surface`：`ArtifactZoomSurface` + `useArtifactZoom`（自宿主 `tools/ArtifactZoomSurface` 整搬；`Button` 改包内 `./button`，`Dialog` 改包内 `./dialog`，余逐字）。
 - `ui/html-artifact-card`：`HtmlArtifactCard` + `ArtifactPreviewDialog/sanitizeArtifactFileName`（自宿主 `tools/HtmlArtifactCard` 整搬；`theme→colorScheme` prop、`fileApi.exportHtml+toast→onExport` 回调 prop；`Button/Dialog/cn/result-card/ArtifactFrame/ZoomSurface` 改包内相对）。
@@ -28,7 +28,7 @@
 - `ui/react-artifact-card`：`ReactArtifactCard` + 内联高度/超时常量 + `ReactBuildStatus`（自宿主 `generative/ReactArtifactCard` 整搬；编译→`onCompile(source,css)`（`Result` 透传，编译器留主进程）、导出→`onExport(html,title)` 回调 props；`Button/result-card/cn/ArtifactFrame/ZoomSurface` 改包内相对，`isToolActiveStatus` 改 `chat-core`）。
 - `ui/chapter-comparison-card`：`ChapterComparisonCard`（自宿主 `tools/ChapterComparisonCard` 整搬；`Button/result-card/cn` 改包内，`BeuiCitations` 改同包相对，余逐字）。
 - `ui/agent-tool-call-card`：`AgentToolCallCard` + `MarkProposalFailureGuide/Code`（自宿主 `tools/AgentToolCallCard` 整搬；`pending` 改 prop（包内 `AgentApprovalPending` 全量结构）+ `onRespond` 回宿主，恢复操作改 `onRecoverChapter/onPromptSelectText` + `navFlatIndex`（分类纯函数包内复刻），业务卡改可选 `businessResultSlot`；`AgentChatItem`/`ToolApprovalSlot`/`Button` 改包内相对，`AgentDiffPreview`/`ai-elements/tool` 改包内私有复刻，`toolMessageNeedsApproval/isProposeMarkToolTitle/toToolDisplayModel` 改 `chat-core`，余逐字）。
-- `ui/agent-result-entry`：`AgentResultEntry`（自宿主 `tools/AgentResultEntry` 整搬；`AgentChatItem/ToolCallCard` 改包内相对，`GenerativeSubmitPayload` 改 `@montree/chat-ui` 待 M3d barrel，`ToolBusinessResult` 改可选 `businessResultSlot`，内卡 store props 透传；余逐字）。
+- `ui/agent-result-entry`：`AgentResultEntry`（自宿主 `tools/AgentResultEntry` 整搬；`AgentChatItem/ToolCallCard` 改包内相对，`GenerativeSubmitPayload` 改 `@yitom/chat-ui` 待 M3d barrel，`ToolBusinessResult` 改可选 `businessResultSlot`，内卡 store props 透传；余逐字）。
 - `ui/result-card`：`RESULT_CARD_SHELL/HEADER/ICON/SUMMARY` + `resultCardClassName`（自宿主 `tools/result-card` 整搬；`cn` 改包内，余逐字；M3c 公开进 barrel，M3d present 卡改包内相对引用）。
 - `ui/diagram-viewer-card`：`DiagramViewerCard` + `DiagramPayload/VisualStep/Props` + `DiagramMermaidTheme`（自宿主 `tools/DiagramViewerCard` 整搬；间接 `MermaidBlock` 主题依赖改为可选 `renderMermaid(source)` 槽 + 可选 `mermaidTheme` 透传 prop，不复制 `MermaidBlock`；`Button/result-card/cn` 改包内相对，余逐字）。
 - `ui/propose-mark-chat-block`：`ProposeMarkChatBlock/BlockList` + `ResolveMarkProposal`（自宿主 `propose/ProposeMarkChatBlock` 整搬；去 adopt fallback（`onAdopt/onDismiss/onResolved` 透传、`adoptProposedMark/toast` 移宿主经 `onError/onToast/onBatchAdopted` 回调，缺省静默）；`AgentChatItem`/`ProposeMarkCard`（包内私有复刻去 store）/`Button`/`cn` 改包内相对，余逐字）。
@@ -74,8 +74,8 @@
 
 依赖关系（`private:true` 孵化期，毕业 M6 前仅 monorepo 内 workspace 引用）：
 
-- `@montree/chat-core`：纯 TS 显示模型与分组映射，`chat-ui` 强依赖它；外部 App 直接依赖它拿类型与纯函数。
-- `@montree/chat-ui`：本包，唯一允许 react 的包；另依赖 `@montree/contracts`（present 四 kind 类型、`COMPONENT_UI_MAX_SUBMIT_BYTES`、`REACT_ARTIFACT_*` 常量、`Result`/`AppError`）与 `@montree/annotations`（`ProposedMark`、`ChapterMarkPlanEntry` 等提议类型会出现在 props 中，消费方需一并安装）。
+- `@yitom/chat-core`：纯 TS 显示模型与分组映射，`chat-ui` 强依赖它；外部 App 直接依赖它拿类型与纯函数。
+- `@yitom/chat-ui`：本包，唯一允许 react 的包；另依赖 `@yitom/contracts`（present 四 kind 类型、`COMPONENT_UI_MAX_SUBMIT_BYTES`、`REACT_ARTIFACT_*` 常量、`Result`/`AppError`）与 `@yitom/annotations`（`ProposedMark`、`ChapterMarkPlanEntry` 等提议类型会出现在 props 中，消费方需一并安装）。
 - peer：`react` / `react-dom` 均为 `^19.2.8`（抄包 `package.json` 原值，大版本不对不保证行为）。
 
 CSS（M6 前临时方案，CSS 分发 M6 定）：
@@ -138,9 +138,9 @@ Tailwind（M4 教训，必须做）：Tailwind v4 自动扫描只覆盖渲染根
 `AgentMessageList` 未进包：宿主须自备列表容器、视口、滚动跟随与落盘；`work-log` 项使用包内 `ChatActivityGroup`，与宿主适配器共享完整工作记录交互。
 
 ```tsx
-import { useChatTimeline, ChatMessageBubble, ChatActivityGroup } from '@montree/chat-ui';
-import type { ChatMessage, ChatTimelineItem } from '@montree/chat-core';
-import type { ChatMarkdownTheme } from '@montree/chat-ui';
+import { useChatTimeline, ChatMessageBubble, ChatActivityGroup } from '@yitom/chat-ui';
+import type { ChatMessage, ChatTimelineItem } from '@yitom/chat-core';
+import type { ChatMarkdownTheme } from '@yitom/chat-ui';
 
 function ChatView({ messages, theme }: { messages: ChatMessage[]; theme: ChatMarkdownTheme }) {
   const timeline: ChatTimelineItem[] = useChatTimeline(messages, { scopeKey: 'thread-1' });
@@ -197,5 +197,5 @@ function ChatView({ messages, theme }: { messages: ChatMessage[]; theme: ChatMar
 ## 消费方接入（npm 独立仓新增）
 
 - 原语：`ui/button.tsx` 与 `ui/dialog.tsx` 已由 Radix 切到 Base UI（`@base-ui-components/react`，`asChild` 改走 `render`，wrapper 层翻译，调用方零改动；`data-[state=…]` 改为 `data-[open|closed]`）。
-- 样式：包内 Tailwind 类需消费方扫描本包（`@source` 指到 `node_modules/@montree/chat-ui/dist`），`streamdown/styles.css` 与 KaTeX CSS 需消费方引入一次；弹窗进出场动画类（`animate-in/fade-in-0/zoom-in-95` 等）需消费方装 `tw-animate-css`（或等价 keyframes）。
+- 样式：包内 Tailwind 类需消费方扫描本包（`@source` 指到 `node_modules/@yitom/chat-ui/dist`），`streamdown/styles.css` 与 KaTeX CSS 需消费方引入一次；弹窗进出场动画类（`animate-in/fade-in-0/zoom-in-95` 等）需消费方装 `tw-animate-css`（或等价 keyframes）。
 - 对等依赖：`react`/`react-dom` 为 peer（`^19`）；其余运行时依赖随包安装。

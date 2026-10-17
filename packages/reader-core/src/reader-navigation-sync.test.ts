@@ -1,11 +1,11 @@
 // @vitest-environment happy-dom
 import { describe, expect, it } from 'vitest'
-import { flattenEpubToc, findEpubFlatIndex, resolveChapterNav } from '@montree/reader-core'
+import { flattenEpubToc, findEpubFlatIndex, resolveChapterNav } from '@yitom/reader-core'
 import {
   syncEpubNavigation,
   syncPdfNavigation,
-} from '@montree/reader-core'
-import type { ReaderUnit } from '@montree/reader-core'
+} from '@yitom/reader-core'
+import type { ReaderUnit } from '@yitom/reader-core'
 
 function buildGovernanceMonolithicToc() {
   return flattenEpubToc([

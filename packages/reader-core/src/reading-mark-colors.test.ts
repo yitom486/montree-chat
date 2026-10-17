@@ -7,7 +7,7 @@ import {
   MARK_CATEGORY_SWATCH_FALLBACK,
   normalizeHighlightColor,
   resolveMarkCategorySwatch,
-} from '@montree/reader-core'
+} from '@yitom/reader-core'
 
 describe('reading-mark-colors', () => {
   it('默认与未知值都回落到黄色', () => {

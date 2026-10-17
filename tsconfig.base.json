@@ -12,15 +12,15 @@
     "types": ["node", "react", "react-dom"],
     "noEmitOnError": true,
     "paths": {
-      "@montree/contracts": ["./packages/contracts/src/index.ts"],
-      "@montree/contracts/core/*": ["./packages/contracts/src/core/*"],
-      "@montree/contracts/types/*": ["./packages/contracts/src/types/*"],
-      "@montree/reader-core": ["./packages/reader-core/src/index.ts"],
-      "@montree/annotations": ["./packages/annotations/src/index.ts"],
-      "@montree/chat-core": ["./packages/chat-core/src/index.ts"],
-      "@montree/chat-ui": ["./packages/chat-ui/src/index.ts"],
-      "@montree/chat-ui/lazy": ["./packages/chat-ui/src/ui/chat-markdown.lazy.tsx"],
-      "@montree/chat-session": ["./packages/chat-session/src/index.ts"]
+      "@yitom/contracts": ["./packages/contracts/src/index.ts"],
+      "@yitom/contracts/core/*": ["./packages/contracts/src/core/*"],
+      "@yitom/contracts/types/*": ["./packages/contracts/src/types/*"],
+      "@yitom/reader-core": ["./packages/reader-core/src/index.ts"],
+      "@yitom/annotations": ["./packages/annotations/src/index.ts"],
+      "@yitom/chat-core": ["./packages/chat-core/src/index.ts"],
+      "@yitom/chat-ui": ["./packages/chat-ui/src/index.ts"],
+      "@yitom/chat-ui/lazy": ["./packages/chat-ui/src/ui/chat-markdown.lazy.tsx"],
+      "@yitom/chat-session": ["./packages/chat-session/src/index.ts"]
     }
   }
 }

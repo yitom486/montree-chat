@@ -12,7 +12,7 @@ import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
 import { normalizeLatexDelimiters, normalizeRawSvgDataUriImages } from './md-normalize'
 import { ChevronUp } from 'lucide-react'
-import { sanitizeAgentUrl } from '@montree/chat-core'
+import { sanitizeAgentUrl } from '@yitom/chat-core'
 import {
   ALERT_TAG,
   agentSanitizeSchema,
@@ -21,7 +21,7 @@ import {
   rehypeMarkSubSup,
   rehypeAgentAnchors,
   remarkAgentAlert,
-} from '@montree/chat-core'
+} from '@yitom/chat-core'
 import { cn } from './cn'
 
 
@@ -29,7 +29,7 @@ import { cn } from './cn'
  * 聊天专用 Markdown 入口（S1）：Streamdown 真实安装使用。
  * 整搬自 `apps/desktop/src/components/markdown/AgentMarkdown.tsx`（改名 `AgentMarkdown→ChatMarkdown`），
  * 解耦仅两处：主题经 `theme` prop 传入（不再读宿主 `useEditorUiStore`）、
- * 预处理/消毒/URL 策略改引包内模块与 `@montree/chat-core`；其余逐字，渲染逻辑不重写。
+ * 预处理/消毒/URL 策略改引包内模块与 `@yitom/chat-core`；其余逐字，渲染逻辑不重写。
  * 编辑器/文档预览继续用 markdown-it，本文件只给 Agent 聊天正文。
  *
  * 插件取舍（体积与行为证据见宿主 README/计划）：

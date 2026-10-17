@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { isProposalPromotedToAgent } from './mark-promotion'
 import type { ChatMessage } from './chat-message'
-import { toProposedMark } from '@montree/annotations'
+import { toProposedMark } from '@yitom/annotations'
 
 describe('mark-promotion', () => {
   it('isProposalPromotedToAgent 检测已挂载', () => {

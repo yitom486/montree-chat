@@ -1,5 +1,5 @@
-import type { MontreePresentResult } from '@montree/contracts'
-import type { ChapterMarkPlanEntry, MarkProposalStatus, ProposedMark } from '@montree/annotations'
+import type { MontreePresentResult } from '@yitom/contracts'
+import type { ChapterMarkPlanEntry, MarkProposalStatus, ProposedMark } from '@yitom/annotations'
 import type { ChatMessage } from './chat-message'
 import type { AcpPlanEntry } from './plan'
 

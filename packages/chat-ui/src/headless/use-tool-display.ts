@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { toToolDisplayModel } from '@montree/chat-core'
-import type { ChatMessage, ToolDisplayModel } from '@montree/chat-core'
+import { toToolDisplayModel } from '@yitom/chat-core'
+import type { ChatMessage, ToolDisplayModel } from '@yitom/chat-core'
 
 /**
  * 工具展示模型无头 hook（M2）：纯 `useMemo` 包裹 core 的 `toToolDisplayModel`。

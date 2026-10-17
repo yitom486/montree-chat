@@ -1,9 +1,9 @@
 {
-  "name": "@montree/reader-core",
+  "name": "@yitom/reader-core",
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "@montree/contracts": "^0.1.0",
+    "@yitom/contracts": "^0.1.0",
     "pdfjs-dist": "^6.2.108"
   },
   "exports": {

@@ -1,6 +1,6 @@
-import type { AcpToolCallKind, AcpToolCallStatus } from '@montree/contracts'
-import type { ChapterMarkPlanEntry } from '@montree/annotations'
-import type { MarkProposalStatus, ProposedMark } from '@montree/annotations'
+import type { AcpToolCallKind, AcpToolCallStatus } from '@yitom/contracts'
+import type { ChapterMarkPlanEntry } from '@yitom/annotations'
+import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
 import type { AcpPlanEntry } from './plan'
 import type { AcpMessageAttachment } from './attachments'
 
@@ -58,7 +58,7 @@ export interface ChatMessage {
   /** montree_suggest_chapters 章级建议（promote 前在 tool，promote 后在 agent） */
   chapterMarkPlan?: ChapterMarkPlanEntry[]
   /** montree_present 呈现结果（enrich 挂载，卡片分发） */
-  presentResult?: import('@montree/contracts').MontreePresentResult
+  presentResult?: import('@yitom/contracts').MontreePresentResult
   /** 交互经纬流转分步卡片（带对应章句穿透定位） */
   steps?: Array<{
     num: number

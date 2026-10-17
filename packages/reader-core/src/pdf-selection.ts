@@ -5,7 +5,7 @@ import type {
   PdfTextQuad,
   PdfTextQuote,
   PdfTextRect,
-} from '@montree/contracts'
+} from '@yitom/contracts'
 
 interface PdfPageTextGeometry {
   viewport: PageViewport

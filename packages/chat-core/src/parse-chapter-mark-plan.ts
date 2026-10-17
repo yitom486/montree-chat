@@ -1,5 +1,5 @@
-import type { ChapterMarkPlanEntry, ChapterMarkPlanToolResult } from '@montree/annotations'
-import { toChapterMarkPlanEntry } from '@montree/annotations'
+import type { ChapterMarkPlanEntry, ChapterMarkPlanToolResult } from '@yitom/annotations'
+import { toChapterMarkPlanEntry } from '@yitom/annotations'
 
 const SUGGEST_CHAPTERS_TOOL_PATTERN =
   /montree_suggest_chapters|suggest.?chapters|章级建议|chapter.?plan/i

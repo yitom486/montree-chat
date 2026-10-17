@@ -2,7 +2,7 @@
 import { act, createElement } from 'react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AgentToolCallCard } from './agent-tool-call-card'
-import type { ChatMessage as AcpChatMessage } from '@montree/chat-core'
+import type { ChatMessage as AcpChatMessage } from '@yitom/chat-core'
 import type { AgentApprovalPending } from './agent-permission-card'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true

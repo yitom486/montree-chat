@@ -4,7 +4,7 @@
 // （宿主默认实现含合法文件名+toast，取消静默；包内只调回调）。`Button` 改 `./button`，`result-card` 改
 // `./result-card`，`cn` 改 `./cn`，`ArtifactFrame` 改 `./artifact-frame`，`ArtifactZoomSurface` 改
 // `./artifact-zoom-surface`，`sanitizeArtifactFileName` 改 `./html-artifact-card`（同包，包内如需文件名宿主亦可复用），
-// `isToolActiveStatus` 改 `@montree/chat-core`，`BeuiAgentProgress` 改 `./BeuiAgentProgress`，
+// `isToolActiveStatus` 改 `@yitom/chat-core`，`BeuiAgentProgress` 改 `./BeuiAgentProgress`，
 // `GenerativeSubmitPayload` 改 `./component-ui-card`；余逐字。
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArtifactZoomSurface } from './artifact-zoom-surface'
@@ -18,8 +18,8 @@ import {
   RESULT_CARD_SUMMARY,
   resultCardClassName,
 } from './result-card'
-import { REACT_ARTIFACT_MOUNT_TOKEN, type PresentReactArtifact, type AppError, type Result } from '@montree/contracts'
-import { isToolActiveStatus } from '@montree/chat-core'
+import { REACT_ARTIFACT_MOUNT_TOKEN, type PresentReactArtifact, type AppError, type Result } from '@yitom/contracts'
+import { isToolActiveStatus } from '@yitom/chat-core'
 import { cn } from './cn'
 import type { GenerativeSubmitPayload } from './component-ui-card'
 

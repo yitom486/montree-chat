@@ -3,7 +3,7 @@ import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AgentLoadingState, currentRunStatus } from './AgentLoadingState'
-import type { ChatMessage as AcpChatMessage } from '@montree/chat-core'
+import type { ChatMessage as AcpChatMessage } from '@yitom/chat-core'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

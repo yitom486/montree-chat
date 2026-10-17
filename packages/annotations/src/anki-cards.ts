@@ -1,4 +1,4 @@
-import type { ReadingMark } from '@montree/contracts'
+import type { ReadingMark } from '@yitom/contracts'
 import type { Flashcard } from './flashcard'
 import {
   highlightSortKey,
@@ -7,7 +7,7 @@ import {
   passageNote,
   type ReadingNotesChapterRef,
   type ReadingNotesScope,
-} from '@montree/reader-core'
+} from '@yitom/reader-core'
 
 export interface BuildAnkiCardsExportInput {
   marks: ReadingMark[]

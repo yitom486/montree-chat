@@ -2,8 +2,8 @@
 import { act, createElement as h } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { groupChatTimeline, type ChatMessage } from '@montree/chat-core'
-import { ChatActivityGroup, type ChatActivityGroupProps, type ChatWorkLogItem, type GenerativeSubmitPayload } from '@montree/chat-ui'
+import { groupChatTimeline, type ChatMessage } from '@yitom/chat-core'
+import { ChatActivityGroup, type ChatActivityGroupProps, type ChatWorkLogItem, type GenerativeSubmitPayload } from '@yitom/chat-ui'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

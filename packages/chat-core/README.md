@@ -1,4 +1,4 @@
-# @montree/chat-core
+# @yitom/chat-core
 
 聊天渲染纯逻辑层：**零 react、零 store、零 ACP 传输**。任何 UI（本包 `chat-ui`、外部 App 自研 UI）都吃这一层。
 
@@ -29,7 +29,7 @@
 | `enrich-tool-message.ts` ✅ | `apps/desktop/src/lib/agent/enrich-tool-message.ts` | tool 消息 enrich（提议卡 + 章级建议） |
 | `message-parts.ts` ✅ | E2 新建（无宿主来源，对照 `chat-ui/agent-message-bubble.tsx` 分支条件） | `MessagePart` 9 变体 + `splitMessage()` 零件级拆分；顺序 = 宿主渲染顺序，steps 独立成 part |
 
-呈现契约（四种 `montree_present` kind、白名单校验）不复制，直接依赖 `@montree/contracts`。
+呈现契约（四种 `montree_present` kind、白名单校验）不复制，直接依赖 `@yitom/contracts`。
 
 工具展示使用真实 `name` 与有界输入摘要（标题、图形类型、路径等）；agy 的通用 MCP 包装先解开再展示，稀疏完成更新保留原摘要。思考正文仅来自实际 thought 事件，进入新工具或正文阶段时结束上一段思考的 streaming；usage 中的思考 token 数不冒充思考正文。
 

@@ -1,5 +1,5 @@
-import { parsePresentResult, type MontreePresentResult } from '@montree/contracts'
-import { isPresentToolTitle } from '@montree/chat-core'
+import { parsePresentResult, type MontreePresentResult } from '@yitom/contracts'
+import { isPresentToolTitle } from '@yitom/chat-core'
 
 // 自宿主 `apps/desktop/src/components/agent/tools/ToolBusinessResult.tsx` 的纯守卫部分整搬
 // （M3c 私有复刻，不进 barrel；仅供包内 `agent-message-bubble` 的富结果分流使用）：

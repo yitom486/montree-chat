@@ -9,9 +9,9 @@ import {
   type ChatFeedEvent,
   type ChatFeedState,
   type ChatFeedToolCall,
-} from '@montree/chat-core'
-import type { MarkProposalStatus } from '@montree/annotations'
-import { DEFAULT_ACP_RUNTIME_ID } from '@montree/contracts'
+} from '@yitom/chat-core'
+import type { MarkProposalStatus } from '@yitom/annotations'
+import { DEFAULT_ACP_RUNTIME_ID } from '@yitom/contracts'
 import type {
   ChatConnectionStatus,
   ChatModelConfig,

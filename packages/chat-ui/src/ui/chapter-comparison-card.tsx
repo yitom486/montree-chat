@@ -6,7 +6,7 @@ import { ArrowRight, ChevronDown, ChevronRight, Columns2, FileText } from 'lucid
 import { Button } from './button'
 import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card'
 import { cn } from './cn'
-import type { PresentChapterComparison } from '@montree/contracts'
+import type { PresentChapterComparison } from '@yitom/contracts'
 import { BeuiCitations } from './BeuiCitations'
 
 interface ChapterComparisonCardProps {

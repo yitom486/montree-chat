@@ -7,7 +7,7 @@ import {
   AgentChatItemBody,
 } from './AgentChatItem'
 import { cn } from './cn'
-import type { ChapterMarkPlanEntry } from '@montree/annotations'
+import type { ChapterMarkPlanEntry } from '@yitom/annotations'
 
 export interface ChapterMarkPlanSelectPayload {
   entry: ChapterMarkPlanEntry

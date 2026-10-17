@@ -1,4 +1,4 @@
-import type { ReadingMarkCategory } from '@montree/contracts'
+import type { ReadingMarkCategory } from '@yitom/contracts'
 
 /** AI 提议的阅读标记（批注 / 高亮 / 知识卡片），须用户确认后才写入 marks 文件。 */
 

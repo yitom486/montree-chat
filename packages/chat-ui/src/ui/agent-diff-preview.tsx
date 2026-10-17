@@ -1,5 +1,5 @@
 import { cn } from './cn'
-import { buildSimpleDiffLines, type ChatToolDiff } from '@montree/chat-core'
+import { buildSimpleDiffLines, type ChatToolDiff } from '@yitom/chat-core'
 
 function basename(path: string): string {
   const parts = path.replace(/\\/g, '/').split('/')
@@ -11,7 +11,7 @@ interface AgentDiffPreviewProps {
 }
 
 // 自宿主 `apps/desktop/src/components/agent/tools/AgentDiffPreview.tsx` 整搬（M3c 私有复刻，不进 barrel；
-// 仅供包内 `agent-tool-call-card` 使用）：`cn` 改 `./cn`；`AcpToolDiff/buildSimpleDiffLines` 改 `@montree/chat-core`；余逐字。
+// 仅供包内 `agent-tool-call-card` 使用）：`cn` 改 `./cn`；`AcpToolDiff/buildSimpleDiffLines` 改 `@yitom/chat-core`；余逐字。
 export function AgentDiffPreview({ diffs }: AgentDiffPreviewProps) {
   if (diffs.length === 0) return null
 

@@ -3,7 +3,7 @@ import type {
   ReadingAnchor,
   ReadingMark,
   UpdateReadingMarkPayload,
-} from '@montree/contracts'
+} from '@yitom/contracts'
 
 /**
  * 路径规范化（大小写语义与 service 历史行为一致）。

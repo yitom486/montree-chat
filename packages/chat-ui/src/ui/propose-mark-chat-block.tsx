@@ -17,7 +17,7 @@ import {
 import { ProposeMarkCard } from './propose-mark-card'
 import { Button } from './button'
 import { cn } from './cn'
-import type { MarkProposalStatus, ProposedMark } from '@montree/annotations'
+import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
 
 /** 提议决议回调（原 tools/AgentBlockRenderer 兼容入口已删除，类型收敛至此）。 */
 export type ResolveMarkProposal = (

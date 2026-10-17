@@ -7,7 +7,7 @@ import {
   selectFastDefaultOffTarget,
   splitConfigOptions,
 } from './acp-config-menu'
-import type { AcpConfigOption } from '@montree/contracts'
+import type { AcpConfigOption } from '@yitom/contracts'
 
 function opt(partial: Partial<AcpConfigOption> & Pick<AcpConfigOption, 'configId' | 'name'>): AcpConfigOption {
   return { type: 'select', options: [{ value: 'a', name: 'A' }], currentValue: 'a', ...partial } as AcpConfigOption

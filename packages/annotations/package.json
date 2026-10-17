@@ -1,10 +1,10 @@
 {
-  "name": "@montree/annotations",
+  "name": "@yitom/annotations",
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "@montree/contracts": "^0.1.0",
-    "@montree/reader-core": "^0.1.0"
+    "@yitom/contracts": "^0.1.0",
+    "@yitom/reader-core": "^0.1.0"
   },
   "exports": {
     ".": {

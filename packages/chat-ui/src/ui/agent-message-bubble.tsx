@@ -1,6 +1,6 @@
 /**
  * `ChatMessageBubble`（M3b 整搬改名 + M3c 收敛：ToolCallCard/AgentResultEntry/ChapterMarkPlanCard/
- * ProposeMark* 改包内相对路径；ComponentUiCard.lazy 类型改 `@montree/chat-ui`（M3d 新建，barrel 待接）；
+ * ProposeMark* 改包内相对路径；ComponentUiCard.lazy 类型改 `@yitom/chat-ui`（M3d 新建，barrel 待接）；
  * stays 的 `ToolBusinessResult/AgentPlanCard` 改为可选渲染槽（M4 由宿主传入原组件；缺省不渲染）；
  * 富结果守卫 `hasBusinessResult` 改包内私有 `./business-result-guard`（宿主纯逻辑逐字复刻）。
  * M4 主题 prop 化：`theme?: ChatMarkdownTheme`（缺省 `light`），不再读宿主 store。
@@ -16,11 +16,11 @@ import { BeuiAgentProgress } from './BeuiAgentProgress'
 import { AgentToolCallCard } from './agent-tool-call-card'
 import { AgentResultEntry } from './agent-result-entry'
 import { ToolApprovalSlot } from './tool-approval-slot'
-import { toolMessageNeedsApproval } from '@montree/chat-core'
+import { toolMessageNeedsApproval } from '@yitom/chat-core'
 import type { AgentApprovalPending } from './agent-permission-card'
 import { hasBusinessResult } from './business-result-guard'
-import { splitInlinePresent, type InlinePresentSlot } from '@montree/chat-core'
-import { isRichToolMessage } from '@montree/chat-core'
+import { splitInlinePresent, type InlinePresentSlot } from '@yitom/chat-core'
+import { isRichToolMessage } from '@yitom/chat-core'
 import {
   ChapterMarkPlanCard,
   type ChapterMarkPlanSelectPayload,
@@ -29,7 +29,7 @@ import { ProposeMarkBlockList, ProposeMarkChatBlock, type ResolveMarkProposal } 
 import { ChatMarkdownFallback, ChatMarkdownLazy } from './chat-markdown.lazy'
 import type { ChatMarkdownTheme } from './chat-markdown'
 import { cn } from './cn'
-import type { ChatMessage as AcpChatMessage } from '@montree/chat-core'
+import type { ChatMessage as AcpChatMessage } from '@yitom/chat-core'
 import type { GenerativeSubmitPayload } from './component-ui-card'
 
 interface ChatMessageBubbleProps {

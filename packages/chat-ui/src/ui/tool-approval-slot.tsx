@@ -1,5 +1,5 @@
-import { toolMessageNeedsApproval } from '@montree/chat-core'
-import type { ChatMessage } from '@montree/chat-core'
+import { toolMessageNeedsApproval } from '@yitom/chat-core'
+import type { ChatMessage } from '@yitom/chat-core'
 import { AgentPermissionCard, type AgentApprovalPending } from './agent-permission-card'
 
 export interface ToolApprovalSlotProps {

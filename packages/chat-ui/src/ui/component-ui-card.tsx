@@ -14,8 +14,8 @@ import {
   RESULT_CARD_SUMMARY,
   resultCardClassName,
 } from './result-card'
-import type { PresentComponentUi } from '@montree/contracts'
-import { COMPONENT_UI_MAX_SUBMIT_BYTES } from '@montree/contracts'
+import type { PresentComponentUi } from '@yitom/contracts'
+import { COMPONENT_UI_MAX_SUBMIT_BYTES } from '@yitom/contracts'
 
 export interface GenerativeSubmitPayload {
   resultId: string

@@ -6,7 +6,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 // 去宿主 toast：成功/失败经可选 `onToast/onError` 回宿主，缺省静默（宿主 `onAdopt/onError` 内弹 toast）。
 import { Button } from './button'
 import { cn } from './cn'
-import type { MarkProposalStatus, ProposedMark } from '@montree/annotations'
+import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
 
 interface ProposeMarkCardProps {
   proposal: ProposedMark

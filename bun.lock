@@ -14,31 +14,31 @@
       },
     },
     "packages/annotations": {
-      "name": "@montree/annotations",
+      "name": "@yitom/annotations",
       "version": "0.1.0",
       "dependencies": {
-        "@montree/contracts": "^0.1.0",
-        "@montree/reader-core": "^0.1.0",
+        "@yitom/contracts": "^0.1.0",
+        "@yitom/reader-core": "^0.1.0",
       },
     },
     "packages/chat-core": {
-      "name": "@montree/chat-core",
+      "name": "@yitom/chat-core",
       "version": "0.1.0",
       "dependencies": {
-        "@montree/annotations": "^0.1.0",
-        "@montree/contracts": "^0.1.0",
+        "@yitom/annotations": "^0.1.0",
+        "@yitom/contracts": "^0.1.0",
         "hast-util-sanitize": "^5.0.2",
         "remark-github-blockquote-alert": "^2.1.0",
       },
     },
     "packages/chat-session": {
-      "name": "@montree/chat-session",
+      "name": "@yitom/chat-session",
       "version": "0.1.0",
       "dependencies": {
-        "@montree/annotations": "^0.1.0",
-        "@montree/chat-core": "^0.1.0",
-        "@montree/chat-ui": "^0.1.0",
-        "@montree/contracts": "^0.1.0",
+        "@yitom/annotations": "^0.1.0",
+        "@yitom/chat-core": "^0.1.0",
+        "@yitom/chat-ui": "^0.1.0",
+        "@yitom/contracts": "^0.1.0",
       },
       "peerDependencies": {
         "react": "^19.2.8",
@@ -46,18 +46,18 @@
       },
     },
     "packages/chat-ui": {
-      "name": "@montree/chat-ui",
+      "name": "@yitom/chat-ui",
       "version": "0.1.0",
       "dependencies": {
         "@assistant-ui/react": "^0.15.27",
         "@base-ui-components/react": "^1.0.0-rc.0",
-        "@montree/annotations": "^0.1.0",
-        "@montree/chat-core": "^0.1.0",
-        "@montree/contracts": "^0.1.0",
         "@streamdown/cjk": "^1.0.4",
         "@streamdown/code": "2.0.0",
         "@streamdown/math": "^1.0.3",
         "@streamdown/mermaid": "1.0.3",
+        "@yitom/annotations": "^0.1.0",
+        "@yitom/chat-core": "^0.1.0",
+        "@yitom/contracts": "^0.1.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "katex": "^0.16.47",
@@ -76,14 +76,14 @@
       },
     },
     "packages/contracts": {
-      "name": "@montree/contracts",
+      "name": "@yitom/contracts",
       "version": "0.1.0",
     },
     "packages/reader-core": {
-      "name": "@montree/reader-core",
+      "name": "@yitom/reader-core",
       "version": "0.1.0",
       "dependencies": {
-        "@montree/contracts": "^0.1.0",
+        "@yitom/contracts": "^0.1.0",
         "pdfjs-dist": "^6.2.108",
       },
     },
@@ -124,18 +124,6 @@
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.6.0", "", {}, "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw=="],
 
     "@mermaid-js/parser": ["@mermaid-js/parser@1.2.1", "", { "dependencies": { "@chevrotain/types": "~11.1.2" } }, "sha512-n12NohV3mrUyUL2o93IgG/ifeW9FTyeJn3zDxkhwa8MJ9Fxg3HQMlA3RiGmD/3UnJvheztkjjQAjA2T4LmUcpw=="],
-
-    "@montree/annotations": ["@montree/annotations@workspace:packages/annotations"],
-
-    "@montree/chat-core": ["@montree/chat-core@workspace:packages/chat-core"],
-
-    "@montree/chat-session": ["@montree/chat-session@workspace:packages/chat-session"],
-
-    "@montree/chat-ui": ["@montree/chat-ui@workspace:packages/chat-ui"],
-
-    "@montree/contracts": ["@montree/contracts@workspace:packages/contracts"],
-
-    "@montree/reader-core": ["@montree/reader-core@workspace:packages/reader-core"],
 
     "@napi-rs/canvas": ["@napi-rs/canvas@1.0.11", "", { "optionalDependencies": { "@napi-rs/canvas-android-arm64": "1.0.11", "@napi-rs/canvas-darwin-arm64": "1.0.11", "@napi-rs/canvas-darwin-x64": "1.0.11", "@napi-rs/canvas-linux-arm-gnueabihf": "1.0.11", "@napi-rs/canvas-linux-arm64-gnu": "1.0.11", "@napi-rs/canvas-linux-arm64-musl": "1.0.11", "@napi-rs/canvas-linux-riscv64-gnu": "1.0.11", "@napi-rs/canvas-linux-x64-gnu": "1.0.11", "@napi-rs/canvas-linux-x64-musl": "1.0.11", "@napi-rs/canvas-win32-arm64-msvc": "1.0.11", "@napi-rs/canvas-win32-x64-msvc": "1.0.11" } }, "sha512-vt5tog1cr+QKadIddGe+3LrcX0EmjEd0izF717Uwf92mBmgYfq2XRmL2r4bZU40spB69exxhrBn9I91HYEr/7w=="],
 
@@ -496,6 +484,18 @@
     "@vitest/spy": ["@vitest/spy@4.1.12", "", {}, "sha512-RGq9x4JNGNTZHEJxvN0oSiJjeSCExm0n2gZKKJZHY9cX5AVA6M7VJILBT3ZJ/tJ/0J9uWT7fETV9/btoi//vSg=="],
 
     "@vitest/utils": ["@vitest/utils@4.1.12", "", { "dependencies": { "@vitest/pretty-format": "4.1.12", "convert-source-map": "^2.0.0", "tinyrainbow": "^3.1.0" } }, "sha512-Q3awXrwOfEV+qc3WmO5ONyE0yO7Q1gQ9/oyHxGLZ/pl7N3NO/ZztqQwKLuwMkV+CA1JYSIeO3gkHnRDIo4AVaA=="],
+
+    "@yitom/annotations": ["@yitom/annotations@workspace:packages/annotations"],
+
+    "@yitom/chat-core": ["@yitom/chat-core@workspace:packages/chat-core"],
+
+    "@yitom/chat-session": ["@yitom/chat-session@workspace:packages/chat-session"],
+
+    "@yitom/chat-ui": ["@yitom/chat-ui@workspace:packages/chat-ui"],
+
+    "@yitom/contracts": ["@yitom/contracts@workspace:packages/contracts"],
+
+    "@yitom/reader-core": ["@yitom/reader-core@workspace:packages/reader-core"],
 
     "aria-hidden": ["aria-hidden@1.2.6", "", { "dependencies": { "tslib": "^2.0.0" } }, "sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA=="],
 

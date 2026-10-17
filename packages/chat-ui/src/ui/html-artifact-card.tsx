@@ -17,7 +17,7 @@ import {
 import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card'
 import { ArtifactFrame, newArtifactMountId, type ThemeTransitionTarget } from './artifact-frame'
 import { cn } from './cn'
-import type { PresentHtmlArtifact } from '@montree/contracts'
+import type { PresentHtmlArtifact } from '@yitom/contracts'
 import { ArtifactZoomSurface } from './artifact-zoom-surface'
 
 export function sanitizeArtifactFileName(title: string): string {

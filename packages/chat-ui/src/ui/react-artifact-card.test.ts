@@ -5,7 +5,7 @@ import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ReactArtifactCard } from './react-artifact-card'
-import type { PresentReactArtifact } from '@montree/contracts'
+import type { PresentReactArtifact } from '@yitom/contracts'
 import type { GenerativeSubmitPayload } from './component-ui-card'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true

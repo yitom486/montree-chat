@@ -7,12 +7,12 @@ Montree 聊天 SDK：ACP 协议契约、批注/阅读器复用逻辑与聊天渲
 
 | 包 | 说明 |
 |---|---|
-| `@montree/contracts` | 协议契约：类型/错误/IPC 通道（纯类型 + 轻逻辑） |
-| `@montree/reader-core` | 阅读器纯逻辑（EPUB/PDF 导航、选区、批注几何） |
-| `@montree/annotations` | 批注纯逻辑（marks/提议/Anki 导出输入） |
-| `@montree/chat-core` | 聊天纯逻辑：feed 归约、时间线分组、工具展示映射（零 React） |
-| `@montree/chat-ui` | 聊天渲染 UI：Streamdown 正文、气泡、工作记录、artifact 卡（Base UI 原语，见包 README 消费方接入） |
-| `@montree/chat-session` | 会话绑定：线程 store、ACP 事件 ingest、ChatPanel |
+| `@yitom/contracts` | 协议契约：类型/错误/IPC 通道（纯类型 + 轻逻辑） |
+| `@yitom/reader-core` | 阅读器纯逻辑（EPUB/PDF 导航、选区、批注几何） |
+| `@yitom/annotations` | 批注纯逻辑（marks/提议/Anki 导出输入） |
+| `@yitom/chat-core` | 聊天纯逻辑：feed 归约、时间线分组、工具展示映射（零 React） |
+| `@yitom/chat-ui` | 聊天渲染 UI：Streamdown 正文、气泡、工作记录、artifact 卡（Base UI 原语，见包 README 消费方接入） |
+| `@yitom/chat-session` | 会话绑定：线程 store、ACP 事件 ingest、ChatPanel |
 
 依赖闭包自洽：对外只需 `react`/`react-dom` peer（`^19`）。
 
@@ -20,7 +20,7 @@ Montree 聊天 SDK：ACP 协议契约、批注/阅读器复用逻辑与聊天渲
 
 ```bash
 bun install
-bun run typecheck   # 全包类型检查（@montree/* 经 tsconfig paths 指源码）
+bun run typecheck   # 全包类型检查（@yitom/* 经 tsconfig paths 指源码）
 bun run test        # vitest 全包（同上，见 vitest.config.ts）
 bun run build       # tsc project-references 逐包 emit 到 dist（拓扑序）
 ```

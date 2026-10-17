@@ -1,4 +1,4 @@
-import { CONTRACTS_SCAFFOLD } from "@montree/contracts";
+import { CONTRACTS_SCAFFOLD } from "@yitom/contracts";
 
 export const READER_CORE_SCAFFOLD = `reader-core:${CONTRACTS_SCAFFOLD}` as const;
 

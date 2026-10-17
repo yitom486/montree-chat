@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { ReadingMark } from '@montree/contracts'
+import type { ReadingMark } from '@yitom/contracts'
 import {
   bookTitleFromPath,
   buildReadingNotesExport,
@@ -15,7 +15,7 @@ import {
   tocFromMobiUnits,
   tocFromPdfUnits,
   tocFromWebUnits,
-} from '@montree/reader-core'
+} from '@yitom/reader-core'
 
 function mark(overrides: Partial<ReadingMark> & Pick<ReadingMark, 'id' | 'kind' | 'anchor'>): ReadingMark {
   return {

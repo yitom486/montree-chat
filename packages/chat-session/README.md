@@ -1,4 +1,4 @@
-# @montree/chat-session
+# @yitom/chat-session
 
 聊天会话绑定层：让外部 App **对接 acp-client 直接工作**，业务代码只调聊天组件。
 

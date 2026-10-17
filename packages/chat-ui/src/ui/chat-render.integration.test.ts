@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
-// 包内渲染集成测试（消费者视角）：只从 `@montree/chat-ui` barrel 取渲染件，
-// 类型取 `@montree/chat-core`；不用深路径、不用宿主、不改产品代码。
+// 包内渲染集成测试（消费者视角）：只从 `@yitom/chat-ui` barrel 取渲染件，
+// 类型取 `@yitom/chat-core`；不用深路径、不用宿主、不改产品代码。
 // happy-dom 渲染写法参照 `chat-markdown.test.ts`（IO 桩 + mermaid mock + waitFor 落定）。
 import { act, createElement, type ReactElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
@@ -15,12 +15,12 @@ import {
   type ChatMarkdownTheme,
   type GenerativeSubmitPayload,
   type ResolveMarkProposal,
-} from '@montree/chat-ui'
+} from '@yitom/chat-ui'
 import {
   groupChatTimeline,
   type ChatMessage,
   type ChatTimelineItem,
-} from '@montree/chat-core'
+} from '@yitom/chat-core'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

@@ -2,8 +2,8 @@
 import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { groupChatTimeline } from '@montree/chat-core'
-import type { ChatMessage } from '@montree/chat-core'
+import { groupChatTimeline } from '@yitom/chat-core'
+import type { ChatMessage } from '@yitom/chat-core'
 import { useChatTimeline } from './use-chat-timeline'
 import type { UseChatTimelineOptions } from './use-chat-timeline'
 

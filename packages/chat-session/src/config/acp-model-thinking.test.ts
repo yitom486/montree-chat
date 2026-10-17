@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { AcpConfigOption } from '@montree/contracts'
+import type { AcpConfigOption } from '@yitom/contracts'
 import { rankPrimary, splitConfigOptions } from './acp-config-menu'
 import {
   collectThinkingCandidates,

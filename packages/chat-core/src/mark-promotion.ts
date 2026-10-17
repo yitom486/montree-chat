@@ -1,4 +1,4 @@
-import type { MarkProposalStatus, ProposedMark } from '@montree/annotations'
+import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
 import type { ChatMessage } from './chat-message'
 import { isProposeMarkToolTitle, parseMarkProposalsFromTool } from './parse-mark-proposal'
 

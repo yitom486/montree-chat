@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import { describe, expect, it, vi } from 'vitest'
-import { isSameSpineBase, splitChapterFragment, scrollFoliateSectionToFragment } from '@montree/reader-core'
+import { isSameSpineBase, splitChapterFragment, scrollFoliateSectionToFragment } from '@yitom/reader-core'
 
 const normalize = (value: string): string => value.split('#')[0]?.toLowerCase() ?? ''
 

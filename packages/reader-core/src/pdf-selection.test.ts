@@ -8,7 +8,7 @@ import {
   readPdfSelection,
   registerPdfPageTextGeometry,
   unionClientRects,
-} from '@montree/reader-core'
+} from '@yitom/reader-core'
 import type { PageViewport } from 'pdfjs-dist'
 import type { TextContent } from 'pdfjs-dist/types/src/display/api'
 

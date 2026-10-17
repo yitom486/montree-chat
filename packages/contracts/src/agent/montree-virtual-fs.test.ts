@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   isMontreeVirtualDirPath,
   parseMontreeVirtualPath,
-} from '@montree/contracts'
+} from '@yitom/contracts'
 
 const ROOT = 'D:/books/workspace'
 

@@ -9,8 +9,8 @@ import {
   summarizePlanProgress,
   type ChatFeedEvent,
   type ChatFeedToolCall,
-} from '@montree/chat-core'
-import { MONTREE_SETTLE_COMPLETE_KIND } from '@montree/contracts'
+} from '@yitom/chat-core'
+import { MONTREE_SETTLE_COMPLETE_KIND } from '@yitom/contracts'
 import type {
   ChatConnectionStatus,
   ChatPendingPermission,

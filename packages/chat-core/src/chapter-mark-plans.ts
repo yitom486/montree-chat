@@ -1,4 +1,4 @@
-import type { ChapterMarkPlanEntry } from '@montree/annotations'
+import type { ChapterMarkPlanEntry } from '@yitom/annotations'
 import type { ChatMessage } from './chat-message'
 
 export function isChapterPlanPromotedToAgent(

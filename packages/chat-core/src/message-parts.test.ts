@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { MontreePresentResult } from '@montree/contracts'
-import type { ChapterMarkPlanEntry, ProposedMark } from '@montree/annotations'
+import type { MontreePresentResult } from '@yitom/contracts'
+import type { ChapterMarkPlanEntry, ProposedMark } from '@yitom/annotations'
 import type { ChatMessage } from './chat-message'
 import type { AcpPlanEntry } from './plan'
 import { splitMessage } from './message-parts'

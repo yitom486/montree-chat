@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { MONTREE_SETTLE_COMPLETE_KIND } from '@montree/contracts'
+import { MONTREE_SETTLE_COMPLETE_KIND } from '@yitom/contracts'
 import { mapConnectionStatus, mapPermissionRequest, mapSessionUpdate } from './acp-events'
-import { applyChatEvent, toToolDisplayModel, type ChatFeedState } from '@montree/chat-core'
+import { applyChatEvent, toToolDisplayModel, type ChatFeedState } from '@yitom/chat-core'
 
 describe('agy 思考与工具协议集成', () => {
   it('思考→绘图→完成稀疏更新→再次思考→正文，保留摘要并收起上一阶段', () => {

@@ -3,7 +3,7 @@ import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ChatMessageBubble } from './agent-message-bubble'
-import type { ChatMessage as AcpChatMessage } from '@montree/chat-core'
+import type { ChatMessage as AcpChatMessage } from '@yitom/chat-core'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 
@@ -35,7 +35,7 @@ describe('ChatMessageBubble', () => {
     }
 
     // 正文走懒加载分块：先预热模块，再等待落定后断言（生产首屏不受影响）
-    await import('@montree/chat-ui/lazy')
+    await import('@yitom/chat-ui/lazy')
     await act(async () => {
       root.render(createElement(ChatMessageBubble, { message: msg, resolveMarkProposal, pendingPermission: null }))
     })

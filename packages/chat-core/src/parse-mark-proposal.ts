@@ -2,8 +2,8 @@ import type {
   MarkProposalBatchToolResult,
   MarkProposalToolResult,
   ProposedMark,
-} from '@montree/annotations'
-import { toProposedMark } from '@montree/annotations'
+} from '@yitom/annotations'
+import { toProposedMark } from '@yitom/annotations'
 
 const PROPOSE_TOOL_PATTERN =
   /montree_(?:propose_note|create_note|propose_mark|create_mark)|propose.?note|create.?note|提议批注|批注草稿/i
@@ -19,7 +19,7 @@ function parseSingleToolResult(row: Record<string, unknown>): MarkProposalToolRe
   const excerpt = typeof row.excerpt === 'string' ? row.excerpt : ''
   const category =
     typeof row.category === 'string'
-      ? (row.category as import('@montree/contracts').ReadingMarkCategory)
+      ? (row.category as import('@yitom/contracts').ReadingMarkCategory)
       : undefined
   const title = typeof row.title === 'string' ? row.title : undefined
   return {
@@ -128,10 +128,10 @@ export function enrichToolMessageWithMarkProposal<
     toolStatus?: string
     streaming?: boolean
     markProposal?: ProposedMark
-    markProposalStatus?: import('@montree/annotations').MarkProposalStatus
+    markProposalStatus?: import('@yitom/annotations').MarkProposalStatus
     markProposals?: Array<{
       proposal: ProposedMark
-      status: import('@montree/annotations').MarkProposalStatus
+      status: import('@yitom/annotations').MarkProposalStatus
     }>
   },
 >(message: T, isActiveStatus: (status: string | undefined) => boolean): T {

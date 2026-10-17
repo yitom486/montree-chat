@@ -5,7 +5,7 @@ import {
   pickReaderNavLevel,
   resolveAdjacentFlatNav,
   resolveReaderChapterNav,
-} from '@montree/reader-core'
+} from '@yitom/reader-core'
 
 describe('resolveAdjacentFlatNav', () => {
   const governanceToc = [

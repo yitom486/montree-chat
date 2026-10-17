@@ -13,7 +13,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 // 自宿主 `apps/desktop/src/components/agent/tools/AgentToolCallCard.tsx` 整搬改名改 props（M3c 工具卡批）：
 // `AgentChatItem/AGENT_CHAT_PRE_CLASS` 改 `./AgentChatItem`；`AgentDiffPreview` 改包内私有 `./agent-diff-preview`；
 // `ToolApprovalSlot` 改 `./tool-approval-slot`；`Tool*` 改包内私有 `./tool-shell`（宿主 `ai-elements/tool` 逐字复刻）；
-// `Button` 改包内私有 `./button`；`toolMessageNeedsApproval/isProposeMarkToolTitle/toToolDisplayModel` 改 `@montree/chat-core`；
+// `Button` 改包内私有 `./button`；`toolMessageNeedsApproval/isProposeMarkToolTitle/toToolDisplayModel` 改 `@yitom/chat-core`；
 // `AcpChatMessage/AcpToolLocation` 即 core 的 `ChatMessage/ChatToolLocation`；其余渲染逻辑逐字不变。
 // props-ify（见 `docs/chat-render-m3-inventory.md`）：
 // - `useAcpPendingPermission()` → 必填前可选 `pending`（包内 `AgentApprovalPending | null` 全量结构，宿主 store 值直传）
@@ -40,13 +40,13 @@ import {
   type AiToolState,
 } from './tool-shell'
 import { Button } from './button'
-import { toolMessageNeedsApproval } from '@montree/chat-core'
-import { isProposeMarkToolTitle } from '@montree/chat-core'
+import { toolMessageNeedsApproval } from '@yitom/chat-core'
+import { isProposeMarkToolTitle } from '@yitom/chat-core'
 import {
   toToolDisplayModel,
   type ToolDisplayState,
-} from '@montree/chat-core'
-import type { ChatMessage as AcpChatMessage, ChatToolLocation as AcpToolLocation } from '@montree/chat-core'
+} from '@yitom/chat-core'
+import type { ChatMessage as AcpChatMessage, ChatToolLocation as AcpToolLocation } from '@yitom/chat-core'
 
 function kindIcon(kind: string | undefined): ReactNode {
   const className = 'size-3.5 shrink-0 text-muted-foreground'

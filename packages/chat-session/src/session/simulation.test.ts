@@ -4,7 +4,7 @@
  *
  * 链路：ACP 原始载荷 → `mapSessionUpdate/mapPermissionRequest/mapConnectionStatus`
  * → store ingest → `ChatPanel` 渲染 → 审批回调（transport mock 录调用）。
- * 只从 `@montree/chat-session` barrel 进值、`@montree/chat-core` 进类型，
+ * 只从 `@yitom/chat-session` barrel 进值、`@yitom/chat-core` 进类型，
  * 不碰产品代码、不直连 acp-client/contracts 深路径。
  */
 import { act, createElement as h } from 'react'
@@ -20,8 +20,8 @@ import {
   type ChatSessionStore,
   type ChatStoragePort,
   type ChatTransportPort,
-} from '@montree/chat-session'
-import type { ChatMessage } from '@montree/chat-core'
+} from '@yitom/chat-session'
+import type { ChatMessage } from '@yitom/chat-core'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

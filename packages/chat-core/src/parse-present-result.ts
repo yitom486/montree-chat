@@ -1,4 +1,4 @@
-import { parsePresentResult, type MontreePresentResult } from '@montree/contracts'
+import { parsePresentResult, type MontreePresentResult } from '@yitom/contracts'
 import type { ChatMessage } from './chat-message'
 
 /** 工具标识可带 MCP 命名空间；文件路径与 schema 文件不是工具调用。 */

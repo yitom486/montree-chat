@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { ReadingAnchor, ReadingMark } from '@montree/contracts'
+import type { ReadingAnchor, ReadingMark } from '@yitom/contracts'
 import { normalizeLoadKey } from './reader-viewport-nav'
 import {
   resolveMarkChapter,

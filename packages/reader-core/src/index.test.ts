@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { READER_CORE_SCAFFOLD } from "@montree/reader-core";
+import { READER_CORE_SCAFFOLD } from "@yitom/reader-core";
 
 describe("reader-core scaffold", () => {
   it("exports READER_CORE_SCAFFOLD", () => {
