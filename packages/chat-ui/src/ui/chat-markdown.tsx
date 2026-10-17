@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
 import { normalizeLatexDelimiters, normalizeRawSvgDataUriImages } from './md-normalize.js'
+import { animationPresetForFps, useDisplayFps, usePrefersReducedMotion } from './stream-animation.js'
 import { ChevronUp } from 'lucide-react'
 import { sanitizeAgentUrl } from '@yitom/chat-core'
 import {
@@ -74,7 +75,6 @@ export function resolveMermaidTheme(appTheme: ChatMarkdownTheme): 'default' | 'n
   return 'default'
 }
 const STREAMDOWN_PLUGINS = { math: mathPlugin, cjk, code, mermaid: mermaidPlugin }
-const STREAMDOWN_ANIMATION = { animation: 'fadeIn', sep: 'char', duration: 150, stagger: 8, maxBacklogMs: 320 } as const
 const STREAMDOWN_REMARK_PLUGINS = [remarkGfm, remarkBreaks, remarkAgentAlert]
 // 允许透传的原生标签：自研 alert 之外，只放行 inert 展示标签——
 // details/summary（原生折叠，无 JS 参与；open 为惰性布尔属性）、kbd（按键帽）。
@@ -296,6 +296,15 @@ export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, classN
   const mermaidProp = useMemo(() => ({
     config: { ...STREAMDOWN_MERMAID_BASE, theme: resolveMermaidTheme(theme) },
   }) as NonNullable<React.ComponentProps<typeof Streamdown>['mermaid']>, [theme])
+  // 动画预设动态化：rAF 微采样实测刷新率后选档（高刷收紧/低端放宽/缺省默认档），
+  // 系统减少动态效果则直接关闭。测速完成前先用默认档渲染，落定后切档一次
+  // （低频，最多一次重配；旧硬编码常量已删，见 stream-animation）。
+  const displayFps = useDisplayFps()
+  const reducedMotion = usePrefersReducedMotion()
+  const animation = useMemo(
+    () => (reducedMotion ? false : animationPresetForFps(displayFps)),
+    [reducedMotion, displayFps],
+  )
   // 顺序即 Streamdown 内置链（raw → sanitize → harden）：raw 先把裸 HTML
   // 转成元素（只解析不放行），sanitize 按 agentSanitizeSchema 剥离——
   // 白名单内（details/summary/kbd 等）成元素，危险项剥离（见单测）。
@@ -358,7 +367,7 @@ export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, classN
         key={theme}
         mode="streaming"
         isAnimating={streaming}
-        animated={STREAMDOWN_ANIMATION}
+        animated={animation}
         lineNumbers
         translations={STREAMDOWN_TRANSLATIONS}
         codeBlockMaxHeight={360}
