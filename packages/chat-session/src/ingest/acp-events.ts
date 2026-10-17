@@ -86,7 +86,7 @@ function buildToolFeedCall(update: Record<string, unknown>): ChatFeedToolCall | 
  */
 
 /** 协议标准 kind 单一来源（与 switch case 同表；SDK 联合类型在下方做穷尽校验）。 */
-const STD_KIND = {
+export const STD_SESSION_UPDATE_KIND = {
   agentMessage: 'agent_message_chunk',
   agentThought: 'agent_thought_chunk',
   userMessage: 'user_message_chunk',
@@ -107,7 +107,9 @@ const STD_KIND = {
   sessionMessage: 'session_message',
   sessionMessageChunk: 'session_message_chunk',
 } as const
-type StandardKind = (typeof STD_KIND)[keyof typeof STD_KIND]
+type StandardKind = (typeof STD_SESSION_UPDATE_KIND)[keyof typeof STD_SESSION_UPDATE_KIND]
+/** 宿主复用：标准 kind 的类型（与上表同源，宿主 switch 共用一张表）。 */
+export type StandardSessionUpdateKind = StandardKind
 /** 编译期对齐卡：官方 SDK 新增协议成员而无对应 case 时此处报错。 */
 type AssertSdkCovered = Exclude<SessionUpdate['sessionUpdate'], StandardKind>
 const _assertSdkCovered: AssertSdkCovered extends never ? true : AssertSdkCovered = true
@@ -140,20 +142,20 @@ export function mapSessionUpdate(update: unknown, onUnknownKind?: (kind: string)
 
   const std = row as Partial<SessionUpdate>
   switch (std.sessionUpdate) {
-    case STD_KIND.agentMessage:
-    case STD_KIND.agentThought:
-    case STD_KIND.userMessage: {
+    case STD_SESSION_UPDATE_KIND.agentMessage:
+    case STD_SESSION_UPDATE_KIND.agentThought:
+    case STD_SESSION_UPDATE_KIND.userMessage: {
       const text = extractTextFromContent((std as { content?: unknown }).content)
       if (!text) return []
       const role =
-        std.sessionUpdate === STD_KIND.agentThought ? ('thought' as const)
-        : std.sessionUpdate === STD_KIND.userMessage ? ('user' as const)
+        std.sessionUpdate === STD_SESSION_UPDATE_KIND.agentThought ? ('thought' as const)
+        : std.sessionUpdate === STD_SESSION_UPDATE_KIND.userMessage ? ('user' as const)
         : ('agent' as const)
       return [{ type: 'text-chunk', role, text }]
     }
 
-    case STD_KIND.toolCall:
-    case STD_KIND.toolCallUpdate: {
+    case STD_SESSION_UPDATE_KIND.toolCall:
+    case STD_SESSION_UPDATE_KIND.toolCallUpdate: {
       // buildToolFeedCall 保留厂商容忍（snake_case tool_call_id、无 title 回退），
       // 故仍传原始 row，不收窄为 SDK ToolCall。
       const call = buildToolFeedCall(row)
@@ -161,34 +163,34 @@ export function mapSessionUpdate(update: unknown, onUnknownKind?: (kind: string)
       return [{ type: 'tool-call', call }]
     }
 
-    case STD_KIND.plan:
-    case STD_KIND.planUpdate: {
+    case STD_SESSION_UPDATE_KIND.plan:
+    case STD_SESSION_UPDATE_KIND.planUpdate: {
       const entries = parseAcpPlanEntries(row)
       const summary = summarizePlanProgress(entries)
       return [{ type: 'plan', entries, active: summary.active }]
     }
 
-    case STD_KIND.planRemoved: {
+    case STD_SESSION_UPDATE_KIND.planRemoved: {
       return [{ type: 'plan-remove' }]
     }
 
-    case STD_KIND.sessionMessage:
-    case STD_KIND.sessionMessageChunk: {
+    case STD_SESSION_UPDATE_KIND.sessionMessage:
+    case STD_SESSION_UPDATE_KIND.sessionMessageChunk: {
       // transcript 正文（含子会话）：不吞，转 agent 文本。
       const text = extractTextFromContent((std as { content?: unknown }).content)
       if (!text) return []
       return [{ type: 'text-chunk', role: 'agent', text }]
     }
 
-    case STD_KIND.configOption:
-    case STD_KIND.availableCommands:
-    case STD_KIND.currentMode:
-    case STD_KIND.sessionInfo:
-    case STD_KIND.usage:
-    case STD_KIND.notice:
-    case STD_KIND.compaction:
-    case STD_KIND.compactionSummary:
-    case STD_KIND.subagent: {
+    case STD_SESSION_UPDATE_KIND.configOption:
+    case STD_SESSION_UPDATE_KIND.availableCommands:
+    case STD_SESSION_UPDATE_KIND.currentMode:
+    case STD_SESSION_UPDATE_KIND.sessionInfo:
+    case STD_SESSION_UPDATE_KIND.usage:
+    case STD_SESSION_UPDATE_KIND.notice:
+    case STD_SESSION_UPDATE_KIND.compaction:
+    case STD_SESSION_UPDATE_KIND.compactionSummary:
+    case STD_SESSION_UPDATE_KIND.subagent: {
       // 已知但本层无 feed 表达：usage 走宿主线程字段（见 mapSessionUpdate 上游注释）；
       // notice/compaction/subagent/mode/sessionInfo/commands 为产品缺口，保持丢弃。
       // 注意 compaction_summary_chunk 此前误判 agent 正文，现明确丢弃（压缩流不进聊天历史）。
