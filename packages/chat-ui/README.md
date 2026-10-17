@@ -199,3 +199,15 @@ function ChatView({ messages, theme }: { messages: ChatMessage[]; theme: ChatMar
 - 原语：`ui/button.tsx` 与 `ui/dialog.tsx` 已由 Radix 切到 Base UI（`@base-ui-components/react`，`asChild` 改走 `render`，wrapper 层翻译，调用方零改动；`data-[state=…]` 改为 `data-[open|closed]`）。
 - 样式：包内 Tailwind 类需消费方扫描本包（`@source` 指到 `node_modules/@yitom/chat-ui/dist`），`streamdown/styles.css` 与 KaTeX CSS 需消费方引入一次（库本身不带 CSS 副作用 import，Node 直跑安全）；弹窗进出场动画类（`animate-in/fade-in-0/zoom-in-95` 等）需消费方装 `tw-animate-css`（或等价 keyframes）。
 - 对等依赖：`react`/`react-dom` 为 peer（`^19`）；其余运行时依赖随包安装。
+
+## 协议对接（ACP SDK 为唯一真源）
+
+- 本包不手写协议字段：所有 `session/update` 的识别与分发以官方
+  `@agentclientprotocol/sdk` 的 `SessionUpdate` 联合类型为准；`ingest/acp-events.ts`
+  的 `STD_SESSION_UPDATE_KIND` 单表 + 穷尽 switch，SDK 新增协议成员而无 case
+  时编译直接报错（`AssertSdkCovered`），不可能再静默丢。
+- 厂商扩展（定居标记/复数 config/tool 内容分块）显式隔离在 switch 之外，
+  与标准成员互不干扰；未知 kind 有文本按旧兼容走 agent、无文本丢弃并上报。
+- 因此 UI 层看到的每一种 loading/思考/工具/计划状态，都能反查到某一条
+  协议更新：`currentRunStatus` 的 phase（thinking/tool/composing/waiting/approval）
+  与 `agent_thought_chunk` / `tool_call*` / 进展消息一一对应，无“凭空状态”。

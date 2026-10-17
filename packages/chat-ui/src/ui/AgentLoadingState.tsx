@@ -5,6 +5,12 @@ import { BeuiAgentProgress } from './BeuiAgentProgress.js'
 // `isToolActiveStatus` 同源，合并为单包引用；`./BeuiAgentProgress` 同批随搬，相对路径不变。
 import { isToolActiveStatus, toToolDisplayModel, type ChatMessage as AcpChatMessage } from '@yitom/chat-core'
 
+/**
+ * 回合运行状态：唯一真相是 feed 里的消息（feed 只收官方 SDK `SessionUpdate`
+ * 联合类型消化的事件，见包 ingest 单表），本函数只做只读派生，不猜测：
+ * thinking（思考流式/进行中零进展）、tool（进行中工具）、composing（有进展无进行中）、
+ * waiting（回合外空闲）、approval（待审批）。每个 phase 都能反查到协议更新。
+ */
 export function currentRunStatus(messages: AcpChatMessage[], awaitingApproval: boolean, turnActive = false) {
   const current = messages.slice(messages.findLastIndex(message => message.role === 'user') + 1)
   if (awaitingApproval) return { phase: 'approval', label: '等待批准' }
