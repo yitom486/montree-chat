@@ -32,4 +32,11 @@ git tag pkg-v0.1.0 && git push origin pkg-v0.1.0
 ```
 
 `publish.yml` 构建后逐包 `npm publish --access public --provenance`，已存在版本自动跳过。
-首次发版前需在仓库 Secrets 配 `NPM_TOKEN`，`@montree` scope 需开通（E404 确认空闲）。
+首次发版前需在仓库 Secrets 配 `NPM_TOKEN`，`@yitom` scope 需开通。
+
+## 发版纪律（锁步）
+
+六包同版本号一起发（`0.1.x` 对齐），禁止单独发某一个包。原因：branded nominal 类型
+（如 `ChapterKey` 的 `unique symbol`）要求消费树里每个包只有一个副本；版本一旦错开，
+包管理器就会装出 `0.1.0` 与 `0.1.1` 两份实例，类型直接互斥。消费方（主仓）用
+`overrides` 把六包钉到同一版本，发版后记得同步改那边的 overrides。
