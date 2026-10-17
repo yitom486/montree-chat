@@ -1,6 +1,6 @@
 {
   "name": "@yitom/chat-core",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "type": "module",
   "description": "Montree 聊天渲染纯逻辑：消息显示模型、时间线分组、工具展示映射（零 react，可被任意 UI 复用）",
   "dependencies": {
