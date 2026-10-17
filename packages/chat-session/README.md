@@ -8,6 +8,7 @@
   - `session/types.ts`：`ChatThread`（id/hostThreadId/runtimeId/title/feed，提炼自宿主 `AcpChatThread`；可选 hostThreadId 随快照持久化关联）/ `ChatPendingPermission`（全抄 `AcpPendingPermission`）/ `ChatModelConfig`（S1 新增纯态，宿主无同名）/ `ChatStoragePort` + `ChatTransportPort`（S1 仅定接口）。
   - `session/store.ts`：`createChatSessionStore({ createId/now/storage/transport })`，全部 feed 变更经 core `applyChatEvent`；`requestPermission` 对应宿主 `ingestPermissionRequest` 纯态部分，`clearPermission(requestId?)` 对齐 requestId 守卫，`setConnectionStatus` 对齐 disconnected/error 清 pending。
     `dispatchFeedEvent(threadId, event)`（C2a）：显式线程目标的完整 `ChatFeedEvent` 通用写入，与 ingest 方法共用 `applyToThread` 路径；未知/空目标不建线程不回退 active，顶层畸形载荷及未知事件类型丢弃，no-op 不落盘不通知。已知事件字段遵守 TypeScript 契约，原始协议由上游 mapper 校验。
+  - `session/turn-controller.ts` / `.test.ts`：`createChatTurnController` 仅负责 prepare/execute/result 的异步编排；发送与取消独立单 flight，宿主注入身份检查及结果/错误回调。确认取消或身份失效可释放旧发送锁，旧 finally 不解开新回合；无协议、React 或业务策略依赖。
   - `session/dispatch-feed-event.test.ts`：显式目标隔离、完整事件透传、no-op 通知/存储与历史业务字段保留回归。
     `ensureHostThread(hostThreadId, runtimeId?, activate?)` 复用持久关联，后台补建不改变 active；`reconcileHostThreads(threads, activeHostThreadId)` 在启动/宿主恢复时迁入权威历史（含附件和运行时），替换旧版无关联影子；切线程时模型配置运行时随线程归属同步。
 - `ingest/`：acp-client 事件 → core `ChatFeedEvent` 归一化 + 审批 ingest（S1）。
@@ -33,3 +34,5 @@ const store = createChatSessionStore({ transport }) // 宿主注入 acp-client �
 
 - 本包与 `chat-ui` 是 monorepo 内仅有的两个允许 react 的包（`lint:deps` R3 白名单）。
 - 仍禁 electron / `node:` / `@/` / `apps/desktop`（R1/R2/R4/R5 无豁免）；`@yitom/acp-client` 只以类型 + 端口形式出现，不直连进程。
+
+`panel/ChatComposer` reuses `@yitom/chat-ui` controlled composer guards and draft clearing; the visual textarea remains the sole owner of Enter/composition handling.

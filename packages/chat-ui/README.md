@@ -211,3 +211,7 @@ function ChatView({ messages, theme }: { messages: ChatMessage[]; theme: ChatMar
 - 因此 UI 层看到的每一种 loading/思考/工具/计划状态，都能反查到某一条
   协议更新：`currentRunStatus` 的 phase（thinking/tool/composing/waiting/approval）
   与 `agent_thought_chunk` / `tool_call*` / 进展消息一一对应，无“凭空状态”。
+
+## Controlled composer
+
+headless/use-chat-composer-controller.ts exports useChatComposerController: controlled draft, send/stop guards, attachment-only eligibility, and cancellable focus-to-end. The host supplies payload validation and attachment callbacks. Return false from onSubmit to preserve the draft. The hook has no key/composition listeners; the visual textarea remains the sole IME/Enter owner, preventing duplicate sends. No store or transport dependency.

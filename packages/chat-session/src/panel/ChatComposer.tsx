@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useChatComposerController } from '@yitom/chat-ui'
 
 export interface ChatComposerProps {
   onSend(text: string): void
@@ -21,18 +22,18 @@ export function ChatComposer({
 }: ChatComposerProps) {
   const [draft, setDraft] = useState('')
   const composingRef = useRef(false)
-  const canSend = draft.trim().length > 0 && !disabled
-
-  function submit(): void {
-    if (!canSend) return
-    const text = draft
-    setDraft('')
-    onSend(text)
-  }
+  const { canSend, submit, textareaRef } = useChatComposerController({
+    value: draft,
+    onValueChange: setDraft,
+    disabled,
+    onSubmit: onSend,
+    onStop: () => {},
+  })
 
   return (
     <div className={className} data-testid="chat-composer">
       <textarea
+        ref={textareaRef}
         data-testid="chat-composer-input"
         value={draft}
         placeholder={placeholder}
