@@ -4,7 +4,7 @@ import { join, basename, extname } from 'node:path'
 // 删除 src/ 下与 .ts/.tsx 同名的构建残留（.js/.js.map/.d.ts/.d.ts.map），
 // 无 .ts 同胞的文件一律保留并列出人工确认。
 const GEN_EXTS = ['.js', '.js.map', '.d.ts', '.d.ts.map']
-function walk(dir) {
+function walk(dir: string) {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name)
     if (statSync(p).isDirectory()) {
