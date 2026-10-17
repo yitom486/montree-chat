@@ -11,5 +11,5 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install
       - run: bun run typecheck
-      - run: bun run test
+      - run: bun run test -- --maxWorkers=2
       - run: bun run build
