@@ -1,8 +1,9 @@
-// 宿主 `apps/desktop/src/components/ui/button.tsx`（shadcn）逐字复刻（私有，不进 barrel；
-// 仅供包内 `BuiApprovalCard` 使用）。唯一改动：`cn` 改引包内 `./cn`。
+// 宿主 `apps/desktop/src/components/ui/button.tsx`（shadcn）按 Base UI 重写（私有，不进 barrel；
+// 仅供包内 `BuiApprovalCard` 使用）。与 Radix 版差异：`asChild`（Slot 语义）已移除，
+// 改走 Base `render`（无调用方使用 asChild，见证：包内 grep 仅定义处）；其余 class 逐字保留。
 import * as React from "react"
+import { Button as BaseButton } from "@base-ui-components/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "radix-ui"
 
 import { cn } from "./cn"
 
@@ -44,20 +45,19 @@ function Button({
   className,
   variant = "default",
   size = "default",
-  asChild = false,
+  render,
   ...props
-}: React.ComponentProps<"button"> &
+}: React.ComponentProps<typeof BaseButton> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
+    render?: React.ReactElement | ((props: Record<string, unknown>, state: Record<string, unknown>) => React.ReactElement)
   }) {
-  const Comp = asChild ? Slot.Root : "button"
-
   return (
-    <Comp
+    <BaseButton
       data-slot="button"
       data-variant={variant}
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
+      render={render}
       {...props}
     />
   )

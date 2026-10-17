@@ -5,7 +5,7 @@ import { join } from 'node:path'
 const order = ['contracts', 'reader-core', 'annotations', 'chat-core', 'chat-ui', 'chat-session']
 for (const name of order) {
   console.log(`building ${name}…`)
-  const r = spawnSync('bunx', ['tsc', '-p', join(process.cwd(), 'packages', name, 'tsconfig.build.json')], {
+  const r = spawnSync('bunx', ['tsc', '-b', join(process.cwd(), 'packages', name, 'tsconfig.build.json')], {
     stdio: 'inherit',
     shell: process.platform === 'win32',
   })

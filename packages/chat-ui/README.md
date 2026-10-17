@@ -193,3 +193,9 @@ function ChatView({ messages, theme }: { messages: ChatMessage[]; theme: ChatMar
 - present 之 React 卡（`react-artifact-card.tsx`）：`ReactArtifactCard` 加 `ReactBuildStatus`；能力：构建/编译/恢复/加载/就绪/编译失败/运行失败七态、源码查看、导出、重跑、框内分析请求确认链路；关键语义：编译经 `onCompile`（主进程 Sucrase 留宿主），加载 30s 超时只报失败不声称中止。
 - present 之 HTML 卡（`html-artifact-card.tsx`）：`HtmlArtifactCard` 加 `ArtifactPreviewDialog` 加 `sanitizeArtifactFileName`；能力：内联预览、对话框预览（关闭卸载、重开 nonce 重置）、源码查看、导出；关键语义：主题经 `colorScheme`、导出经 `onExport`，脚本报错不触发保存。
 - 宿主侧（不进包）：`AgentMessageList`（视口引擎、滚动跟随/分页/落盘、assistant-ui Runtime 编排）、`ToolBusinessResult`（文档归属校验、导航、落库、Query 失效编排；纯解析函数已在 core，卡组装留 adapter）、plan 卡（经 `renderPlanCard` 槽由宿主注入）、`AgentActivityGroup`（读取 store/业务回调后适配 `ChatActivityGroup`，无独立工作记录渲染逻辑）。
+
+## 消费方接入（npm 独立仓新增）
+
+- 原语：`ui/button.tsx` 与 `ui/dialog.tsx` 已由 Radix 切到 Base UI（`@base-ui-components/react`，`asChild` 改走 `render`，wrapper 层翻译，调用方零改动；`data-[state=…]` 改为 `data-[open|closed]`）。
+- 样式：包内 Tailwind 类需消费方扫描本包（`@source` 指到 `node_modules/@montree/chat-ui/dist`），`streamdown/styles.css` 与 KaTeX CSS 需消费方引入一次；弹窗进出场动画类（`animate-in/fade-in-0/zoom-in-95` 等）需消费方装 `tw-animate-css`（或等价 keyframes）。
+- 对等依赖：`react`/`react-dom` 为 peer（`^19`）；其余运行时依赖随包安装。

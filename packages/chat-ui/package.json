@@ -5,11 +5,10 @@
   "description": "Montree 聊天渲染 UI：无头 hooks + 默认样式组件（ACP/传输零耦合，交互经回调回宿主）",
   "dependencies": {
     "@assistant-ui/react": "^0.15.27",
+    "@base-ui-components/react": "^1.0.0-rc.0",
     "@montree/annotations": "^0.1.0",
     "@montree/chat-core": "^0.1.0",
     "@montree/contracts": "^0.1.0",
-    "@radix-ui/react-dialog": "^1.1.0",
-    "@radix-ui/react-slot": "^1.2.0",
     "@streamdown/cjk": "^1.0.4",
     "@streamdown/code": "2.0.0",
     "@streamdown/math": "^1.0.3",

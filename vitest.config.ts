@@ -4,6 +4,9 @@ import { fileURLToPath } from 'node:url'
 // 单测解析 @montree/* 到源码（与 tsconfig paths 同表；发版 dist 不影响单测）。
 const src = (p: string) => fileURLToPath(new URL(`./packages/${p}`, import.meta.url))
 export default defineConfig({
+  test: {
+    exclude: ['**/node_modules/**', '**/dist/**'],
+  },
   resolve: {
     alias: [
       { find: '@montree/contracts/core', replacement: `${src('contracts/src/core')}` },

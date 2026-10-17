@@ -5,7 +5,29 @@
     "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "paths": {}
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "../../import-meta.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../contracts/tsconfig.build.json"
+    },
+    {
+      "path": "../annotations/tsconfig.build.json"
+    },
+    {
+      "path": "../chat-core/tsconfig.build.json"
+    },
+    {
+      "path": "../chat-ui/tsconfig.build.json"
+    }
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ]
 }
