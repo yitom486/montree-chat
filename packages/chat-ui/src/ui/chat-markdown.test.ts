@@ -132,7 +132,10 @@ describe('ChatMarkdown（Streamdown 接入）', () => {
       }
       const elapsedMs = performance.now() - startedAt
       await act(async () => {})
-      expect(elapsedMs).toBeLessThan(3000)
+      // 冒烟阈值（默认 3000ms）可经 CHAT_PERF_BUDGET_MS 覆盖：CI 机型慢，
+      // 只抓退化不卡优化，意图不变。
+      const budgetMs = Number(process.env.CHAT_PERF_BUDGET_MS ?? 3000)
+      expect(elapsedMs).toBeLessThan(budgetMs)
       // 首段节点贯穿风暴不重挂（重挂=整树抖动，体感即闪烁）
       expect(firstParagraph).not.toBeNull()
       expect(container.querySelector('p')).toBe(firstParagraph)

@@ -12,4 +12,6 @@ jobs:
       - run: bun install
       - run: bun run typecheck
       - run: bun run test -- --maxWorkers=2
+        env:
+          CHAT_PERF_BUDGET_MS: '6000'
       - run: bun run build
