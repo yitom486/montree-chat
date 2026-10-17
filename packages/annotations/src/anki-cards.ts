@@ -1,5 +1,5 @@
 import type { ReadingMark } from '@yitom/contracts'
-import type { Flashcard } from './flashcard'
+import type { Flashcard } from './flashcard.js'
 import {
   highlightSortKey,
   isHighlightPassage,

@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import { describe, expect, it } from 'vitest'
-import { buildMobiMarkStylesCss, getMarkLayerMetrics, normalizeRectsInScrollDocument } from './reader-mark-geometry'
+import { buildMobiMarkStylesCss, getMarkLayerMetrics, normalizeRectsInScrollDocument } from './reader-mark-geometry.js'
 
 describe('normalizeRectsInScrollDocument', () => {
   it('按 contentRoot 尺寸归一化，避免 html/body scrollHeight 不一致导致错位', () => {

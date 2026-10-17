@@ -1,4 +1,4 @@
-import { isDocumentHtmlElement } from './reader-viewport-nav'
+import { isDocumentHtmlElement } from './reader-viewport-nav.js'
 
 /**
  * foliate 统一链路的节内分片导航（替代旧链路 scrollEpubChapterInRendition）。

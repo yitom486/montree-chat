@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { ChatMessage } from './chat-message'
-import { groupChatTimeline, isRichToolMessage } from './chat-timeline'
+import type { ChatMessage } from './chat-message.js'
+import { groupChatTimeline, isRichToolMessage } from './chat-timeline.js'
 
 let seq = 0
 function msg(overrides: Partial<ChatMessage>): ChatMessage {

@@ -14,7 +14,7 @@ import {
   ShieldAlert,
   XCircle,
 } from 'lucide-react'
-import { cn } from './cn'
+import { cn } from './cn.js'
 
 export type AiToolState =
   | 'awaiting-approval'

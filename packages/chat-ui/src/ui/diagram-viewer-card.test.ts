@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   DiagramViewerCard,
   type DiagramPayload,
-} from './diagram-viewer-card'
+} from './diagram-viewer-card.js'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

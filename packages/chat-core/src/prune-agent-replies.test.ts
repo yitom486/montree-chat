@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { pruneIntermediateAgentReplies } from './prune-agent-replies'
-import type { ChatMessage } from './chat-message'
+import { pruneIntermediateAgentReplies } from './prune-agent-replies.js'
+import type { ChatMessage } from './chat-message.js'
 
 function msg(
   partial: Partial<ChatMessage> & Pick<ChatMessage, 'id' | 'role' | 'text'>,

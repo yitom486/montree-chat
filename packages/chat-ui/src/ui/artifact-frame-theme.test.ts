@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import {
   notifyArtifactThemeParticipants,
   registerArtifactThemeParticipant,
-} from './artifact-frame'
+} from './artifact-frame.js'
 
 describe('notifyArtifactThemeParticipants', () => {
   it('空集合直接 resolve', async () => {

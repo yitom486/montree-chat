@@ -1,4 +1,4 @@
-import type { ChatMessage } from './chat-message'
+import type { ChatMessage } from './chat-message.js'
 
 /**
  * 回合结束后压缩 Agent 正文气泡：自最近一条用户消息起，

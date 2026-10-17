@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   isChapterMarkPlanToolTitle,
   parseChapterMarkPlanToolResult,
-} from './parse-chapter-mark-plan'
+} from './parse-chapter-mark-plan.js'
 
 describe('parse-chapter-mark-plan', () => {
   it('识别 suggest_chapters 工具名', () => {

@@ -1,7 +1,7 @@
 // BeUI Agent Activity adapter; MIT © 2026 Saurabh Chauhan, see ../LICENSE.beui.
 import { useId, type ReactNode } from 'react'
 import { Ban, Check, ChevronDown, CircleHelp, Loader2, ShieldAlert, XCircle } from 'lucide-react'
-import { cn } from './cn'
+import { cn } from './cn.js'
 
 export type BeuiActivityStatus = 'working' | 'complete' | 'failed' | 'cancelled' | 'unknown' | 'approval'
 

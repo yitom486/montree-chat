@@ -8,7 +8,7 @@ import {
   DEFAULT_ACP_RUNTIME_ID,
   findBuiltinAcpRuntime,
   LEGACY_ZED_CODEX_ACP_NPM_PACKAGE,
-} from './acp-agents'
+} from './acp-agents.js'
 
 describe('BUILTIN_ACP_RUNTIMES package selection', () => {
   it('defaults to official @agentclientprotocol/codex-acp', () => {

@@ -5,7 +5,7 @@ import {
   parseContentAuditLimit,
   resolveContentAuditMatchPosition,
   windowContentAuditText,
-} from './content-audit'
+} from './content-audit.js'
 
 describe('parseContentAuditLimit', () => {
   it('缺省 10，边界 1/10 通过', () => {

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
-import { BuiApprovalCard } from './BuiApprovalCard'
-import { cn } from './cn'
+import { BuiApprovalCard } from './BuiApprovalCard.js'
+import { cn } from './cn.js'
 
 /**
  * 审批选项视图（与宿主 `AcpPermissionOptionView` 同形，包内重声明以断 `@/` 依赖）。

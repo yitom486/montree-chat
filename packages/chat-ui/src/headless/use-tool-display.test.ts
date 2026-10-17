@@ -4,7 +4,7 @@ import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { toToolDisplayModel } from '@yitom/chat-core'
 import type { ChatMessage } from '@yitom/chat-core'
-import { useToolDisplay } from './use-tool-display'
+import { useToolDisplay } from './use-tool-display.js'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

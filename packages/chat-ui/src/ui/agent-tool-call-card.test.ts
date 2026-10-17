@@ -1,9 +1,9 @@
 // @vitest-environment happy-dom
 import { act, createElement } from 'react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { AgentToolCallCard } from './agent-tool-call-card'
+import { AgentToolCallCard } from './agent-tool-call-card.js'
 import type { ChatMessage as AcpChatMessage } from '@yitom/chat-core'
-import type { AgentApprovalPending } from './agent-permission-card'
+import type { AgentApprovalPending } from './agent-permission-card.js'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

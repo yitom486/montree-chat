@@ -1,4 +1,4 @@
-import type { MontreeVirtualResource } from './montree-virtual-fs'
+import type { MontreeVirtualResource } from './montree-virtual-fs.js'
 
 /**
  * 主进程能向渲染进程索取的内存快照。

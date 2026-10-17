@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseAcpPlanEntries, summarizePlanProgress } from './plan'
+import { parseAcpPlanEntries, summarizePlanProgress } from './plan.js'
 
 describe('parseAcpPlanEntries', () => {
   it('parses v1 flat plan entries', () => {

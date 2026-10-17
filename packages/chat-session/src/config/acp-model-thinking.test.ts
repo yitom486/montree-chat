@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { AcpConfigOption } from '@yitom/contracts'
-import { rankPrimary, splitConfigOptions } from './acp-config-menu'
+import { rankPrimary, splitConfigOptions } from './acp-config-menu.js'
 import {
   collectThinkingCandidates,
   extractModelSuffixThinking,
@@ -11,7 +11,7 @@ import {
   selectModelThinkingControl,
   selectReadonlyModelThinking,
   selectSuffixFastState,
-} from './acp-model-thinking'
+} from './acp-model-thinking.js'
 
 function selectOpt(
   partial: Partial<AcpConfigOption> & Pick<AcpConfigOption, 'configId' | 'name'>,

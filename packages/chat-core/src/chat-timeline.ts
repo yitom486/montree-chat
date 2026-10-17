@@ -1,12 +1,12 @@
-import type { ChatMessage } from './chat-message'
-import { formatDuration, isToolActiveStatus } from './chat-message'
-import { isProposalPromotedToAgent } from './mark-promotion'
-import { isChapterPlanPromotedToAgent } from './chapter-mark-plans'
+import type { ChatMessage } from './chat-message.js'
+import { formatDuration, isToolActiveStatus } from './chat-message.js'
+import { isProposalPromotedToAgent } from './mark-promotion.js'
+import { isChapterPlanPromotedToAgent } from './chapter-mark-plans.js'
 import {
   classifyToolResultKind,
   isPromotedToolResultKind,
   readableToolTitle,
-} from './tool-display-model'
+} from './tool-display-model.js'
 
 /**
  * 聊天时间线纯分组（U1）：按真实 user 回合归属，同一回合的普通调用汇总为

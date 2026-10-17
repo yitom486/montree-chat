@@ -1,5 +1,5 @@
-import type { ContentAuditResult } from '../agent/content-audit'
-import type { BookDbBlockHit } from './book-db'
+import type { ContentAuditResult } from '../agent/content-audit.js'
+import type { BookDbBlockHit } from './book-db.js'
 
 /**
  * 罗盘索引 IPC 契约（扫描书一键导入 + 读库）。

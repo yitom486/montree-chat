@@ -3,8 +3,8 @@ import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 // M3d：`fileApi.exportHtml+toast→onExport` props 化后，导出断言改为宿主回调；`theme` 改 `colorScheme` prop（本用例不传，覆盖缺省不同步路径）。
-import { buildArtifactDocument } from './artifact-frame'
-import { HtmlArtifactCard, sanitizeArtifactFileName } from './html-artifact-card'
+import { buildArtifactDocument } from './artifact-frame.js'
+import { HtmlArtifactCard, sanitizeArtifactFileName } from './html-artifact-card.js'
 import type { PresentHtmlArtifact } from '@yitom/contracts'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true

@@ -1,6 +1,6 @@
 import type { ReadingAnchor, ReadingMark } from '@yitom/contracts'
-import { getReadingMarkKindLabel, getReadingMarkLabel } from './reading-mark-labels'
-import { normalizeHighlightColor } from './reading-mark-colors'
+import { getReadingMarkKindLabel, getReadingMarkLabel } from './reading-mark-labels.js'
+import { normalizeHighlightColor } from './reading-mark-colors.js'
 
 function summarizeAnchor(anchor: ReadingAnchor): string {
   switch (anchor.format) {

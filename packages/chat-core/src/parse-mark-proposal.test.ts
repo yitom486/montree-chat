@@ -5,7 +5,7 @@ import {
   parseMarkProposalFromTool,
   parseMarkProposalToolResult,
   parseMarkProposalsFromTool,
-} from './parse-mark-proposal'
+} from './parse-mark-proposal.js'
 
 describe('parse-mark-proposal', () => {
   it('识别 propose 工具名', () => {

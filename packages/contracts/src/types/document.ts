@@ -5,7 +5,7 @@ import {
   OFFICE_EXTENSION_SET,
   READER_EXTENSION_SET,
   TYPST_EXTENSION_SET,
-} from '../constants/extensions'
+} from '../constants/extensions.js'
 
 /** 纯文本/结构化数据格式 */
 export type DataDocumentKind = 'csv' | 'tsv' | 'json' | 'log'

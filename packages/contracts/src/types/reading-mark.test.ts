@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { canonicalAnchorKey, type ReadingAnchor } from './reading-mark'
+import { canonicalAnchorKey, type ReadingAnchor } from './reading-mark.js'
 
 describe('canonicalAnchorKey', () => {
   it('epub：href 归一化 + cfiRange 优先', () => {

@@ -3,7 +3,7 @@
 // 唯一改动：`from` 以内联联合替代 `ai` 的 `UIMessage["role"]`（宿主调用只传 `user`/`assistant`），
 // 避免给本包引入 `ai` 依赖；类名与 DOM 结构逐字。
 import type { ComponentProps, HTMLAttributes } from 'react'
-import { cn } from './cn'
+import { cn } from './cn.js'
 export type MessageProps = ComponentProps<'div'> & {
   from: 'system' | 'user' | 'assistant';
 };

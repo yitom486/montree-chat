@@ -1,7 +1,7 @@
 import type { MontreePresentResult } from '@yitom/contracts'
 import type { ChapterMarkPlanEntry, MarkProposalStatus, ProposedMark } from '@yitom/annotations'
-import type { ChatMessage } from './chat-message'
-import type { AcpPlanEntry } from './plan'
+import type { ChatMessage } from './chat-message.js'
+import type { AcpPlanEntry } from './plan.js'
 
 /**
  * 单条 `ChatMessage` 的零件级拆分（E2 headless API）。

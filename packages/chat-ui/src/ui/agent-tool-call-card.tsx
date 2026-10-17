@@ -26,10 +26,10 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import {
   AgentChatItem,
   AGENT_CHAT_PRE_CLASS,
-} from './AgentChatItem'
-import { AgentDiffPreview } from './agent-diff-preview'
-import { ToolApprovalSlot } from './tool-approval-slot'
-import type { AgentApprovalPending } from './agent-permission-card'
+} from './AgentChatItem.js'
+import { AgentDiffPreview } from './agent-diff-preview.js'
+import { ToolApprovalSlot } from './tool-approval-slot.js'
+import type { AgentApprovalPending } from './agent-permission-card.js'
 import {
   Tool,
   ToolContent,
@@ -38,8 +38,8 @@ import {
   ToolStateIcon,
   getToolStateBadge,
   type AiToolState,
-} from './tool-shell'
-import { Button } from './button'
+} from './tool-shell.js'
+import { Button } from './button.js'
 import { toolMessageNeedsApproval } from '@yitom/chat-core'
 import { isProposeMarkToolTitle } from '@yitom/chat-core'
 import {

@@ -1,6 +1,6 @@
-import type { OpenFolderResult } from './file'
-import type { WorkspaceDescriptor } from './workspace'
-import type { WindowWorkspaceStatus } from './workspace-identity'
+import type { OpenFolderResult } from './file.js'
+import type { WorkspaceDescriptor } from './workspace.js'
+import type { WindowWorkspaceStatus } from './workspace-identity.js'
 
 export interface WslDistroInfo {
   name: string

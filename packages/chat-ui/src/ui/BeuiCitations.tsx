@@ -1,7 +1,7 @@
 // BeUI Citations adapter; MIT © 2026 Saurabh Chauhan, see ../LICENSE.beui.
 import { useId, useState } from 'react'
 import { BookOpenText, ChevronDown, ExternalLink } from 'lucide-react'
-import { cn } from './cn'
+import { cn } from './cn.js'
 
 export interface BeuiCitationItem {
   id: string

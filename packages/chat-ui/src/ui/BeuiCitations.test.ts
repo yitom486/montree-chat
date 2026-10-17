@@ -2,7 +2,7 @@
 import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { BeuiCitations, type BeuiCitationItem } from './BeuiCitations'
+import { BeuiCitations, type BeuiCitationItem } from './BeuiCitations.js'
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 
 describe('BeUI 结构化来源', () => {

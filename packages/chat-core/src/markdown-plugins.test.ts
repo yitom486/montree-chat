@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   escapeCurrencyDollars,
-} from './markdown-plugins'
+} from './markdown-plugins.js'
 
 describe('escapeCurrencyDollars', () => {
   it('货币美元转义，公式单美元不动', () => {

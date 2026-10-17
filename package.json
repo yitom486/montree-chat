@@ -10,6 +10,7 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint:ext": "bun scripts/check-ext.ts",
     "build": "bun scripts/build.ts",
     "prepublishOnly": "bun run build"
   },
@@ -18,7 +19,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "happy-dom": "^20.11.13",
-    "typescript": "^7.0.2",
+    "typescript": "^5.9.3",
     "vitest": "^4.1.11"
   }
 }

@@ -6,7 +6,7 @@ import {
   normalizeWorkspaceRoot,
   parseWslPath,
   windowsToLinuxPath,
-} from './wsl-path'
+} from './wsl-path.js'
 
 
 describe('wsl-path 工具库', () => {

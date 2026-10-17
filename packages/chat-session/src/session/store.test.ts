@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { createChatSessionStore } from './store'
-import type { ChatStoragePort, ChatTransportPort } from './types'
+import { createChatSessionStore } from './store.js'
+import type { ChatStoragePort, ChatTransportPort } from './types.js'
 
 function harness() {
   let n = 0

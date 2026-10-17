@@ -3,11 +3,11 @@
 // `BeuiCitations` 改同包相对 `./BeuiCitations`；余逐字。
 import { useState } from 'react'
 import { ArrowRight, ChevronDown, ChevronRight, Columns2, FileText } from 'lucide-react'
-import { Button } from './button'
-import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card'
-import { cn } from './cn'
+import { Button } from './button.js'
+import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card.js'
+import { cn } from './cn.js'
 import type { PresentChapterComparison } from '@yitom/contracts'
-import { BeuiCitations } from './BeuiCitations'
+import { BeuiCitations } from './BeuiCitations.js'
 
 interface ChapterComparisonCardProps {
   result: PresentChapterComparison

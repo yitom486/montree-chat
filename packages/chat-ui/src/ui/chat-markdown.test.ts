@@ -2,7 +2,7 @@
 import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ChatMarkdown, resolveMermaidTheme } from './chat-markdown'
+import { ChatMarkdown, resolveMermaidTheme } from './chat-markdown.js'
 
 
 // happy-dom has no layout/visibility; only the observer is supplied. The actual plugin renders in Electron tests.

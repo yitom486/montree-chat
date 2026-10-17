@@ -3,7 +3,7 @@ import {
   applyChatEvent,
   finalizeFeedMessages,
   type ChatFeedState,
-} from './chat-feed'
+} from './chat-feed.js'
 
 function ctx() {
   let clock = 1000

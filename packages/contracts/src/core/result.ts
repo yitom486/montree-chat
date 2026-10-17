@@ -1,4 +1,4 @@
-import type { AppError } from './errors'
+import type { AppError } from './errors.js'
 
 export type Result<T, E = AppError> =
   | { ok: true; value: T }

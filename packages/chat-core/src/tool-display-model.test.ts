@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { ChatMessage } from './chat-message'
+import type { ChatMessage } from './chat-message.js'
 import {
   classifyToolResultKind,
   isPromotedToolResultKind,
@@ -8,7 +8,7 @@ import {
   toToolDisplayModel,
   toToolDisplayState,
   toolStateLabel,
-} from './tool-display-model'
+} from './tool-display-model.js'
 
 function tool(overrides: Partial<ChatMessage> = {}): ChatMessage {
   return {

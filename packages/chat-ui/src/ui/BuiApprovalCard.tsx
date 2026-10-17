@@ -2,8 +2,8 @@
 import { Check, Loader2, ShieldAlert } from 'lucide-react'
 // 自 `apps/desktop/src/components/agent/permission/BuiApprovalCard.tsx` 整搬（M3b 纯展示批）：
 // `Button` 改引包内 `./button`（宿主 `components/ui/button` 逐字复刻）；`cn` 改 `./cn`。
-import { Button } from './button'
-import { cn } from './cn'
+import { Button } from './button.js'
+import { cn } from './cn.js'
 
 export interface BuiApprovalOption {
   id: string

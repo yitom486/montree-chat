@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BeuiAgentProgress } from './BeuiAgentProgress'
+import { BeuiAgentProgress } from './BeuiAgentProgress.js'
 // 自 `apps/desktop/src/components/agent/chat/AgentLoadingState.tsx` 整搬（M3b 纯展示批）：
 // `AcpChatMessage` 即 `@yitom/chat-core` 的 `ChatMessage`（宿主 `stores/acp-chat-types` 只是 M1 别名重导出），
 // `isToolActiveStatus` 同源，合并为单包引用；`./BeuiAgentProgress` 同批随搬，相对路径不变。

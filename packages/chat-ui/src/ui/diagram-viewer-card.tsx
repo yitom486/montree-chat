@@ -22,9 +22,9 @@ import {
 // `(source) => <MermaidBlock source={source}/>`；缺省降级为源码 `<pre>`，复制/标题/步骤/保存/定位行为不变）
 // + 可选 `mermaidTheme?` 透传 prop（`'light'|'dark'|'sepia'`，宿主主题值直传；缺省不干预渲染器内部主题，
 // 报告为 M4 主题对账前提；不复制 `MermaidBlock`）。
-import { Button } from './button'
-import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card'
-import { cn } from './cn'
+import { Button } from './button.js'
+import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card.js'
+import { cn } from './cn.js'
 
 export interface DiagramVisualStep {
   from: string

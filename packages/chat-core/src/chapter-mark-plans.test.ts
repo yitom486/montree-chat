@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { promoteChapterMarkPlansToLastAgent } from './chapter-mark-plans'
-import type { ChatMessage } from './chat-message'
+import { promoteChapterMarkPlansToLastAgent } from './chapter-mark-plans.js'
+import type { ChatMessage } from './chat-message.js'
 
 describe('promote-chapter-mark-plans', () => {
   it('回合结束把 tool 章级建议挂到最近 Agent 回复', () => {

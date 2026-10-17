@@ -1,6 +1,6 @@
 // 宿主 `apps/desktop/src/lib/agent/acp-layout-probe.ts` 逐字复刻（私有，不进 barrel；
 // 供包内 `AgentChatItem` 的 DEV 布局探针使用）。唯一改动：`acpDevLog` 改引包内 `./dev-log`。
-import { acpDevLog } from './dev-log'
+import { acpDevLog } from './dev-log.js'
 
 export type AcpLayoutProbeSample = {
   tag: string

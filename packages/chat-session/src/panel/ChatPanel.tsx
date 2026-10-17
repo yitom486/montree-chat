@@ -9,9 +9,9 @@ import {
   type ResolveMarkProposal,
 } from '@yitom/chat-ui'
 import { timelineRendersInlineApproval, type ChatMessage } from '@yitom/chat-core'
-import type { ChatSessionStore } from '../session/store'
-import { useActiveThread, useChatActions, useChatSessionStore } from '../session/use-chat-session'
-import { ChatComposer } from './ChatComposer'
+import type { ChatSessionStore } from '../session/store.js'
+import { useActiveThread, useChatActions, useChatSessionStore } from '../session/use-chat-session.js'
+import { ChatComposer } from './ChatComposer.js'
 
 export interface ChatRuntimeOption {
   id: string

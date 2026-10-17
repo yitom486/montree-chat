@@ -6,7 +6,7 @@ import {
   ARTIFACT_MESSAGE_MAX_BYTES,
   ArtifactFrame,
   buildArtifactDocument,
-} from './artifact-frame'
+} from './artifact-frame.js'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

@@ -6,7 +6,7 @@ import {
   presentResultHash,
   presentResultId,
   presentResultSizeError,
-} from './present-result'
+} from './present-result.js'
 
 const compare = {
   schemaVersion: 1,

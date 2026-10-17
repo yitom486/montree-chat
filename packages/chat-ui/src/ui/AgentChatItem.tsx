@@ -8,9 +8,9 @@ import {
 // `Message/MessageContent` 改引包内 `./message-shell`（宿主 `ai-elements/message` 逐字复刻，
 // 仅 `from` 类型以内联联合替代 `ai` 的 `UIMessage["role"]` 以免引入 `ai` 依赖）；
 // `logAcpLayoutProbe` 改引包内 `./layout-probe`（宿主 DEV 探针逐字复刻）；`cn` 改 `./cn`。
-import { Message, MessageContent } from './message-shell'
-import { logAcpLayoutProbe } from './layout-probe'
-import { cn } from './cn'
+import { Message, MessageContent } from './message-shell.js'
+import { logAcpLayoutProbe } from './layout-probe.js'
+import { cn } from './cn.js'
 
 /**
  * 聊天条目统一壳：宽度 / 换行 / 对齐只在这里定义。

@@ -8,13 +8,13 @@
  *
  * 纯模块：无 node: 依赖（lint:deps R2），渲染/主进程均可 import。
  */
-import type { AppError } from '../core/errors'
+import type { AppError } from '../core/errors.js'
 import type {
   DocumentRef,
   WorkspaceConnectionState,
   WorkspaceDescriptor,
   WorkspaceKind,
-} from './workspace'
+} from './workspace.js'
 
 /** 本机工作区固定身份（单窗口单本机工作区；远端 id 由 B/D 阶段分配）。 */
 export const LOCAL_WORKSPACE_ID = 'local' as const

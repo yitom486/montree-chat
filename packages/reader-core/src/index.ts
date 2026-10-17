@@ -3,22 +3,22 @@ import { CONTRACTS_SCAFFOLD } from "@yitom/contracts";
 export const READER_CORE_SCAFFOLD = `reader-core:${CONTRACTS_SCAFFOLD}` as const;
 
 // A: shared (toc-signature, book-index)
-export * from "./book-index";
-export { computeTocSignature, normalizeTocTitle, type TocSignatureEntry } from "./toc-signature";
+export * from "./book-index.js";
+export { computeTocSignature, normalizeTocTitle, type TocSignatureEntry } from "./toc-signature.js";
 
 // B: navigation (11)
-export * from "./epub-navigation";
-export * from "./reader-chapter-nav";
+export * from "./epub-navigation.js";
+export * from "./reader-chapter-nav.js";
 export {
   flattenReaderToc,
   resolveUnitNav,
   type ReaderUnit,
   type ReaderUnitNavState,
   type ReaderTocSource,
-} from "./reader-navigation";
-export * from "./foliate-section-nav";
-export * from "./pdf-outline";
-export * from "./pdf-page-metrics";
+} from "./reader-navigation.js";
+export * from "./foliate-section-nav.js";
+export * from "./pdf-outline.js";
+export * from "./pdf-page-metrics.js";
 export {
   PdfTextLayerMappingSink,
   registerPdfPageTextGeometry,
@@ -31,33 +31,33 @@ export {
   buildPdfSnapshotFromRange,
   readPdfSelection,
   getSelectionToolbarPosition,
-} from "./pdf-selection";
-export * from "./reader-copy-shortcut";
-export * from "./reader-selection-dismiss";
-export * from "./reader-viewport-nav";
-export * from "./reader-wheel-navigation";
+} from "./pdf-selection.js";
+export * from "./reader-copy-shortcut.js";
+export * from "./reader-selection-dismiss.js";
+export * from "./reader-viewport-nav.js";
+export * from "./reader-wheel-navigation.js";
 
 // C: marks & notes (8)
-export * from "./epub-selection";
-export * from "./mobi-selection";
-export * from "./reading-mark-colors";
-export * from "./reading-mark-hit";
-export * from "./reading-mark-kind-filters";
-export * from "./export-reading-notes";
-export * from "./reader-typography";
+export * from "./epub-selection.js";
+export * from "./mobi-selection.js";
+export * from "./reading-mark-colors.js";
+export * from "./reading-mark-hit.js";
+export * from "./reading-mark-kind-filters.js";
+export * from "./export-reading-notes.js";
+export * from "./reader-typography.js";
 export {
   suggestTocPageOffset,
   type TocOffsetCandidate,
   type TocOffsetSearchOptions,
   type TocOffsetSuggestion,
-} from "./toc-offset";
+} from "./toc-offset.js";
 
 // D: web-doc navigation & themes (3)
-export * from "./web-doc-toc";
-export * from "./epub-themes";
-export * from "./reader-navigation-sync";
+export * from "./web-doc-toc.js";
+export * from "./epub-themes.js";
+export * from "./reader-navigation-sync.js";
 
 // E: marks helpers (3)
-export * from "./reader-mark-geometry";
-export * from "./reading-mark-labels";
-export * from "./reading-mark-passages";
+export * from "./reader-mark-geometry.js";
+export * from "./reading-mark-labels.js";
+export * from "./reading-mark-passages.js";

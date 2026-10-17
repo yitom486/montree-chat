@@ -3,17 +3,17 @@
 // `Button` 改包内 `./button`，`result-card` 改 `./result-card`；contracts/`@assistant-ui/react` 保留；余逐字。
 import { createContext, useContext, useMemo, useRef, useState, type ComponentType, type ReactNode } from 'react'
 import { Component } from 'react'
-import { ArtifactZoomSurface } from './artifact-zoom-surface'
+import { ArtifactZoomSurface } from './artifact-zoom-surface.js'
 import { ArrowRight, Send } from 'lucide-react'
 import { GenerativeUIRender } from '@assistant-ui/react'
-import { cn } from './cn'
-import { Button } from './button'
+import { cn } from './cn.js'
+import { Button } from './button.js'
 import {
   RESULT_CARD_HEADER,
   RESULT_CARD_ICON,
   RESULT_CARD_SUMMARY,
   resultCardClassName,
-} from './result-card'
+} from './result-card.js'
 import type { PresentComponentUi } from '@yitom/contracts'
 import { COMPONENT_UI_MAX_SUBMIT_BYTES } from '@yitom/contracts'
 

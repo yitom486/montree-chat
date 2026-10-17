@@ -7,8 +7,8 @@ import * as React from "react"
 import { XIcon } from "lucide-react"
 import { Dialog as DialogPrimitive } from "@base-ui-components/react/dialog"
 
-import { cn } from "./cn"
-import { Button } from "./button"
+import { cn } from "./cn.js"
+import { Button } from "./button.js"
 
 function Dialog({
   ...props

@@ -1,5 +1,5 @@
 import type { AcpConfigOption } from '@yitom/contracts'
-import type { AcpPreferredConfigMap } from './acp-config-preferences'
+import type { AcpPreferredConfigMap } from './acp-config-preferences.js'
 
 /** Agent 会话 configOption 的输入栏分类与排序（AgentPanel 纯逻辑出库，便于单测） */
 

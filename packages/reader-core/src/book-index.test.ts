@@ -6,7 +6,7 @@ import {
   findModuleForPage,
   formatModuleLabel,
   modulePageRange,
-} from './book-index'
+} from './book-index.js'
 
 const TOC = [
   { title: '第1章 概述', printedPage: 1, level: 1 },

@@ -4,8 +4,8 @@ import { useEffect, useState, type ReactNode } from 'react'
 // 仅供包内 `propose-mark-chat-block` 使用）：`Button` 改 `./button`；`cn` 改 `./cn`；
 // 去 store fallback：`adoptProposedMark/dismissProposedMark` 移宿主（缺省仅 `onResolved`，不写库）；
 // 去宿主 toast：成功/失败经可选 `onToast/onError` 回宿主，缺省静默（宿主 `onAdopt/onError` 内弹 toast）。
-import { Button } from './button'
-import { cn } from './cn'
+import { Button } from './button.js'
+import { cn } from './cn.js'
 import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
 
 interface ProposeMarkCardProps {

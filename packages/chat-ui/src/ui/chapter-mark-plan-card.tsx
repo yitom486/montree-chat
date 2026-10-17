@@ -5,8 +5,8 @@ import { useState } from 'react'
 import {
   AgentChatItem,
   AgentChatItemBody,
-} from './AgentChatItem'
-import { cn } from './cn'
+} from './AgentChatItem.js'
+import { cn } from './cn.js'
 import type { ChapterMarkPlanEntry } from '@yitom/annotations'
 
 export interface ChapterMarkPlanSelectPayload {

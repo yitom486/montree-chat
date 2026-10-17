@@ -5,7 +5,7 @@ import {
   normalizeWebDocNavUrl,
   syncWebNavigation,
   webDocTocEntriesToReaderUnits,
-} from './web-doc-toc'
+} from './web-doc-toc.js'
 
 describe('web-doc-toc', () => {
   const units = webDocTocEntriesToReaderUnits([

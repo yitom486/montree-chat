@@ -1,6 +1,6 @@
 import { toolMessageNeedsApproval } from '@yitom/chat-core'
 import type { ChatMessage } from '@yitom/chat-core'
-import { AgentPermissionCard, type AgentApprovalPending } from './agent-permission-card'
+import { AgentPermissionCard, type AgentApprovalPending } from './agent-permission-card.js'
 
 export interface ToolApprovalSlotProps {
   message: Pick<ChatMessage, 'role' | 'toolCallId'>

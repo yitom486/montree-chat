@@ -8,7 +8,7 @@
 // `useArtifactZoom` 改引同包相对 `./artifact-zoom-surface`；其余逐字。
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { parseReactArtifactRequest, REACT_ARTIFACT_REQUEST_MAX_BYTES } from '@yitom/contracts'
-import { useArtifactZoom } from './artifact-zoom-surface'
+import { useArtifactZoom } from './artifact-zoom-surface.js'
 
 /** 宿主 `present-result-builder.stripHostileHtmlHead` 逐字复刻（包内私有）：剥离 base 与全部 meta，宿主 CSP 唯一生效。 */
 function stripHostileHtmlHead(html: string): string {

@@ -10,7 +10,7 @@ import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
-import { normalizeLatexDelimiters, normalizeRawSvgDataUriImages } from './md-normalize'
+import { normalizeLatexDelimiters, normalizeRawSvgDataUriImages } from './md-normalize.js'
 import { ChevronUp } from 'lucide-react'
 import { sanitizeAgentUrl } from '@yitom/chat-core'
 import {
@@ -22,7 +22,7 @@ import {
   rehypeAgentAnchors,
   remarkAgentAlert,
 } from '@yitom/chat-core'
-import { cn } from './cn'
+import { cn } from './cn.js'
 
 
 /**

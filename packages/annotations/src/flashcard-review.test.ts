@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { calculateReviewStats, parseClozeContent } from './flashcard-review'
+import { calculateReviewStats, parseClozeContent } from './flashcard-review.js'
 
 describe('flashcard-review', () => {
   it('parses single cloze deletion', () => {

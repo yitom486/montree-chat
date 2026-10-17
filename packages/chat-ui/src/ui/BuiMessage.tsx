@@ -1,7 +1,7 @@
 // BeUI Message Bubble 视觉适配，MIT © 2026 Saurabh Chauhan，见 ../LICENSE.beui。
 // 保留宿主宽度、附件与动作槽，Motion 改用 CSS，不接管会话或视口。
 import type { ReactNode } from 'react'
-import { cn } from './cn'
+import { cn } from './cn.js'
 
 export type BuiMessageFrom = 'user' | 'assistant' | 'system'
 

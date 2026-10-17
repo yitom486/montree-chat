@@ -1,7 +1,7 @@
-import type { ChatMessage } from './chat-message'
-import { explainToolFailure } from './tool-failure-message'
-import { isPresentToolTitle } from './parse-present-result'
-import { isGenericToolName } from './tool-call-metadata'
+import type { ChatMessage } from './chat-message.js'
+import { explainToolFailure } from './tool-failure-message.js'
+import { isPresentToolTitle } from './parse-present-result.js'
+import { isGenericToolName } from './tool-call-metadata.js'
 
 /**
  * 工具调用纯展示模型（R1）。

@@ -20,7 +20,7 @@ import type {
   ChatStoragePort,
   ChatThread,
   ChatTransportPort,
-} from './types'
+} from './types.js'
 
 export interface ChatSessionState {
   threads: ChatThread[]

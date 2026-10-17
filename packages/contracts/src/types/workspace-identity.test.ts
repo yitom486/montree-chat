@@ -10,7 +10,7 @@ import {
   normalizeWorkspaceRelativePath,
   parseDocumentRefKey,
   scopeDocumentKey,
-} from './workspace-identity'
+} from './workspace-identity.js'
 
 describe('workspace-identity（A1 本机宿主身份）', () => {
   it('本机描述符 id 固定为 local，target 置空', () => {

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import type { MontreePresentResult } from '@yitom/contracts'
 import type { ChapterMarkPlanEntry, ProposedMark } from '@yitom/annotations'
-import type { ChatMessage } from './chat-message'
-import type { AcpPlanEntry } from './plan'
-import { splitMessage } from './message-parts'
+import type { ChatMessage } from './chat-message.js'
+import type { AcpPlanEntry } from './plan.js'
+import { splitMessage } from './message-parts.js'
 
 let seq = 0
 function msg(overrides: Partial<ChatMessage>): ChatMessage {

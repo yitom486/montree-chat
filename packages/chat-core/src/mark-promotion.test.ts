@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { isProposalPromotedToAgent } from './mark-promotion'
-import type { ChatMessage } from './chat-message'
+import { isProposalPromotedToAgent } from './mark-promotion.js'
+import type { ChatMessage } from './chat-message.js'
 import { toProposedMark } from '@yitom/annotations'
 
 describe('mark-promotion', () => {

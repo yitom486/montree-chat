@@ -2,8 +2,8 @@
 import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ToolApprovalSlot } from './tool-approval-slot'
-import type { AgentApprovalPending } from './agent-permission-card'
+import { ToolApprovalSlot } from './tool-approval-slot.js'
+import type { AgentApprovalPending } from './agent-permission-card.js'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 

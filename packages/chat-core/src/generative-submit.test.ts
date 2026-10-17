@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isStaleGenerativeSubmit } from './generative-submit'
+import { isStaleGenerativeSubmit } from './generative-submit.js'
 
 describe('isStaleGenerativeSubmit', () => {
   it('同线程放行，异线程/缺失拒绝', () => {

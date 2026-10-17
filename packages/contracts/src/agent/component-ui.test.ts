@@ -4,8 +4,8 @@ import {
   collectSelectIds,
   validateComponentProps,
   validateComponentUiSpec,
-} from './component-ui'
-import { parsePresentResult, presentResultId } from './present-result'
+} from './component-ui.js'
+import { parsePresentResult, presentResultId } from './present-result.js'
 
 const chapters = [
   { key: 'c1', label: '第一章', flatIndex: 0 },

@@ -3,7 +3,7 @@ import {
   CROSS_WORKSPACE_MOVE_MESSAGE,
   assertSameWorkspaceId,
   isStaleGenerationEvent,
-} from './workspace-files'
+} from './workspace-files.js'
 
 describe('workspace-files（B2 宿主相对操作）', () => {
   it('跨宿主 copy/move 明确拒绝', () => {

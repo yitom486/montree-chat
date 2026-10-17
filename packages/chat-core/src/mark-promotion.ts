@@ -1,6 +1,6 @@
 import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
-import type { ChatMessage } from './chat-message'
-import { isProposeMarkToolTitle, parseMarkProposalsFromTool } from './parse-mark-proposal'
+import type { ChatMessage } from './chat-message.js'
+import { isProposeMarkToolTitle, parseMarkProposalsFromTool } from './parse-mark-proposal.js'
 
 export interface ChatMarkProposal {
   proposal: ProposedMark

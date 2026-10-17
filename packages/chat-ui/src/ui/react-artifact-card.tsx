@@ -7,21 +7,21 @@
 // `isToolActiveStatus` 改 `@yitom/chat-core`，`BeuiAgentProgress` 改 `./BeuiAgentProgress`，
 // `GenerativeSubmitPayload` 改 `./component-ui-card`；余逐字。
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArtifactZoomSurface } from './artifact-zoom-surface'
-import { BeuiAgentProgress } from './BeuiAgentProgress'
+import { ArtifactZoomSurface } from './artifact-zoom-surface.js'
+import { BeuiAgentProgress } from './BeuiAgentProgress.js'
 import { Code2, Download, RotateCcw } from 'lucide-react'
-import { Button } from './button'
-import { ArtifactFrame, newArtifactMountId } from './artifact-frame'
+import { Button } from './button.js'
+import { ArtifactFrame, newArtifactMountId } from './artifact-frame.js'
 import {
   RESULT_CARD_HEADER,
   RESULT_CARD_ICON,
   RESULT_CARD_SUMMARY,
   resultCardClassName,
-} from './result-card'
+} from './result-card.js'
 import { REACT_ARTIFACT_MOUNT_TOKEN, type PresentReactArtifact, type AppError, type Result } from '@yitom/contracts'
 import { isToolActiveStatus } from '@yitom/chat-core'
-import { cn } from './cn'
-import type { GenerativeSubmitPayload } from './component-ui-card'
+import { cn } from './cn.js'
+import type { GenerativeSubmitPayload } from './component-ui-card.js'
 
 /** 内联内容区：初始预留高度与上限（px），超高走 iframe 内部滚动 */
 export const REACT_INLINE_INITIAL_HEIGHT = 320

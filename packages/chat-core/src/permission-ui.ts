@@ -1,5 +1,5 @@
-import type { ChatMessage } from './chat-message'
-import type { ChatTimelineItem } from './chat-timeline'
+import type { ChatMessage } from './chat-message.js'
+import type { ChatTimelineItem } from './chat-timeline.js'
 
 /** 待审批引用的最小结构（宿主 `AcpPendingPermission` 天然可赋值，反向解耦）。 */
 export interface PendingApprovalRef {

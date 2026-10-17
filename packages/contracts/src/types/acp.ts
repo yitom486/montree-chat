@@ -10,7 +10,7 @@
 import type {
   MontreeSnapshotArgs,
   MontreeSnapshotResource,
-} from '../agent/montree-snapshot'
+} from '../agent/montree-snapshot.js'
 
 /** 主进程单例连接状态；UI 按钮/指示灯跟这个走 */
 export type AcpConnectionStatus =

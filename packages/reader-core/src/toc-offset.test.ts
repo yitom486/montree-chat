@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { normalizeTocTitle, suggestTocPageOffset } from './toc-offset'
+import { normalizeTocTitle, suggestTocPageOffset } from './toc-offset.js'
 
 /** 模拟正文页原生文字层：标题落在 PDF 页 = 印刷页 + 12 */
 function makeNativeReader(pages: Record<number, string>) {

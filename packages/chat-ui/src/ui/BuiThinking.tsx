@@ -4,8 +4,8 @@
 // fade-up stagger 写法；无 useSequence 定时推进、无演示数据，动效改走本地 bui-*。
 import { Check, ChevronDown, Loader2, Sparkles } from 'lucide-react'
 import { useId, type ReactNode } from 'react'
-import { cn } from './cn'
-import { BeuiThinkingShimmer } from './BeuiAgentProgress'
+import { cn } from './cn.js'
+import { BeuiThinkingShimmer } from './BeuiAgentProgress.js'
 
 export interface BuiThinkingRow {
   primary: string

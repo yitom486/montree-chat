@@ -14,7 +14,7 @@ import { MONTREE_SETTLE_COMPLETE_KIND } from '@yitom/contracts'
 import type {
   ChatConnectionStatus,
   ChatPendingPermission,
-} from '../session/types'
+} from '../session/types.js'
 
 /**
  * acp-client 事件 → core `ChatFeedEvent` 归一化（S1 纯函数，无 store/API）。

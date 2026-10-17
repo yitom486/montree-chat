@@ -13,10 +13,10 @@ import { useMemo, useState, type ReactNode } from 'react'
 import {
   AgentChatItem,
   AgentChatItemBody,
-} from './AgentChatItem'
-import { ProposeMarkCard } from './propose-mark-card'
-import { Button } from './button'
-import { cn } from './cn'
+} from './AgentChatItem.js'
+import { ProposeMarkCard } from './propose-mark-card.js'
+import { Button } from './button.js'
+import { cn } from './cn.js'
 import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
 
 /** 提议决议回调（原 tools/AgentBlockRenderer 兼容入口已删除，类型收敛至此）。 */

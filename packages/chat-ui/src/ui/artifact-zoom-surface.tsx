@@ -3,8 +3,8 @@
 import { createContext, useContext, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { Maximize2 } from 'lucide-react'
-import { Button } from './button'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './dialog'
+import { Button } from './button.js'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './dialog.js'
 
 const ZoomContext = createContext<{ close: () => void } | null>(null)
 export const useArtifactZoom = () => useContext(ZoomContext)

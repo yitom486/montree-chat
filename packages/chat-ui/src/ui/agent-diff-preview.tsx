@@ -1,4 +1,4 @@
-import { cn } from './cn'
+import { cn } from './cn.js'
 import { buildSimpleDiffLines, type ChatToolDiff } from '@yitom/chat-core'
 
 function basename(path: string): string {

@@ -1,5 +1,5 @@
 import type { ChapterMarkPlanEntry } from '@yitom/annotations'
-import type { ChatMessage } from './chat-message'
+import type { ChatMessage } from './chat-message.js'
 
 export function isChapterPlanPromotedToAgent(
   messages: ChatMessage[],

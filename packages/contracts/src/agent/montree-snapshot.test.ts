@@ -3,7 +3,7 @@ import {
   ACP_SNAPSHOT_OCR_TIMEOUT_MS,
   ACP_SNAPSHOT_TIMEOUT_MS,
   resolveSnapshotTimeoutMs,
-} from './montree-snapshot'
+} from './montree-snapshot.js'
 
 describe('montree-snapshot', () => {
   it('常规快照 5s，可能触发 OCR 的 120s', () => {

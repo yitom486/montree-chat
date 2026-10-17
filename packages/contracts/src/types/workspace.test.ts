@@ -8,7 +8,7 @@ import {
   type WorkspaceDescriptor,
   type WorkspaceServerHandshake,
   type WorkspaceWatchEvent,
-} from './workspace'
+} from './workspace.js'
 
 /**
  * workspace 协议共享类型回归（A2 原文件被 B2 分支误覆盖后重建）。

@@ -1,6 +1,6 @@
 import { useMemo, useSyncExternalStore } from 'react'
-import type { ChatSessionStore } from './store'
-import type { ChatThread } from './types'
+import type { ChatSessionStore } from './store.js'
+import type { ChatThread } from './types.js'
 
 /**
  * React 绑定（S2）：`store.subscribe` 已在 S1 就绪（变更即通知），此处只读不改语义。

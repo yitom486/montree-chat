@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { ReadingAnchor, ReadingMark } from '@yitom/contracts'
-import { normalizeLoadKey } from './reader-viewport-nav'
+import { normalizeLoadKey } from './reader-viewport-nav.js'
 import {
   resolveMarkChapter,
   toCanonicalChapter,
@@ -8,7 +8,7 @@ import {
   tocFromMobiUnits,
   tocFromPdfUnits,
   tocFromWebUnits,
-} from './export-reading-notes'
+} from './export-reading-notes.js'
 
 function mark(
   overrides: Partial<ReadingMark> & Pick<ReadingMark, 'id' | 'kind' | 'anchor'>,

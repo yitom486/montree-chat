@@ -1,8 +1,8 @@
 import type { AcpToolCallKind, AcpToolCallStatus } from '@yitom/contracts'
 import type { ChapterMarkPlanEntry } from '@yitom/annotations'
 import type { MarkProposalStatus, ProposedMark } from '@yitom/annotations'
-import type { AcpPlanEntry } from './plan'
-import type { AcpMessageAttachment } from './attachments'
+import type { AcpPlanEntry } from './plan.js'
+import type { AcpMessageAttachment } from './attachments.js'
 
 export type ChatRole = 'user' | 'agent' | 'thought' | 'tool' | 'plan' | 'system'
 
@@ -34,7 +34,7 @@ export interface ChatMessage {
   toolStatus?: AcpToolCallStatus | string
   toolTitle?: string
   toolName?: string
-  toolInputSummary?: import('./tool-call-metadata').ToolInputSummary
+  toolInputSummary?: import('./tool-call-metadata.js').ToolInputSummary
   toolContentText?: string
   toolDiffs?: ChatToolDiff[]
   toolLocations?: Array<{ path: string; line?: number }>

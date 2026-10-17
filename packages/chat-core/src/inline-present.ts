@@ -1,5 +1,5 @@
 import { parsePresentResult } from '@yitom/contracts'
-import type { ChatMessage } from './chat-message'
+import type { ChatMessage } from './chat-message.js'
 
 export type InlinePresentPart =
   | { kind: 'markdown'; text: string; offset: number }

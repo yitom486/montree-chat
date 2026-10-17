@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { MONTREE_SETTLE_COMPLETE_KIND } from '@yitom/contracts'
-import { mapConnectionStatus, mapPermissionRequest, mapSessionUpdate } from './acp-events'
+import { mapConnectionStatus, mapPermissionRequest, mapSessionUpdate } from './acp-events.js'
 import { applyChatEvent, toToolDisplayModel, type ChatFeedState } from '@yitom/chat-core'
 
 describe('agy 思考与工具协议集成', () => {

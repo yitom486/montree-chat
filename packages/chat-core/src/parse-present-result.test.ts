@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import type { ChatMessage } from './chat-message'
-import { isToolActiveStatus } from './chat-message'
-import { enrichToolMessageWithPresentResult, presentRecoveryToolCallIds, recoverPresentToolMessages } from './parse-present-result'
+import type { ChatMessage } from './chat-message.js'
+import { isToolActiveStatus } from './chat-message.js'
+import { enrichToolMessageWithPresentResult, presentRecoveryToolCallIds, recoverPresentToolMessages } from './parse-present-result.js'
 
 function tool(overrides: Partial<ChatMessage> = {}): ChatMessage {
   return {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseToolCallMetadata } from './tool-call-metadata'
+import { parseToolCallMetadata } from './tool-call-metadata.js'
 
 describe('ACP 工具展示元数据', () => {
   it('解开 agy MCP 包装和字符串参数，只保留展示字段', () => {

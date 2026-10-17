@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, type ComponentProps } from 'react'
 import { formatDuration, toToolDisplayModel, type ChatMessage, type ChatTimelineItem } from '@yitom/chat-core'
-import { AgentChatItem, AgentChatItemBody } from './AgentChatItem'
-import { BeuiAgentActivity, BeuiActivityRow } from './BeuiAgentActivity'
-import { ChatMessageBubble } from './agent-message-bubble'
-import { AgentToolCallCard } from './agent-tool-call-card'
-import { ToolStateIcon } from './tool-shell'
+import { AgentChatItem, AgentChatItemBody } from './AgentChatItem.js'
+import { BeuiAgentActivity, BeuiActivityRow } from './BeuiAgentActivity.js'
+import { ChatMessageBubble } from './agent-message-bubble.js'
+import { AgentToolCallCard } from './agent-tool-call-card.js'
+import { ToolStateIcon } from './tool-shell.js'
 
 export type ChatWorkLogItem = Extract<ChatTimelineItem, { kind: 'work-log' }>
 

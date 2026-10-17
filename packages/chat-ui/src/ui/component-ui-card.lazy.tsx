@@ -3,13 +3,13 @@
 // `BeuiAgentProgress` 改 `./BeuiAgentProgress`，懒块改 `./component-ui-card`；余逐字。
 import { Suspense, lazy } from 'react'
 import type { PresentComponentUi } from '@yitom/contracts'
-import type { GenerativeSubmitPayload } from './component-ui-card'
-import { BeuiAgentProgress } from './BeuiAgentProgress'
+import type { GenerativeSubmitPayload } from './component-ui-card.js'
+import { BeuiAgentProgress } from './BeuiAgentProgress.js'
 
 export type { GenerativeSubmitPayload }
 
 const LazyCard = lazy(() =>
-  import('./component-ui-card').then((m) => ({ default: m.ComponentUiCard })),
+  import('./component-ui-card.js').then((m) => ({ default: m.ComponentUiCard })),
 )
 
 /**

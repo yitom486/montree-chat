@@ -6,7 +6,7 @@
  * DocumentRef（workspaceId + 相对路径），远端绝对 root 永不进 renderer。
  * local 宿主首次 attach 需带 rootPath；远端由主进程连接状态持有 root。
  */
-import type { WorkspaceWriteTextResult } from './workspace'
+import type { WorkspaceWriteTextResult } from './workspace.js'
 
 /** 跨宿主 copy/move 拒绝文案（用户显式导入/导出是独立语义） */
 export const CROSS_WORKSPACE_MOVE_MESSAGE =

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { planInlinePresent, splitInlinePresent } from './inline-present'
-import type { ChatMessage } from './chat-message'
+import { planInlinePresent, splitInlinePresent } from './inline-present.js'
+import type { ChatMessage } from './chat-message.js'
 
 const fence = (id = 'chart-1') => ['```montree-present', id, '```'].join('\n')
 const msg = (id: string, role: ChatMessage['role'], text = ''): ChatMessage => ({ id, role, text, createdAt: 1 })

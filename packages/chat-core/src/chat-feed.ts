@@ -1,13 +1,13 @@
-import type { ChatMessage, ChatToolDiff } from './chat-message'
-import type { AcpPlanEntry } from './plan'
-import type { ChatMarkProposal } from './mark-promotion'
-import type { AcpMessageAttachment } from './attachments'
-import { isToolActiveStatus } from './chat-message'
-import { enrichAcpToolMessage } from './enrich-tool-message'
-import { promoteChapterMarkPlansToLastAgent } from './chapter-mark-plans'
-import { promoteMarkProposalsToLastAgent } from './mark-promotion'
-import { pruneIntermediateAgentReplies } from './prune-agent-replies'
-import { isGenericToolName } from './tool-call-metadata'
+import type { ChatMessage, ChatToolDiff } from './chat-message.js'
+import type { AcpPlanEntry } from './plan.js'
+import type { ChatMarkProposal } from './mark-promotion.js'
+import type { AcpMessageAttachment } from './attachments.js'
+import { isToolActiveStatus } from './chat-message.js'
+import { enrichAcpToolMessage } from './enrich-tool-message.js'
+import { promoteChapterMarkPlansToLastAgent } from './chapter-mark-plans.js'
+import { promoteMarkProposalsToLastAgent } from './mark-promotion.js'
+import { pruneIntermediateAgentReplies } from './prune-agent-replies.js'
+import { isGenericToolName } from './tool-call-metadata.js'
 
 /**
  * 聊天事件归约器（E1）：ACP 事件流 → ChatMessage 的纯状态机。
@@ -40,7 +40,7 @@ export interface ChatFeedToolCall {
   toolCallId: string
   title?: string
   name?: string
-  inputSummary?: import('./tool-call-metadata').ToolInputSummary
+  inputSummary?: import('./tool-call-metadata.js').ToolInputSummary
   kind?: string
   status?: string
   /** 提供即替换（宿主 `toolUpdateContentText` 已算好；缺省沿用旧值） */

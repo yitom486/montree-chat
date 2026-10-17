@@ -6,19 +6,19 @@
 // `ArtifactZoomSurface` 改 `./artifact-zoom-surface`；`PresentHtmlArtifact` 仍 contracts；余逐字。
 import { useEffect, useMemo, useState } from 'react'
 import { Code2, Download, ExternalLink, FileCode2, XCircle } from 'lucide-react'
-import { Button } from './button'
+import { Button } from './button.js'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from './dialog'
-import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card'
-import { ArtifactFrame, newArtifactMountId, type ThemeTransitionTarget } from './artifact-frame'
-import { cn } from './cn'
+} from './dialog.js'
+import { RESULT_CARD_HEADER, RESULT_CARD_ICON, RESULT_CARD_SUMMARY, resultCardClassName } from './result-card.js'
+import { ArtifactFrame, newArtifactMountId, type ThemeTransitionTarget } from './artifact-frame.js'
+import { cn } from './cn.js'
 import type { PresentHtmlArtifact } from '@yitom/contracts'
-import { ArtifactZoomSurface } from './artifact-zoom-surface'
+import { ArtifactZoomSurface } from './artifact-zoom-surface.js'
 
 export function sanitizeArtifactFileName(title: string): string {
   const base = title.replace(/[\\/:*?"<>|]/g, '_').trim().slice(0, 80) || 'artifact'

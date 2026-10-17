@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { sanitizeAgentUrl } from './url-policy'
+import { sanitizeAgentUrl } from './url-policy.js'
 
 describe('sanitizeAgentUrl', () => {
   it('放行 http/https/mailto/tel 与相对路径', () => {

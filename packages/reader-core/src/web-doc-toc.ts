@@ -1,6 +1,6 @@
 import type { WebDocTocEntry } from '@yitom/contracts'
-import type { ReaderUnit } from './reader-navigation'
-import { resolveAdjacentFlatNav, type AdjacentFlatNavState } from './reader-chapter-nav'
+import type { ReaderUnit } from './reader-navigation.js'
+import { resolveAdjacentFlatNav, type AdjacentFlatNavState } from './reader-chapter-nav.js'
 
 const EMPTY_WEB_NAV: AdjacentFlatNavState<ReaderUnit> = {
   current: null,

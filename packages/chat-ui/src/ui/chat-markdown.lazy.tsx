@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { cn } from './cn'
+import { cn } from './cn.js'
 
 /**
  * 聊天正文懒加载入口：streamdown + remark/rehype + KaTeX 进独立分块，
@@ -7,7 +7,7 @@ import { cn } from './cn'
  * 整搬自 `apps/desktop/src/components/markdown/AgentMarkdown.lazy.tsx`（改名）。
  */
 export const ChatMarkdownLazy = lazy(() =>
-  import('./chat-markdown').then((m) => ({ default: m.ChatMarkdown })),
+  import('./chat-markdown.js').then((m) => ({ default: m.ChatMarkdown })),
 )
 
 export function ChatMarkdownFallback({ text, className }: { text: string; className?: string }) {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { mergeReadingMarks, type SyncMarksPayload } from './marks-merger'
+import { mergeReadingMarks, type SyncMarksPayload } from './marks-merger.js'
 import type { ReadingMark } from '@yitom/contracts'
 
 describe('marks-merger', () => {

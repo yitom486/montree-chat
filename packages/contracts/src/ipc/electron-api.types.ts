@@ -1,4 +1,4 @@
-import type { TypstConfig, TypstRuntimeStatus, TypstOpenPayload, TypstSession, TypstSyncPayload, TypstRequestPayload, TypstExportPayload, TypstExportResult, TypstEvent } from '../types/typst'
+import type { TypstConfig, TypstRuntimeStatus, TypstOpenPayload, TypstSession, TypstSyncPayload, TypstRequestPayload, TypstExportPayload, TypstExportResult, TypstEvent } from '../types/typst.js'
 import type {
   ExportDocumentPayload,
   ExportDocumentResult,
@@ -22,7 +22,7 @@ import type {
   WorkspaceFsRenamePayload,
   WorkspaceSearchMarkdownPayload,
   WorkspaceSearchMarkdownResult,
-} from '../types/file'
+} from '../types/file.js'
 import type {
   RemoteBrowseResult,
   RemoteOpenWslWorkspacePayload,
@@ -32,13 +32,13 @@ import type {
   RemoteWslStatPayload,
   SshConfigHost,
   WslDistroInfo,
-} from '../types/remote'
-import type { WorkspaceStatResult } from '../types/workspace'
+} from '../types/remote.js'
+import type { WorkspaceStatResult } from '../types/workspace.js'
 import type {
   RemoteServerConnectPayload,
   RemoteServerConnectionInfo,
   RemoteServerInvokePayload,
-} from '../types/workspace'
+} from '../types/workspace.js'
 import type {
   WorkspaceHostReadRequest,
   WorkspaceHostReadResult,
@@ -47,40 +47,40 @@ import type {
   WorkspaceHostTextRef,
   WorkspaceHostWriteRequest,
   WorkspaceHostWriteResult,
-} from '../types/workspace-files'
+} from '../types/workspace-files.js'
 import type {
   GitBranchInfo,
   GitDiffResult,
-} from '../types/git'
+} from '../types/git.js'
 import type {
   WindowWorkspaceStatus,
   WorkspaceChangedEvent,
   WorkspaceConnectPayload,
   WorkspaceConnectResult,
-} from '../types/workspace-identity'
-import type { AppError } from '../core/errors'
-import type { SaveBinaryDocumentPayload, SaveBinaryDocumentResult } from '../agent/document-tools'
-import type { RendererErrorPayload } from '../types/error-log'
-import type { Result } from '../core/result'
+} from '../types/workspace-identity.js'
+import type { AppError } from '../core/errors.js'
+import type { SaveBinaryDocumentPayload, SaveBinaryDocumentResult } from '../agent/document-tools.js'
+import type { RendererErrorPayload } from '../types/error-log.js'
+import type { Result } from '../core/result.js'
 import type {
   CreateReadingMarkPayload,
   MarksListByChapterPayload,
   MarksSearchPayload,
   ReadingMark,
   UpdateReadingMarkPayload,
-} from '../types/reading-mark'
-import type { QuizSessionRecord } from '../types/quiz'
+} from '../types/reading-mark.js'
+import type { QuizSessionRecord } from '../types/quiz.js'
 import type {
   AppendFlashcardReviewPayload,
   DueFlashcard,
   ListDueFlashcardsPayload,
-} from '../types/flashcard'
+} from '../types/flashcard.js'
 import type {
   AiSessionGetPayload,
   AiSessionPutPayload,
   AiSessionRecord,
   AiSessionTouchPayload,
-} from '../types/ai-session'
+} from '../types/ai-session.js'
 import type {
   AcpAuthPreflightPayload,
   AcpAuthPreflightResult,
@@ -106,13 +106,13 @@ import type {
   AcpStatusChangedEvent,
   AcpProxySettings,
   AgyCliStatus,
-} from '../types/acp'
+} from '../types/acp.js'
 import type {
   WebDocDiscoverTocPayload,
   WebDocDiscoverTocResult,
   WebDocFetchPayload,
   WebDocFetchResult,
-} from '../types/web-doc'
+} from '../types/web-doc.js'
 import type {
   DetectPdfTocPagesPayload,
   DetectPdfTocPagesResult,
@@ -125,21 +125,21 @@ import type {
   RecognizePdfPagePayload,
   RecognizePdfTocPayload,
   SavePdfOcrTocPayload,
-} from '../types/ocr'
+} from '../types/ocr.js'
 import type {
   ClassifyPdfDocumentPayload,
   ExtractPdfBookMarkdownPayload,
   InspectorBookMarkdown,
   InspectorPdfClassification,
-} from '../types/pdf-inspect'
-import type { AppUpdateStatus } from '../types/app-update'
-import type { BunRuntimeStatus } from '../types/bun'
+} from '../types/pdf-inspect.js'
+import type { AppUpdateStatus } from '../types/app-update.js'
+import type { BunRuntimeStatus } from '../types/bun.js'
 import type {
   SyncConfig,
   SyncStatus,
   TestConnectionResult,
   SyncExecuteResult,
-} from '../types/sync'
+} from '../types/sync.js'
 import type {
   TtsConfig,
   TtsSynthesizePayload,
@@ -155,14 +155,14 @@ import type {
   TtsStreamProgressPayload,
   TtsStreamEndPayload,
   TtsStreamErrorPayload,
-} from '../types/tts'
+} from '../types/tts.js'
 import type {
   GitCommitOptions,
   GitCommitResult,
   GitPushOptions,
   GitPushResult,
   GitStatusResult,
-} from '../types/git'
+} from '../types/git.js'
 import type {
   RosettaActiveImport,
   RosettaBodyWatermarkApplyPayload,
@@ -179,7 +179,7 @@ import type {
   RosettaQueryResult,
   RosettaTocRebuildPayload,
   RosettaTocRebuildResult,
-} from '../types/rosetta'
+} from '../types/rosetta.js'
 
 /**
  * preload `contextBridge` 暴露给渲染进程的 API（`window.electronAPI`）。

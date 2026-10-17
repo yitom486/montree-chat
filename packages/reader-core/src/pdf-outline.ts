@@ -1,5 +1,5 @@
 import type { PDFDocumentProxy } from 'pdfjs-dist'
-import type { ReaderUnit } from './reader-navigation'
+import type { ReaderUnit } from './reader-navigation.js'
 
 export type PdfOutlineSource = 'embedded' | 'page-fallback'
 

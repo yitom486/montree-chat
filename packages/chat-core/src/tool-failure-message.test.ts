@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { explainToolFailure } from './tool-failure-message'
+import { explainToolFailure } from './tool-failure-message.js'
 
 describe('explainToolFailure', () => {
   it('MCP 启动目录错误不误报为文档未加载', () => {

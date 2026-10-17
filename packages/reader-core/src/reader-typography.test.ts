@@ -4,7 +4,7 @@ import {
   READER_FONT_SIZE_OPTIONS,
   READER_LINE_HEIGHT_OPTIONS,
 } from '@yitom/reader-core'
-import { buildReaderLayoutCss, getEpubThemeRules } from './epub-themes'
+import { buildReaderLayoutCss, getEpubThemeRules } from './epub-themes.js'
 
 describe('reader typography defaults', () => {
   it('默认值属于用户可选范围', () => {

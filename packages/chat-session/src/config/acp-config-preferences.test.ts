@@ -3,7 +3,7 @@ import {
   getPreferredConfigValue,
   listPreferredConfigPatches,
   rememberPreferredConfig,
-} from './acp-config-preferences'
+} from './acp-config-preferences.js'
 import type { AcpConfigOption } from '@yitom/contracts'
 
 describe('acp-config-preferences', () => {

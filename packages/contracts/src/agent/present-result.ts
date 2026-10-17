@@ -33,7 +33,7 @@ import {
   COMPONENT_UI_MAX_TEXT_CHARS,
   validateComponentUiSpec,
   type ComponentUiSpec,
-} from './component-ui'
+} from './component-ui.js'
 
 export type PresentResultKind = 'chapter-comparison' | 'html-artifact' | 'component-ui' | 'react-artifact'
 

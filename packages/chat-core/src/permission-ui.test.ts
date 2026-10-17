@@ -3,10 +3,10 @@ import {
   shouldShowOrphanPermissionCard,
   timelineRendersInlineApproval,
   toolMessageNeedsApproval,
-} from './permission-ui'
-import type { PendingApprovalRef } from './permission-ui'
-import { groupChatTimeline } from './chat-timeline'
-import type { ChatMessage } from './chat-message'
+} from './permission-ui.js'
+import type { PendingApprovalRef } from './permission-ui.js'
+import { groupChatTimeline } from './chat-timeline.js'
+import type { ChatMessage } from './chat-message.js'
 
 const pending = (partial: Partial<PendingApprovalRef> = {}): PendingApprovalRef => ({
   toolCallId: 'tc-del',

@@ -1,4 +1,4 @@
-import { cn } from './cn'
+import { cn } from './cn.js'
 
 /**
  * 富结果卡统一外壳（redesign 审计结论）：六张业务卡同一视觉语言。

@@ -6,7 +6,7 @@ import {
   rankPrimary,
   selectFastDefaultOffTarget,
   splitConfigOptions,
-} from './acp-config-menu'
+} from './acp-config-menu.js'
 import type { AcpConfigOption } from '@yitom/contracts'
 
 function opt(partial: Partial<AcpConfigOption> & Pick<AcpConfigOption, 'configId' | 'name'>): AcpConfigOption {

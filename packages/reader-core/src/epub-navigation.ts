@@ -2,7 +2,7 @@ import {
   pickReaderNavLevel,
   resolveReaderChapterNav,
   type AdjacentFlatNavState,
-} from './reader-chapter-nav'
+} from './reader-chapter-nav.js'
 
 export interface EpubChapter {
   label: string

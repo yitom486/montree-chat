@@ -1,15 +1,15 @@
 import type { ReadingMark } from '@yitom/contracts'
 import { isWebDocumentPath, toChapterKey } from '@yitom/contracts'
 import type { MarkChapterRef, ReadingAnchor } from '@yitom/contracts'
-import { normalizeLoadKey } from './reader-viewport-nav'
-import { isSameSpineBase } from './foliate-section-nav'
-import { normalizeWebDocNavUrl } from './web-doc-toc'
+import { normalizeLoadKey } from './reader-viewport-nav.js'
+import { isSameSpineBase } from './foliate-section-nav.js'
+import { normalizeWebDocNavUrl } from './web-doc-toc.js'
 import {
   highlightSortKey,
   isHighlightPassage,
   passageExcerpt,
   passageNote,
-} from './reading-mark-passages'
+} from './reading-mark-passages.js'
 
 /** 批注 / 纯重点 / 综合 */
 export type ReadingNotesContentKind = 'notes' | 'highlights' | 'combined'

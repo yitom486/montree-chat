@@ -20,22 +20,22 @@
  */
 
 // ── 合并 ──
-export * from "./marks-merger";
+export * from "./marks-merger.js";
 
 // ── 复习 ──
-export * from "./flashcard-review";
+export * from "./flashcard-review.js";
 
 // ── 模型 ──
-export * from "./flashcard";
+export * from "./flashcard.js";
 
 // ── 核心 ──
-export * from "./marks-core";
+export * from "./marks-core.js";
 
 // ── 导出 ──
-export * from "./anki-cards";
+export * from "./anki-cards.js";
 
 // ── 阅读标记提议（A2：shared/types/mark-proposal 入包） ──
-export * from "./mark-proposal";
+export * from "./mark-proposal.js";
 
 // ── 章级划重点建议（D片改判：与 mark-proposal 同族、renderer 安全，归 annotations） ──
-export * from "./chapter-mark-plan";
+export * from "./chapter-mark-plan.js";
