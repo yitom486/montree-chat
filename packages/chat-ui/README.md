@@ -9,6 +9,7 @@
 | 需求 | 使用方式 |
 |---|---|
 | 只渲染 Markdown | `ChatMarkdown`；轻入口用 `@yitom/chat-ui/lazy` 的 `ChatMarkdownLazy` |
+| 直接要一个能用的输入框 | `ChatComposer`：自增高 textarea、IME 防误触、Enter 发送、发送/停止；发送链路与工具区经 props 接入 |
 | 自备消息、输入框和请求链路 | `ChatMessageList`：受控消息列表，包含历史分页、滚动恢复、工作记录、气泡与审批展示 |
 | 自定义列表布局 | 单独组合 `ChatMessageBubble`、`ChatActivityGroup`，或用 `useChatTimeline` 自绘 |
 | 同时需要线程 store、发送/取消及 ACP 映射 | 再接 `@yitom/chat-session`，见 [会话包说明](../chat-session/README.md) |

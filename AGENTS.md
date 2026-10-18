@@ -50,6 +50,13 @@ git push origin pkg-v0.1.15
 - `packages/chat-session/README.md`：线程 store、ACP ingest、异步回合与可选 `ChatPanel`。
 - 形态与动效归包，配色归宿主。新增动画时关键帧进 `packages/chat-ui/src/styles.css`（`@layer components`，宿主的 utilities 优先），不要在宿主里复制。
 
+## 0.1.17 变更
+
+- 新增 `ChatComposer`：自增高 textarea、IME 三重守卫、Enter 发送 / Shift+Enter 换行、发送与停止按钮；`running` 只切换按钮与文案，不阻止「生成中追加引导」；模型选择、会话参数、排队动作经 `toolbarStart` / `renderActions` 槽位接入。带 6 条行为测试。
+- 新增 `ChatStatusBadge`：连接/就绪/进行中/回退/失败统一成四档 tone + 呼吸点，宿主不再各写一套颜色分支。
+- 新增 `ChatPanelHeader`：标题 + 状态行 + 右侧操作的三段式骨架。
+- 目的：宿主只保留业务（谁连接、发什么、怎么排队），形态与键盘语义留在包内。
+
 ## 0.1.16 变更
 
 - 新增 `@yitom/chat-ui/styles.css`（`exports["./styles.css"]`）：`fade-slide-in`、`beui-message-in`、`bui-fade-up`、`bui-shimmer-text`、`agent-pixel-pulse` 关键帧、九格像素加载器规则、`.markdown-preview.agent-md` 正文排版、`--chat-motion-*` 节奏 token。此前这些全靠宿主各自复制，漏一个就是「动画不动 / 标签隐形」。
