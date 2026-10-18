@@ -97,6 +97,60 @@ export function ExampleChat() {
 
 切换线程时必须改变列表的 React `key`，按线程重建内部窗口与恢复状态；`initialScroll` 仅用于该次挂载初始化。快照回调的 `id` 是产生快照的线程，宿主按这个 id 保存，不能临时读取当前活动线程。示例只保存到内存；跨重载恢复需接宿主存储，跨窗口也由宿主自行划分作用域。高频快照在大型应用中可写入无订阅者的存储或由宿主合并保存，避免重绘整个页面。
 
+### 开箱组件
+
+除了消息列表，下面五个组件可以直接用，宿主只接业务回调：
+
+| 组件 | 用途 | 关键 props |
+|---|---|---|
+| `ChatMessageList` | 消息区：历史窗口、贴底跟滚、工作记录、审批、回到底部 | `messages` / `threadId` / `prompting` / `renderMessageFooter` / `emptyState` |
+| `ChatComposer` | 输入区：自增高、IME 防误触、Enter 发送、发送/停止 | `value` / `onValueChange` / `onSubmit` / `running` / `onStop` / `toolbarStart` / `renderActions` |
+| `ChatPanelHeader` | 顶栏骨架：标题 + 状态行 + 右侧操作 | `title` / `status` / `subtitle` / `actions` |
+| `ChatStatusBadge` | 状态胶囊：连接/就绪/进行中/回退/失败 | `tone` / `label` / `pulse` / `icon` / `title` |
+| `ChatEmptyState` | 空态卡片：图标 + 标题 + 说明 + 提示 + 操作 | `title` / `description` / `hint` / `action` / `icon` |
+| `ChatHistoryMenu` | 会话历史弹层：列表 + 新建 + 压缩/分叉/归档 | `entries` / `onSelect` / `onCreate` / `onCompact` / `onFork` / `onArchive` / `footer` |
+
+**`ChatComposer`**：`running` 只切换停止按钮与占位文案，**不阻止发送**（生成中允许追加引导）；需要硬拦截时传 `disabled`。`onSubmit` 返回 `false` 会保留草稿。`toolbarStart` 放模型/参数选择器，`renderActions` 放额外动作（如「加入下一轮队列」），发送与停止按钮由组件自己渲染。
+
+**`ChatStatusBadge`**：四个 tone 分别是 `neutral`（未连接/进行中）、`positive`（已连接/就绪）、`warning`（回退/降级）、`danger`（失败）。`pulse` 给呼吸点，`icon` 可替换圆点。语义由宿主判断，组件只管呈现。
+
+**`ChatHistoryMenu`**：`entries` 只需 `{ id, title, subtitle?, timestamp? }`；没传的回调对应的行内按钮不会渲染，因此也能当只读历史用。`onRefresh` 在打开弹层时触发。`footer` 放「保留新会话」这类开关。
+
+组合起来就是一个完整面板：
+
+```tsx
+import {
+  ChatPanelHeader, ChatStatusBadge, ChatMessageList, ChatComposer, ChatEmptyState,
+} from '@yitom/chat-ui'
+
+export function ChatPanelShell({ connected, messages, threadId, draft, setDraft, send, busy, stop }) {
+  return (
+    <div className="flex h-full min-h-0 flex-col rounded-xl border border-border/60 bg-card">
+      <ChatPanelHeader
+        title="助手"
+        status={<ChatStatusBadge tone={connected ? 'positive' : 'neutral'} label={connected ? '已连接' : '未连接'} />}
+        subtitle="模型与轨道信息由宿主决定"
+      />
+      <ChatMessageList
+        threadId={threadId}
+        messages={messages}
+        prompting={busy}
+        resolveMarkProposal={() => {}}
+        emptyState={<ChatEmptyState title="开始新对话" description="描述你的问题，或直接提问。" />}
+      />
+      <ChatComposer
+        className="p-3 pt-1.5"
+        value={draft}
+        onValueChange={setDraft}
+        onSubmit={(text) => { void send(text); return true }}
+        running={busy}
+        onStop={stop}
+      />
+    </div>
+  )
+}
+```
+
 ### 业务槽位与操作
 
 | 接口 | 消费方职责 |

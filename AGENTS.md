@@ -50,6 +50,13 @@ git push origin pkg-v0.1.15
 - `packages/chat-session/README.md`：线程 store、ACP ingest、异步回合与可选 `ChatPanel`。
 - 形态与动效归包，配色归宿主。新增动画时关键帧进 `packages/chat-ui/src/styles.css`（`@layer components`，宿主的 utilities 优先），不要在宿主里复制。
 
+## 0.1.18 变更
+
+- 新增 `ChatEmptyState`：空态卡片（图标 / 标题 / 说明 / 提示 / 操作），替代各宿主自写的引导区。
+- 新增 `ChatHistoryMenu`：会话历史弹层，条目只要 `{ id, title, subtitle?, timestamp? }`；新建、压缩、分叉、归档全部按回调存在与否渲染，也可当只读列表用；`footer` 放宿主开关。
+- README 增加「开箱组件」整节：五个组件的 props 表、语义说明和一份直接可用的面板组合示例。
+- 测试：新增 8 条（空态 2、历史弹层 6，含 Base UI 浮层的 happy-dom 兜底写法）。
+
 ## 0.1.17 变更
 
 - 新增 `ChatComposer`：自增高 textarea、IME 三重守卫、Enter 发送 / Shift+Enter 换行、发送与停止按钮；`running` 只切换按钮与文案，不阻止「生成中追加引导」；模型选择、会话参数、排队动作经 `toolbarStart` / `renderActions` 槽位接入。带 6 条行为测试。
