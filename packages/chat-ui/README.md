@@ -19,10 +19,10 @@ UI 包不依赖 Montree 的 Zustand store、IPC、Electron 或认证实现，也
 
 ### 安装与版本
 
-以下示例对应已发布的 `0.1.15`；React 对等依赖实际要求为 `^19.2.8`。
+以下示例对应已发布的 `0.1.16`；React 对等依赖实际要求为 `^19.2.8`。
 
 ```bash
-bun add @yitom/chat-ui@0.1.15 @yitom/chat-core@0.1.15 react@^19.2.8 react-dom@^19.2.8
+bun add @yitom/chat-ui@0.1.16 @yitom/chat-core@0.1.16 react@^19.2.8 react-dom@^19.2.8
 ```
 
 默认组件使用 Tailwind 4。项目尚未配置时，按项目构建工具接入 Tailwind，再安装动画样式依赖：
@@ -35,19 +35,22 @@ bun add -d tailwindcss tw-animate-css
 
 ### 样式与容器
 
-例如样式入口位于 `src/styles.css`，引入一次：
+引入一次包的皮肤与动效（关键帧、九格加载器、正文排版都在里面）：
 
 ```css
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "streamdown/styles.css";
 @import "katex/dist/katex.min.css";
+@import "@yitom/chat-ui/styles.css";
 @source "../node_modules/@yitom/chat-ui/dist";
 ```
 
 `@source` 路径相对于该 CSS 文件，monorepo/hoist 布局需调整到实际安装目录。没有扫描包的 dist，会丢失工具卡、状态和按钮等 Tailwind 类。
 
-默认组件还需要消费方提供 shadcn 风格的语义主题（例如 `background`、`foreground`、`card`、`popover`、`primary`、`secondary`、`muted`、`accent`、`border`、`input`、`ring` 及相应前景色）。包不附带完整 CSS 皮肤，`theme="dark"` 也不会替宿主切换这些 CSS 变量。已有 shadcn/Tailwind 主题可以复用；Montree 专用 `.markdown-preview`/`.agent-md` 正文皮肤需消费方按需提供。
+`styles.css` 只是**形态与动效**，颜色仍然来自宿主主题：它消费 shadcn 语义变量（`--foreground`、`--muted-foreground`、`--border`、`--card`、`--muted`、`--primary`）并带兜底值，宿主没配主题时也不会出现隐形文字。规则包在 `@layer components`，宿主的 Tailwind utilities 永远优先，需要改样式直接加类名或在后面覆盖。动效节奏由 `--chat-motion-enter`、`--chat-motion-shimmer`、`--chat-motion-pixel` 控制。
+
+默认组件还需要消费方提供 shadcn 风格的语义主题（例如 `background`、`foreground`、`card`、`popover`、`primary`、`secondary`、`muted`、`accent`、`border`、`input`、`ring` 及相应前景色）。包自带形态与动效（`styles.css`），但**不替宿主决定配色**，`theme="dark"` 也不会替宿主切换这些 CSS 变量。已有 shadcn/Tailwind 主题可以直接复用。正文排版（`.markdown-preview`/`.agent-md`）已随 `styles.css` 提供默认值，宿主需要不同字体或密度时再覆盖即可。
 
 列表外层必须有确定高度，并允许 flex 子项收缩，例如下例中的 `h-[480px] min-h-0`，否则不会形成内部滚动区域。列表自己创建 assistant-ui runtime/provider，无需再为它创建另一套消息镜像。
 

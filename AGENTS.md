@@ -45,9 +45,17 @@ git push origin pkg-v0.1.15
 
 ## 消费方接入
 
+- `@import "@yitom/chat-ui/styles.css";` 一次即可拿到形态与动效（关键帧、九格加载器、正文排版、动效 token）。宿主**只负责配色**：提供 shadcn 语义变量（`--foreground`/`--muted-foreground`/`--border`/`--card`/`--muted`/`--primary`），不配也有兜底值，不会出现隐形文字。
 - `packages/chat-ui/README.md#从其他项目接入`：安装、Tailwind `@source`、必需的主题 token、`ChatMessageList` 受控用法、业务槽位。
 - `packages/chat-session/README.md`：线程 store、ACP ingest、异步回合与可选 `ChatPanel`。
-- 宿主必须自备 `.markdown-preview` / `.agent-md` 正文皮肤与 `fade-slide-in`、`beui-message-in`、`bui-fade-up` 关键帧；包不带形态。
+- 形态与动效归包，配色归宿主。新增动画时关键帧进 `packages/chat-ui/src/styles.css`（`@layer components`，宿主的 utilities 优先），不要在宿主里复制。
+
+## 0.1.16 变更
+
+- 新增 `@yitom/chat-ui/styles.css`（`exports["./styles.css"]`）：`fade-slide-in`、`beui-message-in`、`bui-fade-up`、`bui-shimmer-text`、`agent-pixel-pulse` 关键帧、九格像素加载器规则、`.markdown-preview.agent-md` 正文排版、`--chat-motion-*` 节奏 token。此前这些全靠宿主各自复制，漏一个就是「动画不动 / 标签隐形」。
+- `BeuiThinkingShimmer`：渐变变量加 `currentColor` 兜底；动效从内联 animation 移到 `.chat-shimmer-text`，节奏可由宿主 token 覆盖。
+- `scripts/build.ts` 构建时把 `styles.css` 拷进 `dist`（tsc 不处理 CSS）。
+
 
 ## 0.1.15 变更
 

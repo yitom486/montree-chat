@@ -3,7 +3,10 @@ import type { ReactNode } from 'react'
 import { ShieldAlert } from 'lucide-react'
 
 export function BeuiThinkingShimmer({ children }: { children: ReactNode }) {
-  return <span className="bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(110deg,var(--muted-foreground) 30%,var(--foreground) 50%,var(--muted-foreground) 70%)', backgroundSize: '200% 100%', animation: 'bui-shimmer-text 1.8s linear infinite' }}>{children}</span>
+  // 颜色走宿主主题变量，缺省回落到 currentColor：宿主没配主题时文字仍然可见
+  // （渐变取不到颜色 + text-transparent 会让整段标签消失）。
+  // 动效交给包自带 styles.css 的 .chat-shimmer-text，节奏由 --chat-motion-shimmer 控制。
+  return <span className="chat-shimmer-text bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(110deg,var(--muted-foreground, currentColor) 30%,var(--foreground, currentColor) 50%,var(--muted-foreground, currentColor) 70%)', backgroundSize: '200% 100%' }}>{children}</span>
 }
 
 /** 使用宿主真实计时，不启动上游独立计时器或轮播虚构活动。 */
