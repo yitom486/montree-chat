@@ -1,6 +1,6 @@
 {
   "name": "@yitom/chat-ui",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "type": "module",
   "description": "Montree 聊天渲染 UI：无头 hooks + 默认样式组件（ACP/传输零耦合，交互经回调回宿主）",
   "dependencies": {
