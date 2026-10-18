@@ -30,6 +30,13 @@
 
 失败时先看 `gh run view <run-id> --log-failed`。常见原因：`NPM_TOKEN` secret 过期、某包版本已存在但内容不同（需换版本号而不是覆盖）、六包版本不一致。
 
+标签推上去却没有新工作流时（`gh run list --workflow publish` 里看不到该标签），说明这次 push 事件没被接收：删标签重推即可，`publish.ts` 幂等，已发的包会跳过。
+
+```bash
+git push origin :refs/tags/pkg-v0.1.15
+git push origin pkg-v0.1.15
+```
+
 ## 版本与兼容
 
 - 六包版本号必须一致；`chat-ui` 的 peer 要求 `react`/`react-dom` `^19.2.8`。
