@@ -1,5 +1,6 @@
-import { createContext, memo, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type JSX, type ReactNode } from 'react'
+import { createContext, memo, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type JSX, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react'
 import { Children, isValidElement } from 'react'
+import { ChatUiProvider, useChatUiContext } from './chat-ui-context.js'
 import { Block, Streamdown, defaultComponents, defaultRehypePlugins, useIsCodeFenceIncomplete, type BlockProps } from 'streamdown'
 import { code } from '@streamdown/code'
 import { createMermaidPlugin } from '@streamdown/mermaid'
@@ -127,6 +128,24 @@ interface SemanticProps {
 
 function AgentLink({ href, children, ...semantic }: SemanticProps & { href?: string }) {
   const safe = sanitizeAgentUrl(href ?? '')
+  const { onLinkClick } = useChatUiContext()
+  const handleClick = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    if (safe?.startsWith('#')) {
+      event.preventDefault()
+      const id = event.currentTarget.getAttribute('href') ?? safe
+      const target = document.getElementById(id.slice(1))
+      if (!target) return
+      target.scrollIntoView?.({ block: 'nearest' })
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
+      target.focus({ preventScroll: true })
+      return
+    }
+    // 外链交给宿主（桌面端否则会在 webview 里就地导航）；返回 false 才保留默认行为
+    if (onLinkClick && safe) {
+      const handled = onLinkClick(safe)
+      if (handled !== false) event.preventDefault()
+    }
+  }
   return (
     <a
       id={semantic.id}
@@ -134,15 +153,7 @@ function AgentLink({ href, children, ...semantic }: SemanticProps & { href?: str
       aria-labelledby={semantic['aria-labelledby']}
       aria-describedby={semantic['aria-describedby']}
       href={safe}
-      onClick={safe?.startsWith('#') ? (event) => {
-        event.preventDefault()
-        const href = event.currentTarget.getAttribute('href') ?? safe
-        const target = document.getElementById(href.slice(1))
-        if (!target) return
-        target.scrollIntoView?.({ block: 'nearest' })
-        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
-        target.focus({ preventScroll: true })
-      } : undefined}
+      onClick={handleClick}
     >
       {children}
     </a>
@@ -288,9 +299,16 @@ export interface ChatMarkdownProps {
   className?: string
   /** 主题（宿主 `useEditorUiStore` 的 `theme` 直接透传；缺省 `light`） */
   theme?: ChatMarkdownTheme
+  /**
+   * 外链点击拦截：返回 `true`（或任意非 false）表示宿主已处理，组件会 `preventDefault`；
+   * 返回 `false` 保留默认行为。桌面宿主必须接管，否则 webview 会就地导航。
+   * 经 `ChatMessageList` 使用时可只在列表上传一次（内部用 context 下传）。
+   */
+  onLinkClick?: (href: string) => boolean | void
 }
 
-export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, className, theme = 'light' }: ChatMarkdownProps) {
+export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, className, theme = 'light', onLinkClick }: ChatMarkdownProps) {
+  const uiContext = useMemo(() => ({ ...(onLinkClick ? { onLinkClick } : {}) }), [onLinkClick])
   const anchorPrefix = `agent-${useId().replace(/[^\w-]/g, '')}`
   const rootRef = useRef<HTMLDivElement>(null)
   const mermaidProp = useMemo(() => ({
@@ -355,6 +373,7 @@ export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, classN
     return () => root.removeEventListener('wheel', onWheel, { capture: true })
   }, [])
   return (
+    <ChatUiProvider value={uiContext}>
     <div ref={rootRef} data-status={streaming ? 'running' : 'complete'}>
     <ChatThemeFlag.Provider value={theme}>
     <AnchorPrefix.Provider value={anchorPrefix}>
@@ -383,5 +402,6 @@ export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, classN
     </AnchorPrefix.Provider>
     </ChatThemeFlag.Provider>
     </div>
+    </ChatUiProvider>
   )
 })

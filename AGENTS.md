@@ -50,6 +50,12 @@ git push origin pkg-v0.1.15
 - `packages/chat-session/README.md`：线程 store、ACP ingest、异步回合与可选 `ChatPanel`。
 - 形态与动效归包，配色归宿主。新增动画时关键帧进 `packages/chat-ui/src/styles.css`（`@layer components`，宿主的 utilities 优先），不要在宿主里复制。
 
+## 0.1.20 变更
+
+- 新增外链拦截：`ChatMarkdown` 与 `ChatMessageList` 接受 `onLinkClick(href)`，返回非 `false` 即由宿主接管并 `preventDefault`。桌面宿主（Tauri/Electron）必须接，否则 webview 会就地导航。
+- 新增 `ChatUiProvider` / `useChatUiContext`：列表把宿主能力经 context 下传，气泡与工具卡里的 Markdown 一并生效，宿主只需在列表上传一次。
+- 测试 3 条（接管/放行/缺省）。
+
 ## 0.1.19 变更
 
 - 新增 `ChatSettingsMenu`：会话参数弹层，`settings` 为「分组 + 当前值 + 选项 + onChange」数组，组件不认审批/思考等业务概念。

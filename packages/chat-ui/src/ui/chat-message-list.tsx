@@ -43,6 +43,7 @@ import { ChatActivityGroup, type ChatWorkLogItem } from './chat-activity-group.j
 import { AgentLoadingState, currentRunStatus } from './AgentLoadingState.js'
 import { AgentPermissionCard, type AgentApprovalPending } from './agent-permission-card.js'
 import { AGENT_CHAT_COL_CLASS } from './AgentChatItem.js'
+import { ChatUiProvider } from './chat-ui-context.js'
 import { logAcpLayoutProbe } from './layout-probe.js'
 import { cn } from './cn.js'
 
@@ -104,6 +105,11 @@ export interface ChatMessageListProps extends ChatMessageListBubbleContext, HTML
    * 宿主可据此回查自己的数据；空内容时返回 `null` 即可不占位。
    */
   renderMessageFooter?: (message: ChatMessage) => ReactNode
+  /**
+   * 外链点击拦截：返回 `true` 表示宿主已处理（组件 `preventDefault`），返回 `false` 保留默认。
+   * 桌面宿主（Tauri / Electron）必须接管，否则 webview 会就地导航。
+   */
+  onLinkClick?: (href: string) => boolean | void
   // 其余未知 props（`className/style/onContextMenu/data-*` 等）透传根容器：
   // 右键外壳 `asChild` 经 Slot 把 `onContextMenu` 注入直接子节点，
   // 宿主传包组件作子节点时由此落在根 div，行为与旧裸 div 一致。
@@ -139,6 +145,7 @@ export const ChatMessageList = memo(function ChatMessageList(
     emptyState,
     renderWorkLog,
     renderMessageFooter,
+    onLinkClick,
     ref,
     resolveMarkProposal,
     theme,
@@ -172,6 +179,8 @@ export const ChatMessageList = memo(function ChatMessageList(
     renderPlanCard,
   }
   const [nowMs, setNowMs] = useState(() => Date.now())
+  // 宿主能力经 context 下传：气泡、工具卡里渲染的 Markdown 都能拿到外链拦截
+  const uiContext = useMemo(() => ({ ...(onLinkClick ? { onLinkClick } : {}) }), [onLinkClick])
   const streamingAny = messages.some((m) => m.streaming) || prompting
   const runStatus = currentRunStatus(messages, pendingPermission != null, prompting)
   // 底部状态行显隐：有可见流式内容（思考/带文本回答）时让位；
@@ -418,6 +427,7 @@ export const ChatMessageList = memo(function ChatMessageList(
   }, [messages, streamingAny])
 
   return (
+    <ChatUiProvider value={uiContext}>
     <div className={cn('relative min-h-0 min-w-0 flex-1', rootClassName)} {...rootDomProps}>
       <AssistantRuntimeProvider runtime={runtime}>
         <ThreadPrimitive.Root className="flex-1 flex flex-col min-h-0 h-full">
@@ -560,5 +570,6 @@ export const ChatMessageList = memo(function ChatMessageList(
         </ThreadPrimitive.Root>
       </AssistantRuntimeProvider>
     </div>
+    </ChatUiProvider>
   )
 })

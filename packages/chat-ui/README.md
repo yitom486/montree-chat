@@ -103,7 +103,7 @@ export function ExampleChat() {
 
 | 组件 | 用途 | 关键 props |
 |---|---|---|
-| `ChatMessageList` | 消息区：历史窗口、贴底跟滚、工作记录、审批、回到底部 | `messages` / `threadId` / `prompting` / `renderMessageFooter` / `emptyState` |
+| `ChatMessageList` | 消息区：历史窗口、贴底跟滚、工作记录、审批、回到底部 | `messages` / `threadId` / `prompting` / `renderMessageFooter` / `emptyState` / `onLinkClick` |
 | `ChatComposer` | 输入区：自增高、IME 防误触、Enter 发送、发送/停止 | `value` / `onValueChange` / `onSubmit` / `running` / `onStop` / `toolbarStart` / `renderActions` |
 | `ChatPanelHeader` | 顶栏骨架：标题 + 状态行 + 右侧操作 | `title` / `status` / `subtitle` / `actions` |
 | `ChatStatusBadge` | 状态胶囊：连接/就绪/进行中/回退/失败 | `tone` / `label` / `pulse` / `icon` / `title` |
@@ -118,6 +118,8 @@ export function ExampleChat() {
 **`ChatHistoryMenu`**：`entries` 只需 `{ id, title, subtitle?, timestamp? }`；没传的回调对应的行内按钮不会渲染，因此也能当只读历史用。`onRefresh` 在打开弹层时触发。`footer` 放「保留新会话」这类开关。
 
 **`ChatSettingsMenu`**：每个分组是「当前值 + 选项数组 + onChange」，组件不认任何业务概念（审批策略、思考档都由宿主定义）。选项用单选行而不是嵌套下拉——弹层已是一层浮层，再套 Select 会有焦点与层级问题；2–5 个短选项点一下即可。选择后弹层不关闭，方便连续改多项。
+
+**外链**：`ChatMessageList` 与 `ChatMarkdown` 都接受 `onLinkClick(href)`。返回 `true`（或任意非 `false`）表示宿主已处理，组件会 `preventDefault`；返回 `false` 保留默认行为。桌面宿主（Tauri / Electron）必须接管，否则点链接会在 webview 里就地导航。列表内部用 context 下传，气泡与工具卡里的 Markdown 都生效，只需在列表上传一次。
 
 组合起来就是一个完整面板：
 
