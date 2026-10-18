@@ -50,6 +50,12 @@ git push origin pkg-v0.1.15
 - `packages/chat-session/README.md`：线程 store、ACP ingest、异步回合与可选 `ChatPanel`。
 - 形态与动效归包，配色归宿主。新增动画时关键帧进 `packages/chat-ui/src/styles.css`（`@layer components`，宿主的 utilities 优先），不要在宿主里复制。
 
+## 0.1.19 变更
+
+- 新增 `ChatSettingsMenu`：会话参数弹层，`settings` 为「分组 + 当前值 + 选项 + onChange」数组，组件不认审批/思考等业务概念。
+- 选项改为单选行（`role="radiogroup"` / `aria-checked`），避免弹层里再套 Select 的焦点与层级问题；选择后不关闭弹层。
+- 测试 5 条（渲染、选中态、回调、禁用、hint、非默认提示点）；README 开箱组件表补一行。
+
 ## 0.1.18 变更
 
 - 新增 `ChatEmptyState`：空态卡片（图标 / 标题 / 说明 / 提示 / 操作），替代各宿主自写的引导区。

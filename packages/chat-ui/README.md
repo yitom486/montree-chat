@@ -109,12 +109,15 @@ export function ExampleChat() {
 | `ChatStatusBadge` | 状态胶囊：连接/就绪/进行中/回退/失败 | `tone` / `label` / `pulse` / `icon` / `title` |
 | `ChatEmptyState` | 空态卡片：图标 + 标题 + 说明 + 提示 + 操作 | `title` / `description` / `hint` / `action` / `icon` |
 | `ChatHistoryMenu` | 会话历史弹层：列表 + 新建 + 压缩/分叉/归档 | `entries` / `onSelect` / `onCreate` / `onCompact` / `onFork` / `onArchive` / `footer` |
+| `ChatSettingsMenu` | 会话参数弹层：分组单选（审批、思考深度等） | `settings`（`{ id, label, value, options, onChange }[]`）/ `nonDefault` / `open` |
 
 **`ChatComposer`**：`running` 只切换停止按钮与占位文案，**不阻止发送**（生成中允许追加引导）；需要硬拦截时传 `disabled`。`onSubmit` 返回 `false` 会保留草稿。`toolbarStart` 放模型/参数选择器，`renderActions` 放额外动作（如「加入下一轮队列」），发送与停止按钮由组件自己渲染。
 
 **`ChatStatusBadge`**：四个 tone 分别是 `neutral`（未连接/进行中）、`positive`（已连接/就绪）、`warning`（回退/降级）、`danger`（失败）。`pulse` 给呼吸点，`icon` 可替换圆点。语义由宿主判断，组件只管呈现。
 
 **`ChatHistoryMenu`**：`entries` 只需 `{ id, title, subtitle?, timestamp? }`；没传的回调对应的行内按钮不会渲染，因此也能当只读历史用。`onRefresh` 在打开弹层时触发。`footer` 放「保留新会话」这类开关。
+
+**`ChatSettingsMenu`**：每个分组是「当前值 + 选项数组 + onChange」，组件不认任何业务概念（审批策略、思考档都由宿主定义）。选项用单选行而不是嵌套下拉——弹层已是一层浮层，再套 Select 会有焦点与层级问题；2–5 个短选项点一下即可。选择后弹层不关闭，方便连续改多项。
 
 组合起来就是一个完整面板：
 
