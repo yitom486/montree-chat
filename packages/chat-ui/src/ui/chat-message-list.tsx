@@ -120,6 +120,18 @@ export interface ChatMessageListHandle {
   scrollToBottom: () => void
 }
 
+/**
+ * 平滑滚到底：部分环境（jsdom、老 WebView）没有 `Element.scrollTo`，
+ * 直接调用会抛 TypeError 打断整个渲染。缺方法时退回设置 `scrollTop`。
+ */
+function scrollToBottomOf(el: HTMLElement, behavior: ScrollBehavior) {
+  if (typeof el.scrollTo === 'function') {
+    el.scrollTo({ top: el.scrollHeight, behavior })
+    return
+  }
+  el.scrollTop = el.scrollHeight
+}
+
 function assignRef(ref: Ref<HTMLDivElement> | undefined, el: HTMLDivElement | null) {
   if (!ref) return
   if (typeof ref === 'function') {
@@ -243,7 +255,7 @@ export const ChatMessageList = memo(function ChatMessageList(
         const reduceMotion =
           typeof window.matchMedia === 'function' &&
           window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        el.scrollTo({ top: el.scrollHeight, behavior: reduceMotion ? 'instant' : 'smooth' })
+        scrollToBottomOf(el, reduceMotion ? 'instant' : 'smooth')
       }
     }
     prevUserMsgIdRef.current = lastUserMsgId
@@ -282,7 +294,7 @@ export const ChatMessageList = memo(function ChatMessageList(
     setChatWindow((prev) => (prev.start !== null ? { ...prev, start: null } : prev))
     const el = viewportRef.current
     if (el) {
-      el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
+      scrollToBottomOf(el, 'smooth')
     }
   }, [])
 

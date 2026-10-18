@@ -308,4 +308,19 @@ describe('ChatMessageList 通用列表', () => {
     expect(container.querySelectorAll('[data-slot="chat-message-footer"]').length).toBe(0)
   })
 
+  it('环境缺少 Element.scrollTo 时不抛错（jsdom / 老 WebView）', async () => {
+    const proto = window.HTMLElement.prototype as unknown as { scrollTo?: unknown }
+    const original = proto.scrollTo
+    proto.scrollTo = undefined
+    try {
+      await expect(renderList({ messages: makeMessages(3) })).resolves.toBeUndefined()
+      // 追加用户消息会走「新提问滚到底」路径
+      await expect(
+        renderList({ messages: [...makeMessages(3), { id: 'm99', role: 'user', text: '新提问', createdAt: 9000 }] }),
+      ).resolves.toBeUndefined()
+    } finally {
+      proto.scrollTo = original
+    }
+  })
+
 })
