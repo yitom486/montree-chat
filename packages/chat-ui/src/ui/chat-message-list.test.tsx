@@ -55,6 +55,7 @@ describe('ChatMessageList 通用列表', () => {
     emptyState?: React.ReactNode
     pendingPermission?: { requestId: number; toolCallId?: string; summary: string; options: [] } | null
     listRef?: React.RefObject<ChatMessageListHandle | null>
+    renderMessageFooter?: (message: ChatMessage) => React.ReactNode
   } = {}) {
     await act(async () => {
       root.render(
@@ -67,6 +68,7 @@ describe('ChatMessageList 通用列表', () => {
           emptyState: props.emptyState,
           pendingPermission: props.pendingPermission ?? null,
           ref: props.listRef,
+          renderMessageFooter: props.renderMessageFooter,
         }),
       )
     })
@@ -284,6 +286,26 @@ describe('ChatMessageList 通用列表', () => {
       raf.mockRestore()
       cancel.mockRestore()
     }
+  })
+
+  it('宿主尾部插槽按消息渲染，id 与原始消息对应且空值不占位', async () => {
+    await renderList({
+      messages: makeMessages(3),
+      renderMessageFooter: (message) =>
+        message.role === 'agent'
+          ? createElement('span', null, `朗读${message.id}`)
+          : null,
+    })
+    const footers = container.querySelectorAll('[data-slot="chat-message-footer"]')
+    expect(footers.length).toBe(1)
+    expect(container.textContent).toContain('朗读m02')
+    expect(container.textContent).not.toContain('朗读m01')
+    expect(container.textContent).not.toContain('朗读m03')
+  })
+
+  it('未提供尾部插槽时不新增包裹层', async () => {
+    await renderList({ messages: makeMessages(3) })
+    expect(container.querySelectorAll('[data-slot="chat-message-footer"]').length).toBe(0)
   })
 
 })

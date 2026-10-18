@@ -2,6 +2,116 @@
 
 聊天渲染 UI 层：**无头 hooks + 默认样式组件**。不 import ACP 传输/session，不读宿主 store；所有交互经回调回宿主，再由宿主进 ACP。
 
+## 从其他项目接入
+
+### 选择接入层
+
+| 需求 | 使用方式 |
+|---|---|
+| 只渲染 Markdown | `ChatMarkdown`；轻入口用 `@yitom/chat-ui/lazy` 的 `ChatMarkdownLazy` |
+| 自备消息、输入框和请求链路 | `ChatMessageList`：受控消息列表，包含历史分页、滚动恢复、工作记录、气泡与审批展示 |
+| 自定义列表布局 | 单独组合 `ChatMessageBubble`、`ChatActivityGroup`，或用 `useChatTimeline` 自绘 |
+| 同时需要线程 store、发送/取消及 ACP 映射 | 再接 `@yitom/chat-session`，见 [会话包说明](../chat-session/README.md) |
+
+UI 包不依赖 Montree 的 Zustand store、IPC、Electron 或认证实现，也不主动调用模型。消息结构使用 `@yitom/chat-core` 的 `ChatMessage`；已有其他消息格式时由消费方转换。章节、批注和工具结果使用 SDK 的业务契约，通过可选槽位与回调接入，不要求复制 Montree 的阅读器。
+
+`chat-session` 的 `ChatPanel` 是另一种包含输入框的现成组合，不是 Montree 壳的完整替代品；它不等于本节的 `ChatMessageList`，不要据此假定两者具有相同的历史窗口/滚动接口。
+
+### 安装与版本
+
+以下示例对应已发布的 `0.1.15`；React 对等依赖实际要求为 `^19.2.8`。
+
+```bash
+bun add @yitom/chat-ui@0.1.15 @yitom/chat-core@0.1.15 react@^19.2.8 react-dom@^19.2.8
+```
+
+默认组件使用 Tailwind 4。项目尚未配置时，按项目构建工具接入 Tailwind，再安装动画样式依赖：
+
+```bash
+bun add -d tailwindcss tw-animate-css
+```
+
+如果同时消费 `contracts`、`reader-core`、`annotations`、`chat-core`、`chat-ui`、`chat-session`，将实际消费的家族包统一到同一版本；已有项目可沿用根 README 的六包 overrides 策略，避免 branded 类型出现多份实例。只用 UI 不必手动安装全部六包，运行时依赖由包管理器处理。
+
+### 样式与容器
+
+例如样式入口位于 `src/styles.css`，引入一次：
+
+```css
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "streamdown/styles.css";
+@import "katex/dist/katex.min.css";
+@source "../node_modules/@yitom/chat-ui/dist";
+```
+
+`@source` 路径相对于该 CSS 文件，monorepo/hoist 布局需调整到实际安装目录。没有扫描包的 dist，会丢失工具卡、状态和按钮等 Tailwind 类。
+
+默认组件还需要消费方提供 shadcn 风格的语义主题（例如 `background`、`foreground`、`card`、`popover`、`primary`、`secondary`、`muted`、`accent`、`border`、`input`、`ring` 及相应前景色）。包不附带完整 CSS 皮肤，`theme="dark"` 也不会替宿主切换这些 CSS 变量。已有 shadcn/Tailwind 主题可以复用；Montree 专用 `.markdown-preview`/`.agent-md` 正文皮肤需消费方按需提供。
+
+列表外层必须有确定高度，并允许 flex 子项收缩，例如下例中的 `h-[480px] min-h-0`，否则不会形成内部滚动区域。列表自己创建 assistant-ui runtime/provider，无需再为它创建另一套消息镜像。
+
+### 最小受控消息列表
+
+```tsx
+import { useState } from 'react'
+import { ChatMessageList, type ChatScrollSnapshot } from '@yitom/chat-ui'
+import type { ChatMessage } from '@yitom/chat-core'
+
+const initialMessages: ChatMessage[] = [
+  { id: 'u1', role: 'user', text: '你好', createdAt: 1 },
+  { id: 'a1', role: 'agent', text: '你好，有什么可以帮你？', createdAt: 2 },
+]
+
+export function ExampleChat() {
+  const threadId = 'example-thread'
+  const [messages] = useState(initialMessages)
+  const [scrollByThread, setScrollByThread] = useState<Record<string, ChatScrollSnapshot>>({})
+
+  return (
+    <div className="flex h-[480px] min-h-0 flex-col">
+      <ChatMessageList
+        key={threadId}
+        threadId={threadId}
+        messages={messages}
+        theme="light"
+        prompting={false}
+        pendingPermission={null}
+        initialScroll={scrollByThread[threadId]}
+        onScrollSnapshot={(id, snapshot) => {
+          setScrollByThread(previous => ({ ...previous, [id]: snapshot }))
+        }}
+        resolveMarkProposal={() => { /* 本示例没有批注提议；接入该功能时替换为真实更新 */ }}
+        emptyState={<p>开始新对话</p>}
+      />
+    </div>
+  )
+}
+```
+
+本例只展示 UI，不包含发送或模型连接。实际项目把自己的消息源、运行态和输入框接进来；追加正文和工具状态时以新数组/对象更新 props，不原地修改消息。流式消息使用 `streaming: true`，完成后清除；`prompting` 表示整个回合是否仍进行中。
+
+切换线程时必须改变列表的 React `key`，按线程重建内部窗口与恢复状态；`initialScroll` 仅用于该次挂载初始化。快照回调的 `id` 是产生快照的线程，宿主按这个 id 保存，不能临时读取当前活动线程。示例只保存到内存；跨重载恢复需接宿主存储，跨窗口也由宿主自行划分作用域。高频快照在大型应用中可写入无订阅者的存储或由宿主合并保存，避免重绘整个页面。
+
+### 业务槽位与操作
+
+| 接口 | 消费方职责 |
+|---|---|
+| `pendingPermission` + `onPermissionRespond(optionId)` | 展示待审批数据；响应回传自己的权限服务，完成后更新待审批状态。仅传数据不会自动批准工具 |
+| `renderBusinessResult(message, options)` | 渲染产品自己的工具结果，或组合包内图表/HTML/React/生成式卡片；列表默认不替宿主执行这些业务 |
+| `renderPlanCard(message)` | 提供计划卡内容；不传时不渲染该业务槽 |
+| `onGenerativeSubmit` / `onChapterPlanSelect` | 将卡片选择交给宿主，校验线程/会话后决定发送或导航 |
+| `resolveMarkProposal` / 恢复与定位回调 | 宿主更新批注、导航或存储；不使用这些消息时无需接阅读器 |
+| `onEditMessage` | 将用户原文回填自己的输入框，后续发送由宿主决定 |
+| `renderMessageFooter(message)` | 在每条气泡下方追加宿主内容（朗读按钮、来源标签）；`message.id` 即宿主原始消息 id，返回空值该条不占位，整个插槽不传时 DOM 与旧行为逐字一致 |
+| `ref: ChatMessageListHandle` | `scrollToBottom()` 回到底部并恢复跟随；可供宿主右键菜单调用 |
+| `contentRef` / `bottomRef` / 根 DOM props | 获取正文容器/底部哨兵；接入选区、右键和自己的样式或事件 |
+
+需要替换整个工作记录组时可用 `renderWorkLog`，不传则复用默认 `ChatActivityGroup`；逐条追加宿主内容用 `renderMessageFooter`。公开接口与完整字段以包导出的 `ChatMessageListProps`、`ChatMessage` 和各卡片 Props 为准，不依赖私有 `dist/ui/*` 路径。
+
+下方“结构”和迁移清单保留了提取来源及历史阶段说明，消费方接入优先以上述公开入口和当前类型声明为准。
+
+
 ## 结构
 
 - `ui/chat-markdown.tsx`：`ChatMarkdown`（自宿主 `AgentMarkdown` 整搬改名；主题经 `theme` prop 传入，`resolveMermaidTheme` 随搬；`streamdown/styles.css` 由消费方引入，库内无 CSS 副作用）。
@@ -198,7 +308,7 @@ function ChatView({ messages, theme }: { messages: ChatMessage[]; theme: ChatMar
 
 - 原语：`ui/button.tsx` 与 `ui/dialog.tsx` 已由 Radix 切到 Base UI（`@base-ui-components/react`，`asChild` 改走 `render`，wrapper 层翻译，调用方零改动；`data-[state=…]` 改为 `data-[open|closed]`）。
 - 样式：包内 Tailwind 类需消费方扫描本包（`@source` 指到 `node_modules/@yitom/chat-ui/dist`），`streamdown/styles.css` 与 KaTeX CSS 需消费方引入一次（库本身不带 CSS 副作用 import，Node 直跑安全）；弹窗进出场动画类（`animate-in/fade-in-0/zoom-in-95` 等）需消费方装 `tw-animate-css`（或等价 keyframes）。
-- 对等依赖：`react`/`react-dom` 为 peer（`^19`）；其余运行时依赖随包安装。
+- 对等依赖：`react`/`react-dom` 为 peer（`^19.2.8`）；其余运行时依赖随包安装。
 
 ## 协议对接（ACP SDK 为唯一真源）
 

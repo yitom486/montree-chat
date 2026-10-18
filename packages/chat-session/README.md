@@ -36,3 +36,7 @@ const store = createChatSessionStore({ transport }) // 宿主注入 acp-client �
 - 仍禁 electron / `node:` / `@/` / `apps/desktop`（R1/R2/R4/R5 无豁免）；`@yitom/acp-client` 只以类型 + 端口形式出现，不直连进程。
 
 `panel/ChatComposer` reuses `@yitom/chat-ui` controlled composer guards and draft clearing; the visual textarea remains the sole owner of Enter/composition handling.
+
+## ACP 宿主意图适配
+
+`ingest/acp-update-intent.ts` 导出 `classifyAcpUpdate`、`normalizeUsageUpdate` 与对应类型，统一标准事件、usage 和显式厂商扩展的分类；`acp-update-intent.test.ts` 覆盖既有事件行为。消费方负责窗口归属、回放清洗及业务执行，不再复制协议分类器。

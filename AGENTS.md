@@ -1,0 +1,50 @@
+# montree-chat — 协作与发版约定
+
+六包锁步发布的聊天 SDK。对外只依赖 `react`/`react-dom` peer，组件不读宿主 store、不碰 IPC/Electron。
+
+## 发版
+
+发版只走 GitHub Actions，不要在本机 `npm publish`。
+
+1. **改版本号**：`packages/*/package.json` 六个包同步改成同一版本（`contracts`、`annotations`、`reader-core`、`chat-core`、`chat-ui`、`chat-session`）。版本不一致会让消费方出现多份 branded 类型实例。
+2. **本地验绿**：
+   ```bash
+   bun install
+   bun run typecheck     # tsc --noEmit
+   bun run test          # vitest run，当前 90 文件 / 706 用例
+   bun run build         # 六包 tsc -p tsconfig.build.json
+   ```
+3. **提交并推 master**，然后打标签推标签触发发布：
+   ```bash
+   git tag pkg-v0.1.15
+   git push origin master
+   git push origin pkg-v0.1.15
+   ```
+4. **监视到绿**：
+   ```bash
+   gh run list --workflow publish --limit 3
+   gh run watch <run-id>
+   ```
+   `publish.yml` 只监听 `pkg-v*` 标签，在 ubuntu 上 `bun install && bun run build`，再执行 `bun scripts/publish.ts`：逐包比对 `npm view <name>@<version>`，已发布的跳过，因此**重跑标签幂等**，不会重复发同一版本。
+5. **发完核对**：`npm view @yitom/chat-ui@<version> version` 逐个确认；消费方升级前不要改动应用侧代码。
+
+失败时先看 `gh run view <run-id> --log-failed`。常见原因：`NPM_TOKEN` secret 过期、某包版本已存在但内容不同（需换版本号而不是覆盖）、六包版本不一致。
+
+## 版本与兼容
+
+- 六包版本号必须一致；`chat-ui` 的 peer 要求 `react`/`react-dom` `^19.2.8`。
+- 新增公开 prop 属于 minor 变更，删除或改签名必须 major，并在包 README 的接口表同步。
+- 组件不引入宿主依赖：业务副作用、认证、模型请求一律经回调回宿主。
+
+## 消费方接入
+
+- `packages/chat-ui/README.md#从其他项目接入`：安装、Tailwind `@source`、必需的主题 token、`ChatMessageList` 受控用法、业务槽位。
+- `packages/chat-session/README.md`：线程 store、ACP ingest、异步回合与可选 `ChatPanel`。
+- 宿主必须自备 `.markdown-preview` / `.agent-md` 正文皮肤与 `fade-slide-in`、`beui-message-in`、`bui-fade-up` 关键帧；包不带形态。
+
+## 0.1.15 变更
+
+- `ChatMessageList` 新增 `renderMessageFooter(message)`：逐条气泡下方追加宿主内容（朗读、来源标签）。`message.id` 即宿主原始消息 id；返回空值该条不占位；**不传时 DOM 与 0.1.14 逐字一致**。
+- `agent-md` 正文字号 `12px → 14px`。
+- `chat-core`：思考阶段开始时不再把「空回复占位」当成正文边界，修复流式正文被截断到占位消息的问题。
+- `chat-session`：导出 `ingest/acp-update-intent`（纯适配层，不改宿主时序）。

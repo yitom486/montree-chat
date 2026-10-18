@@ -160,9 +160,13 @@ export function applyChatEvent(
       const { role } = event
       const messages = state.messages.map(m => role !== 'thought' && m.role === 'thought' && m.streaming
         ? { ...m, streaming: false, updatedAt: now() } : m)
-      const last = messages[messages.length - 1]
+      // The empty reply placeholder is not a reasoning phase boundary.
+      const tail = messages[messages.length - 1]
+      const lastIndex = role === 'thought' && tail?.role === 'agent' && tail.streaming && !tail.text.trim()
+        ? messages.length - 2 : messages.length - 1
+      const last = messages[lastIndex]
       if (last && last.role === role && last.streaming) {
-        messages[messages.length - 1] = { ...last, text: last.text + event.text, updatedAt: now() }
+        messages[lastIndex] = { ...last, text: last.text + event.text, updatedAt: now() }
         return { ...state, messages }
       }
       const emptyIdx = emptyAgentIndex(messages)

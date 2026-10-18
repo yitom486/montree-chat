@@ -1,6 +1,6 @@
 {
   "name": "@yitom/reader-core",
-  "version": "0.1.13",
+  "version": "0.1.15",
   "type": "module",
   "dependencies": {
     "@yitom/contracts": "^0.1.0",

@@ -14,7 +14,13 @@ Montree 聊天 SDK：ACP 协议契约、批注/阅读器复用逻辑与聊天渲
 | `@yitom/chat-ui` | 聊天渲染 UI：Streamdown 正文、气泡、工作记录、artifact 卡（Base UI 原语，见包 README 消费方接入） |
 | `@yitom/chat-session` | 会话绑定：线程 store、ACP 事件 ingest、ChatPanel |
 
-依赖闭包自洽：对外只需 `react`/`react-dom` peer（`^19`）。
+依赖闭包自洽：对外只需 `react`/`react-dom` peer（`^19.2.8`）。
+
+## 在其他项目使用
+
+- [UI 接入指南](packages/chat-ui/README.md#从其他项目接入)：安装、Tailwind/主题、受控列表示例、滚动恢复和业务槽位。
+- [会话接入说明](packages/chat-session/README.md)：线程状态、存储/传输端口、异步回合与可选 ChatPanel。
+- 渲染组件不依赖 Montree 宿主/Electron；模型请求、认证和业务副作用由消费方接入。只渲染消息时可单独消费 chat-ui。
 
 ## 开发
 

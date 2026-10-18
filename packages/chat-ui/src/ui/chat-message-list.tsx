@@ -98,6 +98,12 @@ export interface ChatMessageListProps extends ChatMessageListBubbleContext, HTML
    * 仅当宿主需要替换整组渲染时传入）。
    */
   renderWorkLog?: (group: ChatWorkLogItem, running: boolean) => ReactNode
+  /**
+   * 每条消息气泡下方追加的宿主内容（朗读按钮、来源标签等）。缺省不渲染，
+   * DOM 与未提供时一致（不新增包裹层）。`message.id` 即宿主原始消息 id，
+   * 宿主可据此回查自己的数据；空内容时返回 `null` 即可不占位。
+   */
+  renderMessageFooter?: (message: ChatMessage) => ReactNode
   // 其余未知 props（`className/style/onContextMenu/data-*` 等）透传根容器：
   // 右键外壳 `asChild` 经 Slot 把 `onContextMenu` 注入直接子节点，
   // 宿主传包组件作子节点时由此落在根 div，行为与旧裸 div 一致。
@@ -132,6 +138,7 @@ export const ChatMessageList = memo(function ChatMessageList(
     bottomRef: bottomRefProp,
     emptyState,
     renderWorkLog,
+    renderMessageFooter,
     ref,
     resolveMarkProposal,
     theme,
@@ -444,15 +451,21 @@ export const ChatMessageList = memo(function ChatMessageList(
                 </div>
               ) : null}
 
-              {timeline.map((item) =>
-                item.kind === 'work-log' ? (
-                  renderWorkLog ? (
-                    <div key={item.key}>{renderWorkLog(item, item.turnKey === (lastUserMsgId ? `turn:${threadId}:${lastUserMsgId}` : `prefix:${threadId ?? 'default'}`) && (streamingAny || item.isActive))}</div>
+              {timeline.map((item) => {
+                if (item.kind === 'work-log') {
+                  const running =
+                    item.turnKey ===
+                      (lastUserMsgId
+                        ? `turn:${threadId}:${lastUserMsgId}`
+                        : `prefix:${threadId ?? 'default'}`) &&
+                    (streamingAny || item.isActive)
+                  return renderWorkLog ? (
+                    <div key={item.key}>{renderWorkLog(item, running)}</div>
                   ) : (
                     <ChatActivityGroup
                       key={item.key}
                       group={item}
-                      running={item.turnKey === (lastUserMsgId ? `turn:${threadId}:${lastUserMsgId}` : `prefix:${threadId ?? 'default'}`) && (streamingAny || item.isActive)}
+                      running={running}
                       resolveMarkProposal={resolveMarkProposal}
                       pendingPermission={pendingPermission}
                       navFlatIndex={navFlatIndex}
@@ -470,7 +483,9 @@ export const ChatMessageList = memo(function ChatMessageList(
                       renderPlanCard={renderPlanCard}
                     />
                   )
-                ) : (
+                }
+
+                const bubble = (
                   <ChatMessageBubble
                     key={item.key}
                     message={item.message}
@@ -495,8 +510,23 @@ export const ChatMessageList = memo(function ChatMessageList(
                     onEditMessage={onEditMessage}
                     theme={theme}
                   />
-                ),
-              )}
+                )
+                // 未提供插槽时直接返回气泡本身：DOM 与旧行为逐字一致，不多包一层。
+                if (!renderMessageFooter) return bubble
+                const messageFooter = renderMessageFooter(item.message)
+                if (!messageFooter) return bubble
+                return (
+                  <div
+                    key={item.key}
+                    className={cn('flex min-w-0 max-w-full flex-col', AGENT_CHAT_COL_CLASS)}
+                  >
+                    {bubble}
+                    <div data-slot="chat-message-footer" className="min-w-0 max-w-full px-1">
+                      {messageFooter}
+                    </div>
+                  </div>
+                )
+              })}
 
               {showRunStatusRow ? (
                 <AgentLoadingState label={runStatus.label} awaitingApproval={runStatus.phase === 'approval'} seconds={runStartedAt ? Math.max(0, Math.floor((nowMs - runStartedAt) / 1000)) : null} usageText={usageText} />

@@ -266,3 +266,23 @@ describe('chat-feed 冻结与收尾', () => {
     expect(done.turnSettled).toBe(true)
   })
 })
+
+describe('reasoning placeholder regression', () => {
+  it('merges multiline chunks before the empty reply without changing message identity', () => {
+    const c = ctx()
+    let state = applyChatEvent(empty(), { type: 'begin-reply' }, c)
+    let id: string | undefined
+    const chunks = ['first', '\n\n', ...Array.from({ length: 100 }, (_, i) => 'line ' + i + '\n')]
+    for (const text of chunks) {
+      state = applyChatEvent(state, { type: 'text-chunk', role: 'thought', text }, c)
+      const thoughts = state.messages.filter(m => m.role === 'thought')
+      expect(thoughts).toHaveLength(1)
+      id ??= thoughts[0]!.id
+      expect(thoughts[0]!.id).toBe(id)
+    }
+    expect(state.messages[0]!.text).toBe(chunks.join(''))
+    expect(state.messages.at(-1)).toMatchObject({ role: 'agent', text: '' })
+    state = applyChatEvent(state, { type: 'text-chunk', role: 'agent', text: 'answer' }, c)
+    expect(state.messages[0]).toMatchObject({ id, streaming: false })
+  })
+})

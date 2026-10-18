@@ -128,7 +128,7 @@ export function ChatMessageBubble({
   const markdownClassName = useMemo(
     () =>
       cn(
-        'markdown-preview agent-md min-w-0 max-w-full break-words text-[12px] [overflow-wrap:anywhere]',
+        'markdown-preview agent-md min-w-0 max-w-full break-words text-[14px] [overflow-wrap:anywhere]',
         '[&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0',
         '[&_.mermaid]:my-2 [&_.mermaid]:overflow-x-auto [&_.mermaid]:rounded-md [&_.mermaid]:bg-muted/40 [&_.mermaid]:p-2',
       ),
