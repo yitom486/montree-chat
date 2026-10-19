@@ -7,6 +7,7 @@ Montree 聊天 SDK：ACP 协议契约、批注/阅读器复用逻辑与聊天渲
 
 | 包 | 说明 |
 |---|---|
+| `@yitom/chat` | **统一出口聚合包**：聚合六包与样式，推荐外部项目消费此单包 |
 | `@yitom/contracts` | 协议契约：类型/错误/IPC 通道（纯类型 + 轻逻辑） |
 | `@yitom/reader-core` | 阅读器纯逻辑（EPUB/PDF 导航、选区、批注几何） |
 | `@yitom/annotations` | 批注纯逻辑（marks/提议/Anki 导出输入） |
@@ -14,7 +15,7 @@ Montree 聊天 SDK：ACP 协议契约、批注/阅读器复用逻辑与聊天渲
 | `@yitom/chat-ui` | 聊天渲染 UI：Streamdown 正文、气泡、工作记录、artifact 卡（Base UI 原语，见包 README 消费方接入） |
 | `@yitom/chat-session` | 会话绑定：线程 store、ACP 事件 ingest、ChatPanel |
 
-依赖闭包自洽：对外只需 `react`/`react-dom` peer（`^19.2.8`）。
+依赖闭包自洽：消费 `@yitom/chat` 或 `@yitom/chat-ui` 对外只需 `react`/`react-dom` peer（`^19.2.0`）。
 
 ## 在其他项目使用
 

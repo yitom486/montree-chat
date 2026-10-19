@@ -50,6 +50,12 @@ git push origin pkg-v0.1.15
 - `packages/chat-session/README.md`：线程 store、ACP ingest、异步回合与可选 `ChatPanel`。
 - 形态与动效归包，配色归宿主。新增动画时关键帧进 `packages/chat-ui/src/styles.css`（`@layer components`，宿主的 utilities 优先），不要在宿主里复制。
 
+## 0.1.22 变更
+
+- 新增统一聚合出口包 `@yitom/chat`（`packages/chat`），通过 Subpath Exports 一站式聚合 contracts、reader-core、annotations、chat-core、chat-ui、chat-session 与 styles.css。
+- 根入口提供开箱即用的通用 Agent 聊天组件与核心数据契约，彻底消除消费方在 package.json 中配置多包 overrides 的心智负担。
+- 全家族 7 包版本号统一锁步升至 `0.1.22`。
+
 ## 0.1.20 变更
 
 - 新增外链拦截：`ChatMarkdown` 与 `ChatMessageList` 接受 `onLinkClick(href)`，返回非 `false` 即由宿主接管并 `preventDefault`。桌面宿主（Tauri/Electron）必须接，否则 webview 会就地导航。

@@ -1,0 +1,74 @@
+{
+  "name": "@yitom/chat",
+  "version": "0.1.22",
+  "type": "module",
+  "description": "Montree 聊天与阅读器 SDK 统一出口包：contracts, reader-core, annotations, chat-core, chat-ui, chat-session",
+  "dependencies": {
+    "@yitom/annotations": "^0.1.22",
+    "@yitom/chat-core": "^0.1.22",
+    "@yitom/chat-session": "^0.1.22",
+    "@yitom/chat-ui": "^0.1.22",
+    "@yitom/contracts": "^0.1.22",
+    "@yitom/reader-core": "^0.1.22"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./contracts": {
+      "types": "./dist/contracts.d.ts",
+      "default": "./dist/contracts.js"
+    },
+    "./reader-core": {
+      "types": "./dist/reader-core.d.ts",
+      "default": "./dist/reader-core.js"
+    },
+    "./annotations": {
+      "types": "./dist/annotations.d.ts",
+      "default": "./dist/annotations.js"
+    },
+    "./chat-core": {
+      "types": "./dist/chat-core.d.ts",
+      "default": "./dist/chat-core.js"
+    },
+    "./chat-ui": {
+      "types": "./dist/chat-ui.d.ts",
+      "default": "./dist/chat-ui.js"
+    },
+    "./chat-ui/styles.css": "./dist/styles.css",
+    "./styles.css": "./dist/styles.css",
+    "./chat-session": {
+      "types": "./dist/chat-session.d.ts",
+      "default": "./dist/chat-session.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yitom486/montree-chat"
+  },
+  "license": "MIT"
+}
+

@@ -1,0 +1,36 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "paths": {}
+  },
+  "include": [
+    "src",
+    "../../import-meta.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../contracts/tsconfig.build.json"
+    },
+    {
+      "path": "../reader-core/tsconfig.build.json"
+    },
+    {
+      "path": "../annotations/tsconfig.build.json"
+    },
+    {
+      "path": "../chat-core/tsconfig.build.json"
+    },
+    {
+      "path": "../chat-ui/tsconfig.build.json"
+    },
+    {
+      "path": "../chat-session/tsconfig.build.json"
+    }
+  ]
+}
+

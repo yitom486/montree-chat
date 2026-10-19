@@ -3,7 +3,7 @@ import { copyFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 // 按依赖拓扑逐包 tsc emit（dist 结构与 src 逐字对应，exports 映射成立）。
-const order = ['contracts', 'reader-core', 'annotations', 'chat-core', 'chat-ui', 'chat-session']
+const order = ['contracts', 'reader-core', 'annotations', 'chat-core', 'chat-ui', 'chat-session', 'chat']
 for (const name of order) {
   console.log(`building ${name}…`)
   const r = spawnSync('bunx', ['tsc', '-b', join(process.cwd(), 'packages', name, 'tsconfig.build.json')], {
@@ -21,6 +21,13 @@ for (const name of order) {
       join(process.cwd(), 'packages', 'chat-ui', 'dist', 'styles.css'),
     )
     console.log('copied chat-ui styles.css → dist/styles.css')
+  }
+  if (name === 'chat') {
+    copyFileSync(
+      join(process.cwd(), 'packages', 'chat-ui', 'src', 'styles.css'),
+      join(process.cwd(), 'packages', 'chat', 'dist', 'styles.css'),
+    )
+    console.log('copied chat-ui styles.css → chat/dist/styles.css')
   }
 }
 console.log('build ok')

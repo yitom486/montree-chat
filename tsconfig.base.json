@@ -20,7 +20,9 @@
       "@yitom/chat-core": ["./packages/chat-core/src/index.ts"],
       "@yitom/chat-ui": ["./packages/chat-ui/src/index.ts"],
       "@yitom/chat-ui/lazy": ["./packages/chat-ui/src/ui/chat-markdown.lazy.tsx"],
-      "@yitom/chat-session": ["./packages/chat-session/src/index.ts"]
+      "@yitom/chat-session": ["./packages/chat-session/src/index.ts"],
+      "@yitom/chat": ["./packages/chat/src/index.ts"],
+      "@yitom/chat/*": ["./packages/chat/src/*.ts"]
     }
   }
 }
