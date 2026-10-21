@@ -1,15 +1,15 @@
 {
   "name": "@yitom/chat",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "type": "module",
   "description": "Montree 聊天与阅读器 SDK 统一出口包：contracts, reader-core, annotations, chat-core, chat-ui, chat-session",
   "dependencies": {
-    "@yitom/annotations": "^0.1.24",
-    "@yitom/chat-core": "^0.1.24",
-    "@yitom/chat-session": "^0.1.24",
-    "@yitom/chat-ui": "^0.1.24",
-    "@yitom/contracts": "^0.1.24",
-    "@yitom/reader-core": "^0.1.24"
+    "@yitom/annotations": "^0.1.25",
+    "@yitom/chat-core": "^0.1.25",
+    "@yitom/chat-session": "^0.1.25",
+    "@yitom/chat-ui": "^0.1.25",
+    "@yitom/contracts": "^0.1.25",
+    "@yitom/reader-core": "^0.1.25"
   },
   "peerDependencies": {
     "react": "^19.2.0",

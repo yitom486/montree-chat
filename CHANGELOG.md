@@ -4,6 +4,11 @@
 
 ## [未发布]
 
+## [0.1.25] - 2026-10-22
+
+- **chat-ui：聊天气泡内批注提议「采用并保存」写库并带上用户改稿**：`ChatMessageBubble` / `ChatMessageList` 新增 `onAdoptMarkProposal(proposal, note)` 与 `onMarkProposalError`。`note` 是用户在卡片里编辑后的文本；写库成功才落定 adopted，失败保持待确认并回传错误。批量列表采用时同样使用改后的批注。新增单测。
+- 全部 `@yitom/*` 同步升级到 0.1.25。
+
 ## [0.1.24] - 2026-10-22
 
 - **contracts · 新增快照资源 `text-propose`**：`MontreeSnapshotResource` 并入 `'text-propose'`（Montree AI 修改建议：Agent 提议的文本修改先待用户审阅），桌面端不再需要类型断言。

@@ -186,6 +186,12 @@ export function ProposeMarkBlockList({
     () => new Set(pendingRows.map((row) => row.proposal.id)),
   )
   const [open, setOpen] = useState(defaultExpanded)
+  // 用户在卡片里改过的批注：批量采用时以改后的文本写库
+  const [editedNotes, setEditedNotes] = useState<Record<string, string>>({})
+  const handleRowNoteChange = (proposalId: string, note: string) => {
+    setEditedNotes((prev) => ({ ...prev, [proposalId]: note }))
+    onNoteChange?.(proposalId, note)
+  }
 
   const selectedPending = useMemo(
     () => pendingRows.filter((row) => selectedIds.has(row.proposal.id)),
@@ -214,7 +220,7 @@ export function ProposeMarkBlockList({
       for (const row of selectedPending) {
         try {
           if (onAdopt) {
-            await onAdopt(row.proposal.id, row.proposal.note)
+            await onAdopt(row.proposal.id, (editedNotes[row.proposal.id] ?? row.proposal.note).trim())
           }
           // 去 adopt fallback：缺 onAdopt 时不写库（宿主经 onAdopt 传入 `adoptProposedMark`），仅落定。
           onResolved?.(row.proposal.id, 'adopted')
@@ -351,9 +357,7 @@ export function ProposeMarkBlockList({
           status={row.status}
           defaultExpanded={defaultExpanded}
           embedded={embedded}
-          onNoteChange={
-            onNoteChange ? (note) => onNoteChange(row.proposal.id, note) : undefined
-          }
+          onNoteChange={(note) => handleRowNoteChange(row.proposal.id, note)}
           onAdopt={onAdopt ? (note) => onAdopt(row.proposal.id, note) : undefined}
           onDismiss={onDismiss ? () => onDismiss(row.proposal.id) : undefined}
           onResolved={

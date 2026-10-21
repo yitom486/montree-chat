@@ -55,6 +55,8 @@ type ChatMessageListBubbleContext = Omit<Pick<ComponentProps<typeof ChatMessageB
   | 'navFlatIndex'
   | 'onPermissionRespond'
   | 'onDismissProposedMark'
+  | 'onAdoptMarkProposal'
+  | 'onMarkProposalError'
   | 'onRecoverChapter'
   | 'onPromptSelectText'
   | 'onChapterPlanSelect'
@@ -164,6 +166,8 @@ export const ChatMessageList = memo(function ChatMessageList(
     navFlatIndex,
     onPermissionRespond,
     onDismissProposedMark,
+    onAdoptMarkProposal,
+    onMarkProposalError,
     onRecoverChapter,
     onPromptSelectText,
     onChapterPlanSelect,
@@ -522,6 +526,8 @@ export const ChatMessageList = memo(function ChatMessageList(
                       navFlatIndex={navFlatIndex}
                       theme={theme}
                       onDismissProposedMark={onDismissProposedMark}
+                      onAdoptMarkProposal={onAdoptMarkProposal}
+                      onMarkProposalError={onMarkProposalError}
                       onPermissionRespond={onPermissionRespond}
                       onRecoverChapter={onRecoverChapter}
                       onPromptSelectText={onPromptSelectText}
@@ -546,6 +552,8 @@ export const ChatMessageList = memo(function ChatMessageList(
                     resolveMarkProposal={resolveMarkProposal}
                     pendingPermission={pendingPermission}
                     onDismissProposedMark={onDismissProposedMark}
+                    onAdoptMarkProposal={onAdoptMarkProposal}
+                    onMarkProposalError={onMarkProposalError}
                     onPermissionRespond={(optionId) => {
                       onPermissionRespond?.(optionId)
                     }}

@@ -30,6 +30,7 @@ import { ChatMarkdownFallback, ChatMarkdownLazy } from './chat-markdown.lazy.js'
 import type { ChatMarkdownTheme } from './chat-markdown.js'
 import { cn } from './cn.js'
 import type { ChatMessage as AcpChatMessage } from '@yitom/chat-core'
+import type { ProposedMark } from '@yitom/annotations'
 import type { GenerativeSubmitPayload } from './component-ui-card.js'
 
 interface ChatMessageBubbleProps {
@@ -43,6 +44,14 @@ interface ChatMessageBubbleProps {
   pendingPermission: AgentApprovalPending | null
   /** 提议落定（adopted/dismissed）后清理草稿（宿主原 `dismissProposedMark` 函数直传） */
   onDismissProposedMark?: () => void
+  /**
+   * 「采用并保存」写库（宿主 `adoptProposedMark`）。`note` 是用户在卡片里改过之后的文本；
+   * 成功后组件再落定 adopted，抛错则保持待确认并经 `onMarkProposalError` 回宿主。
+   * 缺省时只落定不写库（兼容旧宿主）。
+   */
+  onAdoptMarkProposal?: (proposal: ProposedMark, note: string) => void | Promise<void>
+  /** 采用失败回宿主（宿主弹失败 toast；缺省静默） */
+  onMarkProposalError?: (cause: unknown, context: { flatIndex?: number }) => void
   /**
    * 审批响应（宿主 `respondPermissionRequest` 直传；批注提议分支的审批槽经此发送。
    * 并行审批批把槽改为必填 `pending + onRespond`，此处跟随透传——原任务三 prop 之外的第 4 个，
@@ -84,6 +93,8 @@ export function ChatMessageBubble({
   resolveMarkProposal,
   pendingPermission,
   onDismissProposedMark,
+  onAdoptMarkProposal,
+  onMarkProposalError,
   onPermissionRespond,
   onChapterPlanSelect,
   threadId,
@@ -165,6 +176,8 @@ export function ChatMessageBubble({
             proposal={message.markProposal}
             status={message.markProposalStatus ?? 'pending'}
             onResolved={(status) => handleResolved(message.markProposal!.id, status)}
+            onAdopt={onAdoptMarkProposal ? (note) => onAdoptMarkProposal(message.markProposal!, note) : undefined}
+            onError={onMarkProposalError}
           />
           <ToolApprovalSlot
             message={message}
@@ -417,6 +430,11 @@ export function ChatMessageBubble({
             status: row.status,
           }))}
           onResolved={handleResolved}
+          onAdopt={onAdoptMarkProposal ? (proposalId, note) => {
+            const row = message.markProposals!.find((item) => item.proposal.id === proposalId)
+            return row ? onAdoptMarkProposal(row.proposal, note) : undefined
+          } : undefined}
+          onError={onMarkProposalError}
         />
       ) : null}
       {(message.chapterMarkPlan?.length ?? 0) > 0 ? (

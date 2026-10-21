@@ -15,6 +15,8 @@ type ActivityContextProps = Pick<ComponentProps<typeof ChatMessageBubble>,
   | 'navFlatIndex'
   | 'onPermissionRespond'
   | 'onDismissProposedMark'
+  | 'onAdoptMarkProposal'
+  | 'onMarkProposalError'
   | 'onRecoverChapter'
   | 'onPromptSelectText'
   | 'onChapterPlanSelect'
