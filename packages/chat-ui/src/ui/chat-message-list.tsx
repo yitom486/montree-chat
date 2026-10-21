@@ -205,6 +205,9 @@ export const ChatMessageList = memo(function ChatMessageList(
   const viewportRef = useRef<HTMLDivElement>(null)
   const contentInnerRef = useRef<HTMLDivElement | null>(null)
   const isNearBottomRef = useRef(initialScroll?.pinned !== false)
+  // 用户上翻看历史的意图（可信滚轮/触摸）：真向上滚轮或触摸滑动时置位；
+  // 向下滚回底部或点「回到底部」时复位。置位期间新回合不抢滚动位置。
+  const userScrolledUpRef = useRef(initialScroll?.pinned === false)
   const onScrollSnapshotRef = useRef(onScrollSnapshot)
   onScrollSnapshotRef.current = onScrollSnapshot
   const initialScrollRef = useRef(initialScroll)
@@ -220,6 +223,8 @@ export const ChatMessageList = memo(function ChatMessageList(
     const distance = el.scrollHeight - el.scrollTop - el.clientHeight
     const near = distance <= 96
     isNearBottomRef.current = near
+    // 回到底部附近即视为不再看历史（含拖滚动条/键盘回底），恢复新回合跟随
+    if (near) userScrolledUpRef.current = false
     // 离底时冻结当前窗口；重新贴底才跟随新消息。
     setChatWindow((prev) => {
       const start = near ? null : prev.start ?? Math.max(0, messagesLengthRef.current - prev.count)
@@ -246,8 +251,31 @@ export const ChatMessageList = memo(function ChatMessageList(
   )
   const prevUserMsgIdRef = useRef(lastUserMsgId)
   useEffect(() => {
-    if (lastUserMsgId && lastUserMsgId !== prevUserMsgIdRef.current) {
-      // 新提问属于用户主动开始的新回合，恢复最新窗口。
+    const el = viewportRef.current
+    if (!el) return
+    const mark = (e: Event) => {
+      if ('deltaY' in e && typeof (e as WheelEvent).deltaY === 'number') {
+        const { deltaY } = e as WheelEvent
+        if (deltaY < 0) userScrolledUpRef.current = true
+        else if (deltaY > 0 && isNearBottomRef.current) userScrolledUpRef.current = false
+      } else {
+        userScrolledUpRef.current = true
+      }
+    }
+    el.addEventListener('wheel', mark, { passive: true, capture: true })
+    el.addEventListener('touchmove', mark, { passive: true })
+    return () => {
+      el.removeEventListener('wheel', mark, { capture: true })
+      el.removeEventListener('touchmove', mark)
+    }
+  }, [])
+  useEffect(() => {
+    if (lastUserMsgId && lastUserMsgId !== prevUserMsgIdRef.current && userScrolledUpRef.current) {
+      // 用户正在看历史：不滚动，只把冻结窗口向后扩到最新，新提问可见而阅读位置不动。
+      const total = messagesLengthRef.current
+      setChatWindow((prev) => (prev.start === null ? prev : { ...prev, count: Math.max(prev.count, total - prev.start) }))
+    } else if (lastUserMsgId && lastUserMsgId !== prevUserMsgIdRef.current) {
+      // 新提问属于用户主动开始的新回合，恢复最新窗口（用户正在看历史时不抢位置）。
       isNearBottomRef.current = true
       setChatWindow((prev) => (prev.start !== null ? { ...prev, start: null } : prev))
       const el = viewportRef.current
@@ -291,6 +319,7 @@ export const ChatMessageList = memo(function ChatMessageList(
 
   const handleScrollToBottom = useCallback(() => {
     isNearBottomRef.current = true
+    userScrolledUpRef.current = false
     setChatWindow((prev) => (prev.start !== null ? { ...prev, start: null } : prev))
     const el = viewportRef.current
     if (el) {

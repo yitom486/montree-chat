@@ -25,6 +25,7 @@ import {
   remarkAgentAlert,
 } from '@yitom/chat-core'
 import { cn } from './cn.js'
+import { parseMarkdownIntoStableBlocks } from './md-blocks.js'
 
 
 /**
@@ -394,6 +395,7 @@ export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, classN
         urlTransform={STREAMDOWN_URL_TRANSFORM}
         components={agentComponents}
         BlockComponent={AgentBlock}
+        parseMarkdownIntoBlocksFn={parseMarkdownIntoStableBlocks}
         className={className}
       >
         {source}

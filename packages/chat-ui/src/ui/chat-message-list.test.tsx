@@ -323,4 +323,35 @@ describe('ChatMessageList 通用列表', () => {
     }
   })
 
+
+  it('用户上滑看历史后再发送：不抢回底部；点回到底部后恢复跟随', async () => {
+    const base = makeMessages(6)
+    await renderList({ messages: base })
+    const el = viewport()
+    Object.defineProperty(el, 'scrollHeight', { value: 3000, configurable: true })
+    Object.defineProperty(el, 'clientHeight', { value: 500, configurable: true })
+    const scrollCalls: number[] = []
+    el.scrollTo = ((opts: ScrollToOptions) => { scrollCalls.push(Number(opts.top)) }) as typeof el.scrollTo
+    await act(async () => {
+      el.scrollTop = 2500
+      el.dispatchEvent(new Event('scroll'))
+    })
+    await act(async () => {
+      el.dispatchEvent(new WheelEvent('wheel', { deltaY: -600, bubbles: true }))
+      el.scrollTop = 800
+      el.dispatchEvent(new Event('scroll'))
+    })
+    const withNewTurn = [...base, { id: 'u-new', role: 'user', text: '新问题', createdAt: 5000 } as ChatMessage]
+    await renderList({ messages: withNewTurn })
+    expect(scrollCalls).toEqual([])
+    expect(el.scrollTop).toBe(800)
+
+    // 回到底部复位意图，下一回合重新贴底跟随
+    const listRef = createRef<ChatMessageListHandle>()
+    await renderList({ messages: withNewTurn, listRef })
+    await act(async () => { listRef.current!.scrollToBottom() })
+    scrollCalls.length = 0
+    await renderList({ messages: [...withNewTurn, { id: 'u-next', role: 'user', text: '再问', createdAt: 6000 } as ChatMessage], listRef })
+    expect(scrollCalls).toEqual([3000])
+  })
 })
