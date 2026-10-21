@@ -309,7 +309,9 @@ export interface ChatMarkdownProps {
 }
 
 export const ChatMarkdown = memo(function ChatMarkdown({ text, streaming, className, theme = 'light', onLinkClick }: ChatMarkdownProps) {
-  const uiContext = useMemo(() => ({ ...(onLinkClick ? { onLinkClick } : {}) }), [onLinkClick])
+  // 未传 onLinkClick 时继承外层（如 ChatMessageList）提供的宿主能力，不能用空值把外层覆盖掉
+  const parentUiContext = useChatUiContext()
+  const uiContext = useMemo(() => (onLinkClick ? { ...parentUiContext, onLinkClick } : parentUiContext), [onLinkClick, parentUiContext])
   const anchorPrefix = `agent-${useId().replace(/[^\w-]/g, '')}`
   const rootRef = useRef<HTMLDivElement>(null)
   const mermaidProp = useMemo(() => ({

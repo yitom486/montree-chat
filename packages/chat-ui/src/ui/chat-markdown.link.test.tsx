@@ -3,7 +3,7 @@
 import { act, createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ChatMarkdown } from '@yitom/chat-ui'
+import { ChatMarkdown, ChatUiProvider } from '@yitom/chat-ui'
 
 ;(globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true
 
@@ -55,5 +55,15 @@ describe('ChatMarkdown 外链', () => {
     await render({})
     const notPrevented = clickAnchor()
     expect(notPrevented).toBe(true)
+  })
+
+  it('未传 onLinkClick 时继承外层 ChatUiProvider（不被空值覆盖）', async () => {
+    const onLinkClick = vi.fn(() => true)
+    await act(async () => {
+      root.render(createElement(ChatUiProvider, { value: { onLinkClick }, children: createElement(ChatMarkdown, { text: '[示例](https://example.com/a)', streaming: false }) }))
+    })
+    const notPrevented = clickAnchor()
+    expect(onLinkClick).toHaveBeenCalledWith('https://example.com/a')
+    expect(notPrevented).toBe(false)
   })
 })

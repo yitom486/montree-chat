@@ -171,6 +171,7 @@ export interface MarkProposalAttachResult {
 export function attachMarkProposalsToCurrentTurn(
   messages: ChatMessage[],
   content: string,
+  options: { toolCallId?: string } = {},
 ): MarkProposalAttachResult {
   let turnStart = -1
   for (let i = messages.length - 1; i >= 0; i -= 1) {
@@ -180,7 +181,8 @@ export function attachMarkProposalsToCurrentTurn(
     }
   }
 
-  let index = -1
+  // 候选：本回合内尚未挂提议的 propose 工具消息（新→旧）
+  const candidates: number[] = []
   for (let i = messages.length - 1; i > turnStart; i -= 1) {
     const message = messages[i]
     if (
@@ -189,11 +191,24 @@ export function attachMarkProposalsToCurrentTurn(
       !message.markProposals?.length &&
       isProposeMarkToolTitle(message.toolTitle)
     ) {
-      index = i
-      break
+      candidates.push(i)
     }
   }
-  if (index < 0) return { messages, attached: false }
+  if (candidates.length === 0) return { messages, attached: false }
+  // 按 toolCallId 精确关联：快照显式带 toolCallId 时只挂到同一调用；
+  // 否则优先已回显同一结果文本的调用（并行多次提议时不串卡），最后才退回最新一条。
+  const keyedToolCallId = options.toolCallId ?? readSnapshotToolCallId(content)
+  let index = -1
+  if (keyedToolCallId) {
+    index = candidates.find((i) => messages[i]!.toolCallId === keyedToolCallId) ?? -1
+    if (index < 0) return { messages, attached: false, toolCallId: keyedToolCallId }
+  } else {
+    const trimmed = content.trim()
+    index = candidates.find((i) => {
+      const echoed = (messages[i]!.toolContentText ?? messages[i]!.text ?? '').trim()
+      return echoed.length > 0 && echoed === trimmed
+    }) ?? candidates[0]!
+  }
 
   const tool = messages[index]!
   const proposals = parseMarkProposalsFromTool(tool.toolTitle, content, tool.toolCallId)
@@ -243,4 +258,15 @@ export function attachPendingMarkProposals(
     attachedCount += attached.proposalCount ?? 0
   }
   return { messages: next, remaining, attachedCount }
+}
+
+/** 快照 JSON 若携带 `toolCallId`（宿主可从 MCP 请求 `_meta` 取得）则用于精确关联。 */
+function readSnapshotToolCallId(content: string): string | undefined {
+  try {
+    const parsed = JSON.parse(content) as { toolCallId?: unknown; _meta?: { toolCallId?: unknown } }
+    const id = parsed.toolCallId ?? parsed._meta?.toolCallId
+    return typeof id === 'string' && id ? id : undefined
+  } catch {
+    return undefined
+  }
 }

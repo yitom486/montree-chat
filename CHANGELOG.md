@@ -4,6 +4,12 @@
 
 ## [未发布]
 
+## [0.1.26] - 2026-10-22
+
+- **chat-ui：`ChatMarkdown` 不再覆盖外层链接拦截**：此前每个 `ChatMarkdown` 都用自己的（未传时为空）`onLinkClick` 包一层 Provider，把 `ChatMessageList` 传入的宿主拦截覆盖掉，导致经列表接入的宿主收不到链接点击、webview 就地导航。现在未传时继承外层。新增单测。
+- **chat-core：批注提议快照按 toolCallId 关联**：`attachMarkProposalsToCurrentTurn` 支持 `toolCallId`（参数或快照 JSON 的 `toolCallId` / `_meta.toolCallId`），只挂到同一调用、无匹配不乱挂；无 id 时优先已回显同一结果的调用，最后才退回最新一条，并行多次提议不再串卡。新增单测。
+- 全部 `@yitom/*` 同步升级到 0.1.26。
+
 ## [0.1.25] - 2026-10-22
 
 - **chat-ui：聊天气泡内批注提议「采用并保存」写库并带上用户改稿**：`ChatMessageBubble` / `ChatMessageList` 新增 `onAdoptMarkProposal(proposal, note)` 与 `onMarkProposalError`。`note` 是用户在卡片里编辑后的文本；写库成功才落定 adopted，失败保持待确认并回传错误。批量列表采用时同样使用改后的批注。新增单测。
