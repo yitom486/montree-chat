@@ -4,6 +4,10 @@
 
 ## [未发布]
 
+## [0.1.24] - 2026-10-22
+
+- **contracts · 新增快照资源 `text-propose`**：`MontreeSnapshotResource` 并入 `'text-propose'`（Montree AI 修改建议：Agent 提议的文本修改先待用户审阅），桌面端不再需要类型断言。
+
 ## [0.1.23] - 2026-10-21
 
 - **chat-ui · 流式结束不再替换已显示正文**：Streamdown 只要全文出现脚注 `[^x]` 就把整篇退化为单块，回答尾部一到脚注，前面所有块都会以新 key 重挂载（DOM 被替换、动画重放、选区丢失）。新增 `parseMarkdownIntoStableBlocks`：脚注之前的块保持原索引，只把首个含脚注的块到文末合并，脚注引用与定义仍同块配对。
